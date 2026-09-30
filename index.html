@@ -3,371 +3,371 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INTER-ZONE NETWORK</title>
+
+<title>AREA CONTROL TERMINAL</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap');
-
-:root{
-  --bg:#080908;
-  --panel:#24271f;
-  --panel2:#2d3027;
-  --dark:#151713;
-  --paper:#d8d6c7;
-  --ink:#171914;
-  --muted:#858a79;
-  --line:#555a4a;
-  --gold:#d2a33d;
-  --green:#7da568;
-  --red:#b95349;
-  --blue:#7895a8;
-  --white:#d8d9cf;
-}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html,body{
-  margin:0;
-  padding:0;
-  background:#050605;
-  color:var(--white);
-  font-family:"IBM Plex Mono",monospace;
+    margin:0;
+    width:100%;
+    height:100%;
+    background:#171914;
+    color:#d7d8c8;
+    font-family:"IBM Plex Mono","Noto Sans KR",monospace;
+    font-size:12px;
 }
 
 body{
-  min-height:100vh;
-  overflow-x:auto;
+    overflow:hidden;
 }
 
-button,input,select,textarea{
-  font:inherit;
+button,
+select,
+input,
+textarea{
+    font:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
 }
 
-#app{
-  width:min(1280px,96vw);
-  min-width:900px;
-  margin:18px auto;
-  background:var(--panel);
-  border:3px solid #5d624f;
-  box-shadow:
-    0 0 0 5px #171913,
-    0 20px 70px #000;
+button:active{
+    transform:translateY(1px);
 }
 
 /* =========================
-   TOP
+   SCREEN
 ========================= */
 
-.topbar{
-  height:47px;
-  background:#35392e;
-  border-bottom:2px solid #111;
-  padding:8px 13px;
-  display:flex;
-  align-items:center;
-  gap:10px;
+#screen{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:
+        linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.01) 1px,transparent 1px),
+        #171914;
+    background-size:24px 24px;
 }
 
-.lamp{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#79a663;
-  box-shadow:0 0 9px #79a663;
+/* =========================
+   TOPBAR
+========================= */
+
+#topbar{
+    height:52px;
+    min-height:52px;
+    border-bottom:1px solid #55594b;
+    background:#20221c;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
 }
 
-.top-title{
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:1px;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:600;
+    letter-spacing:2px;
 }
 
-.top-right{
-  margin-left:auto;
-  color:#a2a795;
-  font-size:10px;
+.logoMark{
+    width:28px;
+    height:28px;
+    border:1px solid #aaa995;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
 }
 
-.alertbar{
-  min-height:34px;
-  padding:7px 13px;
-  background:#191b16;
-  border-bottom:1px solid #4d5144;
-  color:#c5a35b;
-  font-size:10px;
+.systemState{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    color:#999d8d;
+    font-size:10px;
+}
+
+.live{
+    color:#b6c69a;
+}
+
+.live::before{
+    content:"●";
+    margin-right:5px;
 }
 
 /* =========================
    LAYOUT
 ========================= */
 
-.layout{
-  display:grid;
-  grid-template-columns:205px 1fr 220px;
-  min-height:800px;
+#layout{
+    flex:1;
+    min-height:0;
+    display:grid;
+    grid-template-columns:190px minmax(0,1fr) 240px;
 }
 
-.sidebar,
-.rightbar{
-  background:#292c24;
-  padding:11px;
+/* =========================
+   NAV
+========================= */
+
+#nav{
+    border-right:1px solid #4e5146;
+    background:#1b1d18;
+    overflow-y:auto;
+    padding:10px 0;
 }
 
-.sidebar{
-  border-right:2px solid #111;
+.navTitle{
+    padding:8px 14px 12px;
+    color:#777b6d;
+    font-size:9px;
+    letter-spacing:2px;
 }
 
-.rightbar{
-  border-left:2px solid #111;
+.navItem{
+    height:34px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:0 13px;
+    color:#929587;
+    border-left:2px solid transparent;
+    user-select:none;
 }
 
-.brand{
-  border:1px solid #656a57;
-  background:#1c1f19;
-  text-align:center;
-  padding:12px;
-  margin-bottom:12px;
+.navItem:hover{
+    background:#262921;
+    color:#dddcca;
 }
 
-.seal{
-  font-size:27px;
-  color:var(--gold);
+.navItem.active{
+    background:#292b23;
+    color:#ecebd8;
+    border-left-color:#b7b39a;
 }
 
-.brand h1{
-  font-size:12px;
-  margin:7px 0 3px;
+.navNum{
+    width:22px;
+    color:#64685c;
+    font-size:9px;
 }
 
-.brand small{
-  color:#898e7d;
-  font-size:8px;
-}
-
-.nav button{
-  display:block;
-  width:100%;
-  text-align:left;
-  margin:3px 0;
-  padding:8px 7px;
-  border:1px solid transparent;
-  background:transparent;
-  color:#bfc2b3;
-  font-size:9px;
-}
-
-.nav button:hover,
-.nav button.active{
-  background:#3a3d31;
-  border-color:#646957;
-  color:#fff;
-}
-
-.nav .num{
-  float:right;
-  color:#777d6d;
-}
-
-.sidebox{
-  border-top:1px solid #555a4a;
-  margin-top:14px;
-  padding-top:10px;
-}
-
-.sidebox h3{
-  font-size:9px;
-  color:#a9ad9e;
-  margin:0 0 7px;
-}
-
-.statline{
-  display:flex;
-  justify-content:space-between;
-  font-size:8px;
-  padding:4px 0;
-  color:#9da292;
+.navItem.active .navNum{
+    color:#b8b49d;
 }
 
 /* =========================
    MAIN
 ========================= */
 
-.main{
-  background:#1a1c17;
-  padding:16px;
-  overflow:hidden;
+#main{
+    min-width:0;
+    overflow-y:auto;
+    padding:18px;
 }
 
 .view{
-  display:none;
+    display:none;
 }
 
 .view.active{
-  display:block;
+    display:block;
 }
 
-.section-title{
-  font-size:17px;
-  letter-spacing:1px;
-  margin:0 0 12px;
+.pageHeader{
+    border-bottom:1px solid #4e5146;
+    padding-bottom:13px;
+    margin-bottom:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:15px;
 }
 
-.sub{
-  font-size:9px;
-  color:#858a79;
-  margin:-7px 0 14px;
+.pageHeader h1{
+    margin:0;
+    font-size:17px;
+    font-weight:500;
+    letter-spacing:2px;
+}
+
+.pageHeader small{
+    color:#777b6c;
+}
+
+.grid{
+    display:grid;
+    gap:10px;
 }
 
 .grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
 .grid3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-}
-
-.grid4{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
 }
 
 .card{
-  background:#252820;
-  border:1px solid #555a4a;
-  padding:11px;
-  margin-bottom:9px;
+    border:1px solid #4c5045;
+    background:#1d1f1a;
+    padding:14px;
 }
 
-.card h3{
-  font-size:10px;
-  margin:0 0 7px;
-  color:#d6d7cc;
+.card:hover{
+    border-color:#777b69;
 }
 
-.card p{
-  font-size:8px;
-  line-height:1.7;
-  color:#aeb2a3;
-  margin:4px 0;
+.cardTitle{
+    color:#aeb19d;
+    font-size:10px;
+    letter-spacing:1px;
+    margin-bottom:9px;
 }
 
-.big-number{
-  font-size:23px;
-  margin:6px 0;
+.big{
+    font-size:24px;
+    color:#e2e0ce;
 }
 
-.badge{
-  display:inline-block;
-  padding:3px 5px;
-  border:1px solid #626755;
-  font-size:7px;
-  margin:2px;
+.muted{
+    color:#777b6c;
+}
+
+.warning{
+    color:#c5a8a0;
 }
 
 .ok{
-  color:#8eb173;
-  border-color:#668352;
+    color:#b8c99f;
 }
 
-.deny{
-  color:#d77b70;
-  border-color:#8e4c47;
+.red{
+    color:#c27f79;
 }
 
-.warn{
-  color:#d5aa55;
-  border-color:#8d7138;
+.tag{
+    display:inline-block;
+    border:1px solid #55594d;
+    padding:3px 6px;
+    font-size:9px;
+    color:#aaaD9c;
+    margin:2px;
 }
 
-.blue{
-  color:#8ca8bb;
-  border-color:#607586;
+.btn{
+    border:1px solid #666a5b;
+    background:#292c24;
+    color:#d7d8c8;
+    padding:8px 11px;
+    margin:3px 3px 3px 0;
 }
 
-.purple{
-  color:#b49abf;
-  border-color:#705e77;
+.btn:hover{
+    background:#373a2f;
+    border-color:#9a9c8b;
 }
 
-/* =========================
-   BUTTON
-========================= */
-
-button.action{
-  border:1px solid #747a65;
-  background:#363a2e;
-  color:#e0e1d8;
-  padding:8px 10px;
-  font-size:9px;
-  margin:2px;
+.btnDanger{
+    border-color:#825d59;
+    color:#d6aaa4;
 }
 
-button.action:hover{
-  background:#464a3b;
-}
-
-button.gold{
-  border-color:#8d7138;
-  color:#e0b75b;
-}
-
-button.danger{
-  border-color:#8d4b45;
-  color:#e49a91;
+.btnGood{
+    border-color:#68775b;
+    color:#b9c9a4;
 }
 
 /* =========================
-   INPUT
+   DASHBOARD
 ========================= */
 
-input,
-select,
-textarea{
-  width:100%;
-  background:#11130f;
-  border:1px solid #555a4a;
-  color:#d8d9cf;
-  padding:8px;
-  margin:3px 0 7px;
-  outline:none;
-  font-size:9px;
+.statusBar{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 12px;
+    background:#20231c;
+    border:1px solid #505448;
+    margin-bottom:12px;
+    color:#929687;
 }
 
-textarea{
-  min-height:80px;
-  resize:vertical;
+.statGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+    margin-bottom:10px;
+}
+
+.stat{
+    border:1px solid #484c42;
+    background:#1c1e19;
+    padding:12px;
+}
+
+.stat label{
+    display:block;
+    color:#707568;
+    font-size:9px;
+    margin-bottom:7px;
+}
+
+.stat strong{
+    font-size:18px;
+    font-weight:500;
 }
 
 /* =========================
-   NOTICE
+   REGION
 ========================= */
 
-.notice{
-  padding:8px;
-  background:#171914;
-  border-left:3px solid var(--gold);
-  font-size:8px;
-  line-height:1.7;
-  margin:6px 0;
+.regionCard{
+    min-height:180px;
+    cursor:pointer;
+    position:relative;
 }
 
-.notice.red{
-  border-color:var(--red);
+.regionSymbol{
+    font-size:28px;
+    margin-bottom:10px;
 }
 
-.notice.blue{
-  border-color:var(--blue);
+.regionName{
+    font-size:15px;
+    color:#e0dfcc;
+    margin-bottom:3px;
+}
+
+.regionEn{
+    color:#6e7266;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.regionMeta{
+    margin-top:13px;
+    line-height:1.8;
+    color:#94988a;
+}
+
+.regionStatus{
+    position:absolute;
+    right:12px;
+    top:12px;
+    font-size:9px;
 }
 
 /* =========================
@@ -375,52 +375,163 @@ textarea{
 ========================= */
 
 .table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:8px;
+    width:100%;
+    border-collapse:collapse;
 }
 
 .table th,
 .table td{
-  border-bottom:1px solid #555a4a;
-  padding:7px 5px;
-  text-align:left;
+    border-bottom:1px solid #363a32;
+    padding:9px 7px;
+    text-align:left;
+    vertical-align:top;
 }
 
 .table th{
-  color:#aeb3a1;
+    color:#777b6d;
+    font-weight:400;
+    font-size:9px;
+}
+
+.table td{
+    color:#bfc1b2;
 }
 
 /* =========================
-   PAPER
+   FORMS
 ========================= */
 
-.paper{
-  background:var(--paper);
-  color:var(--ink);
-  border:2px solid #777967;
-  box-shadow:4px 5px 0 #0d0e0c;
-  padding:15px;
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #505448;
+    background:#161813;
+    color:#d5d6c6;
+    padding:9px;
+    outline:none;
 }
 
-.paper h2{
-  font-family:Georgia,serif;
-  font-size:23px;
-  margin:0 0 4px;
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#8a8e7c;
 }
 
-.paper p{
-  color:#222;
-  font-size:9px;
-  line-height:1.7;
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
-.paper .date{
-  font-size:8px;
-  border-top:1px solid #777;
-  border-bottom:1px solid #777;
-  padding:5px 0;
-  margin:7px 0 10px;
+.formRow{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-bottom:9px;
+}
+
+.formGroup{
+    margin-bottom:9px;
+}
+
+.formGroup label{
+    display:block;
+    color:#777b6d;
+    font-size:9px;
+    margin-bottom:5px;
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+#side{
+    border-left:1px solid #4e5146;
+    background:#1b1d18;
+    overflow-y:auto;
+    padding:12px;
+}
+
+.sideTitle{
+    color:#777b6d;
+    font-size:9px;
+    letter-spacing:2px;
+    margin-bottom:9px;
+}
+
+.sideBox{
+    border:1px solid #41453c;
+    padding:10px;
+    margin-bottom:9px;
+    background:#1e201b;
+    line-height:1.7;
+}
+
+.log{
+    border-left:2px solid #55594b;
+    padding-left:8px;
+    margin-bottom:10px;
+    color:#929687;
+}
+
+.logTime{
+    color:#64685c;
+    font-size:9px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+#modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+}
+
+#modal.show{
+    display:flex;
+}
+
+.modalWindow{
+    width:min(720px,100%);
+    max-height:85vh;
+    overflow:auto;
+    border:1px solid #777b69;
+    background:#1d1f1a;
+    box-shadow:0 20px 80px rgba(0,0,0,.6);
+}
+
+.modalHeader{
+    height:38px;
+    border-bottom:1px solid #55594b;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 12px;
+    background:#24271f;
+}
+
+.modalHeader strong{
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.close{
+    border:0;
+    background:none;
+    color:#999d8e;
+    font-size:18px;
+}
+
+.modalBody{
+    padding:16px;
+    line-height:1.8;
 }
 
 /* =========================
@@ -428,1359 +539,591 @@ textarea{
 ========================= */
 
 .map{
-  position:relative;
-  height:450px;
-  background:#141611;
-  border:1px solid #555a4a;
-  overflow:hidden;
+    position:relative;
+    height:430px;
+    border:1px solid #4e5146;
+    background:
+        linear-gradient(30deg,transparent 49%,#292c24 50%,transparent 51%),
+        linear-gradient(-30deg,transparent 49%,#292c24 50%,transparent 51%),
+        #191b17;
+    background-size:80px 80px;
+    overflow:hidden;
 }
 
-.map:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(#31352b 1px,transparent 1px),
-    linear-gradient(90deg,#31352b 1px,transparent 1px);
-  background-size:32px 32px;
-  opacity:.35;
+.mapLine{
+    position:absolute;
+    background:#55594d;
+    opacity:.6;
 }
 
-.zone{
-  position:absolute;
-  width:170px;
-  height:115px;
-  border:2px solid #777d69;
-  background:#282c23;
-  padding:9px;
-  z-index:1;
-  cursor:pointer;
+.mapLine.h{
+    height:1px;
+    left:8%;
+    right:8%;
+    top:50%;
 }
 
-.zone:hover{
-  background:#35392d;
+.mapLine.v{
+    width:1px;
+    top:8%;
+    bottom:8%;
+    left:50%;
 }
 
-.zone b{
-  font-size:14px;
+.mapRegion{
+    position:absolute;
+    border:1px solid #666a5c;
+    background:#20231d;
+    padding:12px;
+    min-width:140px;
+    text-align:center;
+    cursor:pointer;
 }
 
-.zone small{
-  display:block;
-  color:#8f9584;
-  font-size:7px;
-  line-height:1.6;
-  margin-top:6px;
+.mapRegion:hover{
+    background:#30332a;
 }
 
-.z1{left:25px;top:35px}
-.z2{left:250px;top:190px}
-.z3{left:480px;top:35px}
-.z4{left:710px;top:200px}
-
-.route{
-  position:absolute;
-  height:3px;
-  background:#777d68;
-  transform-origin:left center;
-  z-index:0;
-}
-
-.r1{
-  left:170px;
-  top:105px;
-  width:190px;
-  transform:rotate(24deg);
-}
-
-.r2{
-  left:420px;
-  top:245px;
-  width:170px;
-  transform:rotate(-28deg);
-}
-
-.r3{
-  left:650px;
-  top:115px;
-  width:190px;
-  transform:rotate(25deg);
-}
-
-.r4{
-  left:170px;
-  top:105px;
-  width:580px;
-  transform:rotate(17deg);
-  opacity:.25;
-}
-
-.check{
-  position:absolute;
-  z-index:2;
-  background:#b54f45;
-  border:2px solid #d17a6e;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  box-shadow:0 0 0 3px #161813;
-}
-
-.c1{left:215px;top:145px}
-.c2{left:445px;top:160px}
-.c3{left:670px;top:155px}
-.c4{left:545px;top:300px}
+.mapP{left:10%;top:18%;}
+.mapA{right:10%;top:18%;}
+.mapAS{left:10%;bottom:18%;}
+.mapZ{right:10%;bottom:18%;}
 
 /* =========================
-   PORTAL
+   CHECKPOINT
 ========================= */
 
-.portal{
-  min-height:180px;
-  border:1px solid #686d5d;
-  background:
-    linear-gradient(135deg,#20231c,#30342a);
-  padding:18px;
-  position:relative;
-  overflow:hidden;
+.checkpoint{
+    border:1px solid #676b5d;
+    background:#1a1c17;
+    padding:15px;
 }
 
-.portal:after{
-  content:"REGIONAL NETWORK";
-  position:absolute;
-  right:-25px;
-  bottom:10px;
-  font-size:38px;
-  color:#fff1;
-  transform:rotate(-12deg);
+.scanBox{
+    border:1px solid #4e5146;
+    padding:18px;
+    background:#151713;
+    text-align:center;
+    margin-bottom:12px;
 }
 
-.portal h2{
-  margin:0;
-  font-size:23px;
+.scanLight{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#5e6256;
+    margin:0 auto 10px;
 }
 
-.portal small{
-  color:#929887;
-  font-size:8px;
+.scanLight.on{
+    background:#b8c89e;
+    box-shadow:0 0 12px #9da989;
 }
 
-.portal-buttons{
-  margin-top:15px;
-  position:relative;
-  z-index:2;
+.decision{
+    border:1px solid #55594d;
+    padding:15px;
+    margin-top:12px;
 }
 
-/* =========================
-   HISTORY
-========================= */
-
-.timeline{
-  border-left:2px solid #666b59;
-  margin:10px 0 15px 10px;
-  padding-left:18px;
+.decision.granted{
+    border-color:#68765c;
 }
 
-.event{
-  position:relative;
-  padding:9px;
-  border:1px solid #4f5447;
-  background:#252820;
-  margin-bottom:9px;
-  cursor:pointer;
+.decision.denied{
+    border-color:#7c5955;
 }
 
-.event:before{
-  content:"";
-  position:absolute;
-  left:-25px;
-  top:14px;
-  width:9px;
-  height:9px;
-  background:#d2a33d;
-  border:2px solid #181a15;
-}
-
-.event:hover{
-  background:#30342a;
+.decision.secondary{
+    border-color:#857550;
 }
 
 /* =========================
-   REGION CARDS
-========================= */
-
-.region-card{
-  min-height:145px;
-  cursor:pointer;
-  transition:.15s;
-}
-
-.region-card:hover{
-  transform:translateY(-2px);
-  background:#30342a;
-}
-
-.region-symbol{
-  font-size:25px;
-  color:var(--gold);
-}
-
-.region-name{
-  font-size:14px;
-  margin:5px 0;
-}
-
-.region-en{
-  color:#7d8273;
-  font-size:7px;
-}
-
-/* =========================
-   BARCODE
-========================= */
-
-.barcode{
-  height:45px;
-  margin:7px 0;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #111 0,
-      #111 2px,
-      #eee 2px,
-      #eee 4px,
-      #111 4px,
-      #111 5px,
-      #eee 5px,
-      #eee 8px
-    );
-  border:3px solid #ddd;
-}
-
-/* =========================
-   LOG
-========================= */
-
-.log{
-  height:115px;
-  overflow:auto;
-  background:#0d0f0c;
-  border:1px solid #44493c;
-  padding:8px;
-  color:#7eaa6b;
-  font-size:7px;
-  line-height:1.7;
-}
-
-/* =========================
-   SCANNER
-========================= */
-
-.scanline{
-  height:4px;
-  background:#5e914b;
-  box-shadow:0 0 8px #5e914b;
-  margin:9px 0;
-  animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-  50%{opacity:.35}
-}
-
-/* =========================
-   PROGRESS
-========================= */
-
-.progress{
-  height:9px;
-  background:#10120f;
-  border:1px solid #4d5244;
-  margin:5px 0 9px;
-}
-
-.progress i{
-  display:block;
-  height:100%;
-  background:#8a9a63;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:#000b;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:99;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(760px,88vw);
-  max-height:82vh;
-  overflow:auto;
-  background:#24271f;
-  border:2px solid #737866;
-  box-shadow:0 0 30px #000;
-  padding:15px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  border-bottom:1px solid #555a4a;
-  padding-bottom:8px;
-  margin-bottom:10px;
-}
-
-.close{
-  background:none;
-  border:0;
-  color:#aaa;
-  font-size:18px;
-}
-
-.footerline{
-  border-top:1px solid #555a4a;
-  margin-top:12px;
-  padding-top:8px;
-  font-size:7px;
-  color:#676d5e;
-}
-
-.muted{
-  color:#808678;
-  font-size:8px;
-}
-
-/* =========================
-   MOBILE
+   RESPONSIVE
 ========================= */
 
 @media(max-width:900px){
-  body{
-    overflow-x:auto;
-  }
+    #layout{
+        grid-template-columns:160px minmax(0,1fr);
+    }
 
-  #app{
-    margin:8px auto;
-  }
+    #side{
+        display:none;
+    }
+
+    .statGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    #nav{
+        display:none;
+    }
+
+    #layout{
+        grid-template-columns:1fr;
+    }
+
+    #main{
+        padding:11px;
+    }
+
+    .grid2,
+    .grid3{
+        grid-template-columns:1fr;
+    }
+
+    .formRow{
+        grid-template-columns:1fr;
+    }
+
+    .pageHeader{
+        align-items:flex-start;
+        flex-direction:column;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div id="screen">
 
-<!-- =====================================================
-TOP
-===================================================== -->
+<header id="topbar">
+    <div class="logo">
+        <div class="logoMark">AC</div>
+        <div>
+            AREA CONTROL
+            <div style="font-size:8px;color:#686c60;margin-top:2px;">
+                TRANS-REGIONAL AUTHORITY
+            </div>
+        </div>
+    </div>
 
-<div class="topbar">
+    <div class="systemState">
+        <span class="live">SYSTEM ONLINE</span>
+        <span id="clock">0000-00-00 00:00:00</span>
+        <span>SECURITY LV.04</span>
+    </div>
+</header>
 
-  <span class="lamp"></span>
+<div id="layout">
 
-  <span class="top-title">
-    INTER-ZONE NETWORK // REGIONAL ADMINISTRATION
-  </span>
+<!-- ================= NAV ================= -->
 
-  <span class="top-right" id="clock">
-    SYSTEM TIME --:--:--
-  </span>
+<nav id="nav">
+
+<div class="navTitle">CONTROL SYSTEM</div>
+
+<div class="navItem active" data-view="dashboard">
+    <span class="navNum">01</span> CONTROL DESK
+</div>
+
+<div class="navItem" data-view="checkpoint">
+    <span class="navNum">02</span> CHECKPOINT
+</div>
+
+<div class="navItem" data-view="regions">
+    <span class="navNum">03</span> REGIONAL PORTALS
+</div>
+
+<div class="navItem" data-view="news">
+    <span class="navNum">04</span> AREA NEWS
+</div>
+
+<div class="navItem" data-view="history">
+    <span class="navNum">05</span> HISTORY
+</div>
+
+<div class="navItem" data-view="reports">
+    <span class="navNum">06</span> CITIZEN REPORTS
+</div>
+
+<div class="navItem" data-view="notices">
+    <span class="navNum">07</span> OFFICIAL NOTICES
+</div>
+
+<div class="navItem" data-view="people">
+    <span class="navNum">08</span> PERSON DATABASE
+</div>
+
+<div class="navItem" data-view="map">
+    <span class="navNum">09</span> WORLD MAP
+</div>
+
+<div class="navItem" data-view="population">
+    <span class="navNum">10</span> POPULATION
+</div>
+
+<div class="navItem" data-view="transport">
+    <span class="navNum">11</span> TRANSPORT
+</div>
+
+<div class="navItem" data-view="market">
+    <span class="navNum">12</span> MARKET
+</div>
+
+<div class="navItem" data-view="cargo">
+    <span class="navNum">13</span> CARGO
+</div>
+
+<div class="navItem" data-view="community">
+    <span class="navNum">14</span> COMMUNITY
+</div>
+
+<div class="navItem" data-view="scanner">
+    <span class="navNum">15</span> SCANNER
+</div>
+
+<div class="navItem" data-view="archive">
+    <span class="navNum">16</span> ARCHIVE
+</div>
+
+</nav>
+
+<!-- ================= MAIN ================= -->
+
+<main id="main">
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="view active">
+
+<div class="pageHeader">
+    <div>
+        <h1>CONTROL DESK</h1>
+        <small>REGIONAL ACCESS MONITORING TERMINAL</small>
+    </div>
+    <span class="tag">LIVE</span>
+</div>
+
+<div class="statusBar">
+    <span>현재 감시 중인 구역: 04</span>
+    <span id="dashboardStatus">NORMAL OPERATION</span>
+</div>
+
+<div class="statGrid">
+
+<div class="stat">
+<label>TOTAL POPULATION</label>
+<strong>5,842,500</strong>
+</div>
+
+<div class="stat">
+<label>ACTIVE CHECKPOINTS</label>
+<strong>18</strong>
+</div>
+
+<div class="stat">
+<label>TODAY'S TRANSIT</label>
+<strong>12,482</strong>
+</div>
+
+<div class="stat">
+<label>ALERT LEVEL</label>
+<strong class="warning">03</strong>
+</div>
 
 </div>
 
-<div class="alertbar" id="alertbar">
-  ⚠ SYSTEM ONLINE — 4개 구역 네트워크 연결 상태 정상.
-</div>
+<div class="grid grid2">
 
-
-<div class="layout">
-
-<!-- =====================================================
-LEFT
-===================================================== -->
-
-<aside class="sidebar">
-
-  <div class="brand">
-
-    <div class="seal">◉</div>
-
-    <h1>
-      INTER-ZONE<br>
-      NETWORK
-    </h1>
-
-    <small>
-      구역간 이동 관리 · 공공정보망
-    </small>
-
-  </div>
-
-
-  <div class="nav">
-
-    <button class="active" data-view="dashboard">
-      01 / CONTROL DESK
-    </button>
-
-    <button data-view="checkpoint">
-      02 / CHECKPOINT
-    </button>
-
-    <button data-view="regions">
-      03 / REGIONAL PORTALS
-    </button>
-
-    <button data-view="news">
-      04 / AREA NEWS
-    </button>
-
-    <button data-view="history">
-      05 / HISTORY
-    </button>
-
-    <button data-view="reports">
-      06 / CITIZEN REPORTS
-    </button>
-
-    <button data-view="notices">
-      07 / OFFICIAL NOTICES
-    </button>
-
-    <button data-view="database">
-      08 / PERSON DATABASE
-    </button>
-
-    <button data-view="map">
-      09 / WORLD MAP
-    </button>
-
-    <button data-view="population">
-      10 / POPULATION
-    </button>
-
-    <button data-view="transport">
-      11 / TRANSPORT
-    </button>
-
-    <button data-view="market">
-      12 / MARKET
-    </button>
-
-    <button data-view="cargo">
-      13 / CARGO
-    </button>
-
-    <button data-view="community">
-      14 / COMMUNITY
-    </button>
-
-    <button data-view="scanner">
-      15 / SCANNER
-    </button>
-
-    <button data-view="archive">
-      16 / ARCHIVE
-    </button>
-
-  </div>
-
-
-  <div class="sidebox">
-
-    <h3>CHECKPOINT STATUS</h3>
-
-    <div class="statline">
-      <span>P → A</span>
-      <b class="ok">OPEN</b>
-    </div>
-
-    <div class="statline">
-      <span>A → AS</span>
-      <b class="warn">DELAY</b>
-    </div>
-
-    <div class="statline">
-      <span>AS → Z</span>
-      <b class="ok">OPEN</b>
-    </div>
-
-    <div class="statline">
-      <span>P → Z</span>
-      <b class="deny">RESTRICTED</b>
-    </div>
-
-  </div>
-
-
-  <div class="sidebox">
-
-    <h3>YOUR SESSION</h3>
-
-    <div class="statline">
-      <span>SHIFT</span>
-      <b>027</b>
-    </div>
-
-    <div class="statline">
-      <span>PROCESSED</span>
-      <b id="processed">0</b>
-    </div>
-
-    <div class="statline">
-      <span>ERRORS</span>
-      <b id="errors">0</b>
-    </div>
-
-    <div class="statline">
-      <span>ACCESS</span>
-      <b class="gold">LEVEL 03</b>
-    </div>
-
-  </div>
-
-</aside>
-
-
-<!-- =====================================================
-MAIN
-===================================================== -->
-
-<main class="main">
-
-
-<!-- =====================================================
-DASHBOARD
-===================================================== -->
-
-<section class="view active" id="dashboard">
-
-<h2 class="section-title">
-  CONTROL DESK / INTER-ZONE NETWORK
-</h2>
-
-<p class="sub">
-  네 개 구역의 이동·공공정보·기록망을 연결하는 중앙 단말기.
+<div class="card">
+<div class="cardTitle">CURRENT INCIDENT</div>
+<div class="big">제피란테스</div>
+<p class="muted">
+에너지 부족 및 이동 제한.
+일부 노선의 통행량이 평소보다 감소했습니다.
 </p>
-
-
-<div class="grid2">
-
-  <div class="card">
-
-    <h3>⚠ CURRENT DIRECTIVE</h3>
-
-    <div class="notice red">
-
-      <b>
-        구역 간 이동 심사 강화
-      </b>
-
-      <br>
-
-      일부 구역의 인구 밀도 증가로 인해
-      특정 노선의 추가 검사가 시행 중입니다.
-
-    </div>
-
-    <button class="action gold"
-      onclick="showView('notices')">
-      공문 확인 →
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h3>📰 HOT ISSUE</h3>
-
-    <p>
-      <b>
-        「4개 구역의 역사 기록이 서로 다른 이유」
-      </b>
-    </p>
-
-    <p>
-      동일한 사건에 대한 지역별 공식 기록이
-      일치하지 않는다는 시민 제보가 증가했습니다.
-    </p>
-
-    <button class="action"
-      onclick="showView('history')">
-      역사 기록 비교 →
-    </button>
-
-  </div>
-
+<button class="btn btnDanger" onclick="openRegion('제피란테스')">
+REGIONAL FILE OPEN
+</button>
 </div>
-
-
-<div class="grid4">
-
-  <div class="card">
-    <h3>POINSETTIA</h3>
-    <div class="big-number">1.28M</div>
-    <span class="badge ok">NORMAL</span>
-  </div>
-
-  <div class="card">
-    <h3>ARMERIA</h3>
-    <div class="big-number">2.04M</div>
-    <span class="badge warn">OVERLOAD</span>
-  </div>
-
-  <div class="card">
-    <h3>ASPHODEL</h3>
-    <div class="big-number">823K</div>
-    <span class="badge ok">STABLE</span>
-  </div>
-
-  <div class="card">
-    <h3>ZEPHYRANTHES</h3>
-    <div class="big-number">1.69M</div>
-    <span class="badge deny">WATCH</span>
-  </div>
-
-</div>
-
 
 <div class="card">
-
-  <h3>
-    ▣ QUICK ACCESS
-  </h3>
-
-  <button class="action"
-    onclick="showView('checkpoint')">
-    검문 시작
-  </button>
-
-  <button class="action"
-    onclick="showView('regions')">
-    구역 홈페이지
-  </button>
-
-  <button class="action"
-    onclick="showView('history')">
-    역사관
-  </button>
-
-  <button class="action"
-    onclick="showView('scanner')">
-    문서 스캔
-  </button>
-
-  <button class="action"
-    onclick="showView('map')">
-    세계 지도
-  </button>
+<div class="cardTitle">CHECKPOINT ACTIVITY</div>
+<div class="big">1,294</div>
+<p class="muted">최근 1시간 통행 심사 건수</p>
+<button class="btn" onclick="showView('checkpoint')">
+CHECKPOINT ACCESS
+</button>
+</div>
 
 </div>
 
-
-<div class="card">
-
-  <h3>▣ SYSTEM LOG</h3>
-
-  <div class="log" id="systemLog"></div>
-
+<div class="card" style="margin-top:10px;">
+<div class="cardTitle">SYSTEM LOG</div>
+<div id="dashboardLogs"></div>
 </div>
 
 </section>
 
 
-<!-- =====================================================
-CHECKPOINT
-===================================================== -->
+<!-- CHECKPOINT -->
 
-<section class="view" id="checkpoint">
+<section id="checkpoint" class="view">
 
-<h2 class="section-title">
-  CHECKPOINT / INTER-ZONE TRANSIT
-</h2>
+<div class="pageHeader">
+<div>
+<h1>CHECKPOINT</h1>
+<small>TRANS-REGIONAL PASSAGE INSPECTION</small>
+</div>
+</div>
 
-<p class="sub">
-  출발 구역과 목적지를 선택하고 통행 심사를 시작하십시오.
-</p>
+<div class="checkpoint">
 
-<div class="grid2">
+<div class="scanBox">
+<div id="scanLight" class="scanLight"></div>
+<div id="checkpointMessage">검문소 대기 중</div>
+<div class="muted" style="margin-top:5px;">
+TRAVELER IDENTIFICATION REQUIRED
+</div>
+</div>
 
-<div class="card">
+<div class="formRow">
 
-<h3>TRAVEL REQUEST</h3>
-
-<label class="muted">출발 구역</label>
-
+<div class="formGroup">
+<label>ORIGIN</label>
 <select id="origin">
-  <option value="포인세티아">포인세티아</option>
-  <option value="아르메리아">아르메리아</option>
-  <option value="아스포델">아스포델</option>
-  <option value="제피란테스">제피란테스</option>
+<option>포인세티아</option>
+<option>아르메리아</option>
+<option>아스포델</option>
+<option>제피란테스</option>
 </select>
+</div>
 
-
-<label class="muted">목적지</label>
-
+<div class="formGroup">
+<label>DESTINATION</label>
 <select id="destination">
-  <option value="아르메리아">아르메리아</option>
-  <option value="포인세티아">포인세티아</option>
-  <option value="아스포델">아스포델</option>
-  <option value="제피란테스">제피란테스</option>
+<option>아스포델</option>
+<option>포인세티아</option>
+<option>아르메리아</option>
+<option>제피란테스</option>
 </select>
+</div>
 
+</div>
 
-<label class="muted">시민번호</label>
+<div class="formRow">
 
-<input
- id="citizenID"
- placeholder="예: ATC-P-1842"
->
+<div class="formGroup">
+<label>CITIZEN ID</label>
+<input id="citizenID" placeholder="ATC-XXXX-0000">
+</div>
 
-
-<label class="muted">이동 목적</label>
-
+<div class="formGroup">
+<label>PURPOSE</label>
 <select id="purpose">
-  <option>업무</option>
-  <option>가족 방문</option>
-  <option>치료</option>
-  <option>물자 운송</option>
-  <option>관광</option>
-  <option>개인 사유</option>
+<option>가족 방문</option>
+<option>치료</option>
+<option>개인 사유</option>
+<option>노동</option>
+<option>상업</option>
+<option>기록 접근</option>
+<option>물자 운송</option>
+<option>미상</option>
+</select>
+</div>
+
+</div>
+
+<button class="btn" onclick="randomTraveler()">
+RANDOM TRAVELER
+</button>
+
+<button class="btn btnGood" onclick="inspectTravel()">
+INSPECT
+</button>
+
+<div id="travelResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- REGIONS -->
+
+<section id="regions" class="view">
+
+<div class="pageHeader">
+<div>
+<h1>REGIONAL PORTALS</h1>
+<small>SELECT A REGION TO TRANSFER INTO LOCAL SYSTEM</small>
+</div>
+</div>
+
+<div id="regionGrid" class="grid grid2"></div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<section id="news" class="view">
+
+<div class="pageHeader">
+<div>
+<h1>AREA NEWS</h1>
+<small>RECENT REPORTS FROM FOUR REGIONS</small>
+</div>
+</div>
+
+<div id="newsList" class="grid"></div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="history" class="view">
+
+<div class="pageHeader">
+<div>
+<h1>HISTORY</h1>
+<small>REGIONAL HISTORICAL RECORDS</small>
+</div>
+</div>
+
+<div class="card">
+<div class="cardTitle">SELECT REGION</div>
+
+<select id="historyRegion" onchange="renderHistory()">
+<option>포인세티아</option>
+<option>아르메리아</option>
+<option>아스포델</option>
+<option>제피란테스</option>
 </select>
 
-
-<button class="action gold"
- onclick="inspectTravel()">
-  검문 시작
-</button>
-
-<button class="action"
- onclick="randomTraveler()">
-  임의 시민 불러오기
-</button>
-
+<div id="historyContent" style="margin-top:15px;"></div>
 </div>
 
-
-<div class="card">
-
-<h3>CHECKPOINT INFORMATION</h3>
-
-<div class="notice">
-  현재 선택한 이동 경로의 상태가
-  실시간으로 표시됩니다.
-</div>
-
-<div id="travelResult">
-
-  <p class="muted">
-    아직 심사가 시작되지 않았습니다.
-  </p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>INSPECTION LOG</h3>
-
-<div class="log" id="checkpointLog">
-
-[ SYSTEM ] 검사 대기 중...
-
-</div>
-
+<div class="card" style="margin-top:10px;">
+<div class="cardTitle">HISTORICAL EVENTS</div>
+<div id="historyTimeline"></div>
 </div>
 
 </section>
 
 
-<!-- =====================================================
-REGIONAL PORTALS
-===================================================== -->
+<!-- REPORTS -->
 
-<section class="view" id="regions">
+<section id="reports" class="view">
 
-<h2 class="section-title">
-  REGIONAL PORTALS / 구역 홈페이지
-</h2>
-
-<p class="sub">
-  각 구역의 공식 네트워크에 접속합니다. 구역마다 정보와 서술 방식이 다를 수 있습니다.
-</p>
-
-
-<div class="grid2" id="regionList"></div>
-
-
-<div id="regionPortal" style="display:none">
-
-  <button class="action"
-    onclick="closeRegionPortal()">
-    ← 구역 목록
-  </button>
-
-  <div id="portalContent"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-NEWS
-===================================================== -->
-
-<section class="view" id="news">
-
-<h2 class="section-title">
-  AREA NEWS / 지역 신문
-</h2>
-
-<p class="sub">
-  같은 사건이라도 구역마다 다른 방식으로 보도될 수 있습니다.
-</p>
-
-
-<div class="paper">
-
-<h2>
-THE BORDER GAZETTE
-</h2>
-
-<div class="date">
-10.01 // REGIONAL EDITION // VOL. 274
-</div>
-
-
-<div class="grid2">
-
+<div class="pageHeader">
 <div>
-
-<h3>
-「아르메리아행 화물열차 운행 지연」
-</h3>
-
-<p>
-아르메리아 방향 화물 노선에서
-예정보다 긴 검문 절차가 진행되고 있습니다.
-</p>
-
-<p>
-<b>교통 · 속보</b>　조회 18,293
-</p>
-
+<h1>CITIZEN REPORTS</h1>
+<small>PUBLIC SUBMISSIONS / UNVERIFIED</small>
 </div>
-
-
-<div>
-
-<h3>
-「인구 조정 정책 3차 시행」
-</h3>
-
-<p>
-일부 구역에서 이동 제한 및
-재배치 절차가 확대됩니다.
-</p>
-
-<p>
-<b>사회 · 정책</b>　조회 11,204
-</p>
-
 </div>
-
-</div>
-
-<hr>
-
-<div class="grid2">
-
-<div>
-
-<p>🔴 <b>실종자 기록 일부 수정</b></p>
-
-<p>🔥 <b>식량 배급량 감소</b></p>
-
-<p>NEW <b>야간 검문 강화</b></p>
-
-</div>
-
-<div>
-
-<p>▣ 구역 간 이동세 변경</p>
-
-<p>▣ 시민 인터뷰</p>
-
-<p>▣ 검문소 임시 폐쇄</p>
-
-</div>
-
-</div>
-
-</div>
-
 
 <div class="card">
 
-<h3>REGIONAL COVERAGE</h3>
-
-<div class="grid4">
-
-<button class="action"
- onclick="openRegionalNews('포인세티아')">
-포인세티아
-</button>
-
-<button class="action"
- onclick="openRegionalNews('아르메리아')">
-아르메리아
-</button>
-
-<button class="action"
- onclick="openRegionalNews('아스포델')">
-아스포델
-</button>
-
-<button class="action"
- onclick="openRegionalNews('제피란테스')">
-제피란테스
-</button>
-
+<div class="formGroup">
+<label>REPORTER</label>
+<input id="reporter" placeholder="이름 또는 익명">
 </div>
 
-</div>
-
-
-<div class="card">
-
-<h3>
-ARCHIVED ARTICLE / 삭제 기사
-</h3>
-
-<p>
-행정국 요청으로 공개 목록에서 제외된 기사입니다.
-</p>
-
-<button class="action danger"
- onclick="openModal(
- '삭제 기사',
- '기록번호 BG-04-7712<br><br>\
- 제목: 「인구 조정 대상자의 실제 이동 경로」<br><br>\
- 상태: PUBLICATION WITHDRAWN<br>\
- 사유: 행정국 보안 지침 4-B'
-)">
-삭제 기록 열기
-</button>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-HISTORY
-===================================================== -->
-
-<section class="view" id="history">
-
-<h2 class="section-title">
-  HISTORICAL ARCHIVE / 역사 기록
-</h2>
-
-<p class="sub">
-  네 구역은 동일한 사건을 서로 다르게 기록합니다.
-</p>
-
-
-<div class="notice blue">
-
-  역사 기록은 각 구역의 공식 자료를 기준으로 합니다.
-  서로 상충하는 기록이 존재할 경우 어느 쪽이 사실인지
-  시스템은 판단하지 않습니다.
-
-</div>
-
-
-<div class="timeline" id="timeline"></div>
-
-
-<div class="card">
-
-<h3>
-COMPARE HISTORICAL RECORDS
-</h3>
-
-<p>
-하나의 사건을 네 구역의 공식 기록으로 비교합니다.
-</p>
-
-<select id="historyEvent"
- onchange="compareHistory()">
-
+<div class="formGroup">
+<label>REGION</label>
+<select id="reportRegion">
+<option>포인세티아</option>
+<option>아르메리아</option>
+<option>아스포델</option>
+<option>제피란테스</option>
 </select>
+</div>
 
-<div id="historyCompare"></div>
+<div class="formGroup">
+<label>CONTENT</label>
+<textarea id="reportText" placeholder="보고 내용을 입력하십시오."></textarea>
+</div>
+
+<button class="btn" onclick="submitReport()">SUBMIT REPORT</button>
 
 </div>
 
-
-<div class="card">
-
-<h3>
-EDUCATIONAL TEXTBOOKS
-</h3>
-
-<div class="grid4">
-
-<button class="action"
- onclick="openTextbook('포인세티아')">
-포인세티아 교과서
-</button>
-
-<button class="action"
- onclick="openTextbook('아르메리아')">
-아르메리아 교과서
-</button>
-
-<button class="action"
- onclick="openTextbook('아스포델')">
-아스포델 교과서
-</button>
-
-<button class="action"
- onclick="openTextbook('제피란테스')">
-제피란테스 교과서
-</button>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-ERASED HISTORY
-</h3>
-
-<p>
-공식 연대표에서 삭제된 사건 기록입니다.
-</p>
-
-<button class="action danger"
- onclick="openModal(
- 'ERASED HISTORY',
- '████년 █월 █일<br><br>\
- 공식 기록에서 해당 사건의 명칭과 피해 규모가 삭제되었습니다.<br><br>\
- 다른 구역의 역사 자료에는 서로 다른 수치가 기록되어 있습니다.<br><br>\
- FILE STATUS: PARTIALLY RESTORED'
-)">
-삭제된 역사 열람
-</button>
-
-</div>
+<div id="reportList" style="margin-top:10px;"></div>
 
 </section>
 
 
-<!-- =====================================================
-REPORTS
-===================================================== -->
+<!-- NOTICES -->
 
-<section class="view" id="reports">
+<section id="notices" class="view">
 
-<h2 class="section-title">
-  CITIZEN REPORTS / 시민 제보
-</h2>
+<div class="pageHeader">
+<div>
+<h1>OFFICIAL NOTICES</h1>
+<small>AUTHORITY DIRECTIVES</small>
+</div>
+</div>
 
-<p class="sub">
-  시민이 직접 등록한 제보. 관리자에 의해 삭제 또는 보류될 수 있습니다.
-</p>
+<div id="noticeList" class="grid"></div>
 
+</section>
+
+
+<!-- PEOPLE -->
+
+<section id="people" class="view">
+
+<div class="pageHeader">
+<div>
+<h1>PERSON DATABASE</h1>
+<small>IDENTITY / TRANSIT RECORDS</small>
+</div>
+</div>
 
 <div class="card">
 
-<h3>NEW REPORT</h3>
-
-<select id="reportType">
-<option>검문소 부당 검문</option>
-<option>실종자 신고</option>
-<option>이상 현상</option>
-<option>정책 관련 제보</option>
-<option>교통 문제</option>
-<option>기타</option>
-</select>
-
-<textarea
- id="reportText"
- placeholder="제보 내용을 입력하십시오."
-></textarea>
-
-<button class="action gold"
- onclick="submitReport()">
-제보 제출
-</button>
+<div class="formRow">
+<input id="personSearch" placeholder="이름 또는 ATC ID">
+<button class="btn" onclick="searchPeople()">SEARCH</button>
+</div>
 
 </div>
 
-
-<div id="reportList"></div>
+<div id="peopleList" style="margin-top:10px;"></div>
 
 </section>
 
 
-<!-- =====================================================
-NOTICES
-===================================================== -->
+<!-- MAP -->
 
-<section class="view" id="notices">
+<section id="map" class="view">
 
-<h2 class="section-title">
-  OFFICIAL NOTICES / 공식 공문
-</h2>
-
-<div class="notice red">
-
-<b>⚠ 긴급 이동 지침</b><br>
-
-특정 노선의 이동량 증가에 따라
-추가 신원 확인이 실시됩니다.
-
+<div class="pageHeader">
+<div>
+<h1>WORLD MAP</h1>
+<small>REGIONAL TRANSIT NETWORK</small>
 </div>
-
-
-<div class="card">
-
-<h3>
-MINISTRY OF REGIONAL ADMINISTRATION
-</h3>
-
-<p>문서번호: MRA-04-1031</p>
-
-<p>
-제목:
-<b>
-구역간 이동 관리 지침 개정안
-</b>
-</p>
-
-<p>
-1. 유효한 시민번호를 제시해야 한다.
-</p>
-
-<p>
-2. 목적지별 허가 범위를 확인한다.
-</p>
-
-<p>
-3. 야간 이동 시 추가 심사를 실시한다.
-</p>
-
-<p>
-4. 중앙 DB와 기록이 불일치할 경우 보류한다.
-</p>
-
-<div class="footerline">
-AUTHORIZED // SECURITY LEVEL 03
 </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-DATABASE
-===================================================== -->
-
-<section class="view" id="database">
-
-<h2 class="section-title">
-  PERSON DATABASE / 인물 기록
-</h2>
-
-<input
- id="personSearch"
- placeholder="이름 / 시민번호 / 구역 검색"
- oninput="renderPeople()"
->
-
-<div id="peopleList"></div>
-
-</section>
-
-
-<!-- =====================================================
-MAP
-===================================================== -->
-
-<section class="view" id="map">
-
-<h2 class="section-title">
-  WORLD MAP / 4-REGION NETWORK
-</h2>
-
-<p class="sub">
-  구역을 클릭하면 해당 구역 홈페이지로 이동할 수 있습니다.
-</p>
-
 
 <div class="map">
 
-<div class="route r1"></div>
-<div class="route r2"></div>
-<div class="route r3"></div>
-<div class="route r4"></div>
+<div class="mapLine h"></div>
+<div class="mapLine v"></div>
 
-
-<div class="zone z1"
- onclick="openRegion('포인세티아')">
-
-<b>🌺 포인세티아</b>
-
-<small>
-인구 111.7%<br>
-통행: OPEN<br>
-검문: MEDIUM
-</small>
-
+<div class="mapRegion mapP" onclick="openRegion('포인세티아')">
+🌺<br>
+<strong>포인세티아</strong>
 </div>
 
-
-<div class="zone z2"
- onclick="openRegion('아르메리아')">
-
-<b>⚔ 아르메리아</b>
-
-<small>
-인구 113.4%<br>
-통행: LIMITED<br>
-검문: HIGH
-</small>
-
+<div class="mapRegion mapA" onclick="openRegion('아르메리아')">
+⚔<br>
+<strong>아르메리아</strong>
 </div>
 
-
-<div class="zone z3"
- onclick="openRegion('아스포델')">
-
-<b>🪦 아스포델</b>
-
-<small>
-인구 80.7%<br>
-통행: OPEN<br>
-검문: LOW
-</small>
-
+<div class="mapRegion mapAS" onclick="openRegion('아스포델')">
+🪦<br>
+<strong>아스포델</strong>
 </div>
 
-
-<div class="zone z4"
- onclick="openRegion('제피란테스')">
-
-<b>🌿 제피란테스</b>
-
-<small>
-인구 120.9%<br>
-통행: RESTRICTED<br>
-검문: HIGH
-</small>
-
-</div>
-
-
-<div class="check c1"></div>
-<div class="check c2"></div>
-<div class="check c3"></div>
-<div class="check c4"></div>
-
-</div>
-
-
-<div class="grid2" style="margin-top:10px">
-
-<div class="card">
-
-<h3>
-POINSETTIA ↔ ARMERIA
-</h3>
-
-<p class="ok">
-● OPEN
-</p>
-
-<p>
-대기 인원: 17명
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-ARMERIA ↔ ASPHODEL
-</h3>
-
-<p class="warn">
-● DELAY
-</p>
-
-<p>
-대기 인원: 49명
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-ASPHODEL ↔ ZEPHYRANTHES
-</h3>
-
-<p class="ok">
-● OPEN
-</p>
-
-<p>
-대기 인원: 12명
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-POINSETTIA ↔ ZEPHYRANTHES
-</h3>
-
-<p class="deny">
-● RESTRICTED
-</p>
-
-<p>
-특별 심사 시행 중
-</p>
-
+<div class="mapRegion mapZ" onclick="openRegion('제피란테스')">
+🌿<br>
+<strong>제피란테스</strong>
 </div>
 
 </div>
@@ -1788,231 +1131,134 @@ POINSETTIA ↔ ZEPHYRANTHES
 </section>
 
 
-<!-- =====================================================
-POPULATION
-===================================================== -->
+<!-- POPULATION -->
 
-<section class="view" id="population">
+<section id="population" class="view">
 
-<h2 class="section-title">
-  POPULATION DATABASE / 인구 통계
-</h2>
-
-<p class="sub">
-  구역별 인구와 권장 수용량을 비교합니다.
-</p>
-
+<div class="pageHeader">
+<div>
+<h1>POPULATION</h1>
+<small>REGIONAL DEMOGRAPHIC MONITOR</small>
+</div>
+</div>
 
 <div class="card">
-
-<h3>
-ESTIMATED TOTAL POPULATION
-</h3>
-
-<div class="big-number">
-5,842,500
-</div>
-
-<div class="progress">
-<i style="width:91%"></i>
-</div>
-
-<p>
-전체 인구 조정 정책 진행률 91%
-</p>
-
-</div>
-
-
 <table class="table">
-
+<thead>
 <tr>
-<th>구역</th>
-<th>인구</th>
-<th>수용률</th>
-<th>상태</th>
-<th>정책</th>
+<th>REGION</th>
+<th>POPULATION</th>
+<th>DENSITY</th>
+<th>STATUS</th>
 </tr>
-
-<tr>
-<td>포인세티아</td>
-<td>1,284,920</td>
-<td>111.7%</td>
-<td class="warn">OVERLOAD</td>
-<td>관찰</td>
-</tr>
-
-<tr>
-<td>아르메리아</td>
-<td>2,041,330</td>
-<td>113.4%</td>
-<td class="warn">OVERLOAD</td>
-<td>이동 조정</td>
-</tr>
-
-<tr>
-<td>아스포델</td>
-<td>823,440</td>
-<td>80.7%</td>
-<td class="ok">STABLE</td>
-<td>없음</td>
-</tr>
-
-<tr>
-<td>제피란테스</td>
-<td>1,692,810</td>
-<td>120.9%</td>
-<td class="deny">CRITICAL</td>
-<td>이동 제한</td>
-</tr>
-
+</thead>
+<tbody id="populationTable"></tbody>
 </table>
-
-
-<div class="notice red">
-⚠ 권장 수용률 초과 구역:
-포인세티아 / 아르메리아 / 제피란테스
 </div>
 
 </section>
 
 
-<!-- =====================================================
-TRANSPORT
-===================================================== -->
+<!-- TRANSPORT -->
 
-<section class="view" id="transport">
+<section id="transport" class="view">
 
-<h2 class="section-title">
-  TRANSPORT NETWORK / 교통망
-</h2>
+<div class="pageHeader">
+<div>
+<h1>TRANSPORT</h1>
+<small>REGIONAL ROUTE STATUS</small>
+</div>
+</div>
 
-<div id="transportList"></div>
-
-</section>
-
-
-<!-- =====================================================
-MARKET
-===================================================== -->
-
-<section class="view" id="market">
-
-<h2 class="section-title">
-  REGIONAL MARKET / 지역 시장
-</h2>
-
-<p class="sub">
-  각 구역 특산물과 물가, 재고, 반출 가능 여부.
-</p>
-
-<div class="grid2" id="marketList"></div>
+<div id="transportList" class="grid grid2"></div>
 
 </section>
 
 
-<!-- =====================================================
-CARGO
-===================================================== -->
+<!-- MARKET -->
 
-<section class="view" id="cargo">
+<section id="market" class="view">
 
-<h2 class="section-title">
-  CARGO TRACKING / 화물 추적
-</h2>
+<div class="pageHeader">
+<div>
+<h1>MARKET</h1>
+<small>REGIONAL GOODS / LOCAL SPECIALTIES</small>
+</div>
+</div>
+
+<div id="marketList" class="grid grid2"></div>
+
+</section>
+
+
+<!-- CARGO -->
+
+<section id="cargo" class="view">
+
+<div class="pageHeader">
+<div>
+<h1>CARGO</h1>
+<small>CARGO TRACKING SYSTEM</small>
+</div>
+</div>
 
 <div class="card">
 
-<h3>TRACK CARGO</h3>
-
-<input
- id="cargoCode"
- value="AR-48291"
- placeholder="화물 번호"
->
-
-<button class="action gold"
- onclick="trackCargo()">
-조회
-</button>
+<div class="formRow">
+<input id="cargoCode" placeholder="예: CARGO-P-0417">
+<button class="btn" onclick="trackCargo()">TRACK</button>
+</div>
 
 <div id="cargoResult"></div>
 
 </div>
 
-<div id="cargoList"></div>
+<div id="cargoList" style="margin-top:10px;"></div>
 
 </section>
 
 
-<!-- =====================================================
-COMMUNITY
-===================================================== -->
+<!-- COMMUNITY -->
 
-<section class="view" id="community">
+<section id="community" class="view">
 
-<h2 class="section-title">
-  REGIONAL COMMUNITY / 시민 커뮤니티
-</h2>
+<div class="pageHeader">
+<div>
+<h1>COMMUNITY</h1>
+<small>LOCAL MESSAGE BOARD</small>
+</div>
+</div>
 
-<p class="sub">
-  비공식 시민 게시판. 모든 내용이 사실인 것은 아닙니다.
-</p>
-
-<div id="communityList"></div>
+<div id="communityList" class="grid"></div>
 
 </section>
 
 
-<!-- =====================================================
-SCANNER
-===================================================== -->
+<!-- SCANNER -->
 
-<section class="view" id="scanner">
+<section id="scanner" class="view">
 
-<h2 class="section-title">
-  DOCUMENT SCANNER / 문서·바코드
-</h2>
-
-<div class="grid2">
+<div class="pageHeader">
+<div>
+<h1>SCANNER</h1>
+<small>DATABASE / CARGO / SECURITY ACCESS</small>
+</div>
+</div>
 
 <div class="card">
 
-<h3>SCAN TERMINAL</h3>
+<div class="scanBox">
+<div id="globalScanLight" class="scanLight"></div>
 
-<div class="barcode"></div>
+<input id="scanInput"
+placeholder="ID / CARGO CODE / SECURITY CODE"
+style="margin-bottom:8px;">
 
-<input
- id="scanCode"
- value="ATC-P-1842"
- placeholder="바코드 / 시민번호"
->
-
-<button class="action gold"
- onclick="runScan()">
+<button class="btn btnGood" onclick="runScan()">
 SCAN
 </button>
 
-<div id="scanResult"></div>
-
-</div>
-
-
-<div class="card">
-
-<h3>AVAILABLE DATABASES</h3>
-
-<p>● CITIZEN IDENTITY</p>
-<p>● TRANSIT PERMIT</p>
-<p>● CARGO</p>
-<p>● MARKET GOODS</p>
-<p>● SECURITY</p>
-<p>● ARCHIVE</p>
-
-<div class="notice">
-삭제되었거나 비공개된 기록도
-스캔 결과에 흔적이 남을 수 있습니다.
-</div>
+<div id="scanResult" style="margin-top:12px;"></div>
 
 </div>
 
@@ -2021,115 +1267,51 @@ SCAN
 </section>
 
 
-<!-- =====================================================
-ARCHIVE
-===================================================== -->
+<!-- ARCHIVE -->
 
-<section class="view" id="archive">
+<section id="archive" class="view">
 
-<h2 class="section-title">
-  ARCHIVE / 제한 기록
-</h2>
-
-<p class="sub">
-  일반 시민에게 공개되지 않는 기록.
-</p>
-
-
-<div class="grid2">
-
-<div class="card">
-
-<h3>
-FILE P-0417
-</h3>
-
-<p>
-상태:
-<span class="deny">DELETED</span>
-</p>
-
-<button class="action danger"
- onclick="openModal(
- 'FILE P-0417',
- '포인세티아에서 발생한 대규모 이동 기록.<br><br>\
- 일부 시민의 최종 행선지가 기록되어 있지 않습니다.<br><br>\
- STATUS: PARTIALLY DELETED'
-)">
-열람
-</button>
-
+<div class="pageHeader">
+<div>
+<h1>ARCHIVE</h1>
+<small>RESTRICTED DOCUMENT STORAGE</small>
+</div>
 </div>
 
+<div class="grid grid2">
 
 <div class="card">
-
-<h3>
-FILE AS-0001
-</h3>
-
+<div class="cardTitle">EDUCATIONAL RECORD</div>
 <p>
-상태:
-<span class="warn">CORRUPTED</span>
+각 지역의 역사 교육 자료는 서로 다른 서술을 포함합니다.
 </p>
 
-<button class="action gold"
- onclick="openModal(
- 'FILE AS-0001',
- '████████████<br><br>\
- 구역 분리는 █████을 위해 시행되었다.<br><br>\
- ERROR: ORIGINAL TEXT MISSING'
-)">
-복구
+<button class="btn" onclick="openTextbook('포인세티아')">
+포인세티아 교과서
 </button>
 
+<button class="btn" onclick="openTextbook('아르메리아')">
+아르메리아 교과서
+</button>
+
+<button class="btn" onclick="openTextbook('아스포델')">
+아스포델 교과서
+</button>
+
+<button class="btn" onclick="openTextbook('제피란테스')">
+제피란테스 교과서
+</button>
 </div>
 
-
 <div class="card">
-
-<h3>
-FILE Z-9130
-</h3>
-
-<p>
-상태:
-<span class="blue">UNLISTED</span>
+<div class="cardTitle">RESTRICTED FILE</div>
+<p class="warning">
+일부 기록은 권한 부족으로 열람할 수 없습니다.
 </p>
 
-<button class="action"
- onclick="openModal(
- 'FILE Z-9130',
- '공식 지도에 존재하지 않는 검문소에 대한 시민 제보.<br><br>\
- 좌표: ████████<br>\
- 발견자: 익명<br>\
- 검증 상태: 미확인'
-)">
-열람
+<button class="btn btnDanger" onclick="openRestricted()">
+REQUEST ACCESS
 </button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-HIDDEN RECORD
-</h3>
-
-<p>
-바코드 0417을 스캔하십시오.
-</p>
-
-<button class="action"
- onclick="
- showView('scanner');
- document.getElementById('scanCode').value='0417';
- runScan();
- ">
-해금 시도
-</button>
-
 </div>
 
 </div>
@@ -2139,111 +1321,32 @@ HIDDEN RECORD
 </main>
 
 
-<!-- =====================================================
-RIGHT
-===================================================== -->
+<!-- ================= SIDE ================= -->
 
-<aside class="rightbar">
+<aside id="side">
 
-<div class="sidebox"
- style="margin-top:0;border-top:0;padding-top:0">
+<div class="sideTitle">SYSTEM MONITOR</div>
 
-<h3>NETWORK STATUS</h3>
-
-<div class="rule">
-
-<strong>POINSETTIA</strong>
- ONLINE
-
-<br>
-
-<strong>ARMERIA</strong>
- ONLINE
-
-<br>
-
-<strong>ASPHODEL</strong>
- ONLINE
-
-<br>
-
-<strong>ZEPHYRANTHES</strong>
- DEGRADED
-
+<div class="sideBox">
+<div class="muted">NETWORK</div>
+<div class="ok">ONLINE</div>
 </div>
 
+<div class="sideBox">
+<div class="muted">CURRENT ALERT</div>
+<div class="warning">LEVEL 03</div>
 </div>
 
-
-<div class="sidebox">
-
-<h3>ACCESS LEVEL</h3>
-
-<div style="font-size:20px;color:#d2a33d">
-LEVEL 03
+<div class="sideBox">
+<div class="muted">OPEN CHECKPOINTS</div>
+<div style="font-size:20px;">18</div>
 </div>
 
-<p class="muted">
-관리자 인증 필요 기록: 12
-</p>
-
+<div class="sideTitle" style="margin-top:18px;">
+ACTIVITY LOG
 </div>
 
-
-<div class="sidebox">
-
-<h3>RECENT ACTIVITY</h3>
-
-<div class="statline">
-<span>NEWS</span>
-<b>7 NEW</b>
-</div>
-
-<div class="statline">
-<span>REPORT</span>
-<b>6 NEW</b>
-</div>
-
-<div class="statline">
-<span>CARGO</span>
-<b>12 ACTIVE</b>
-</div>
-
-</div>
-
-
-<div class="sidebox">
-
-<h3>QUICK SCAN</h3>
-
-<input
- id="quickCode"
- placeholder="ID / BARCODE"
->
-
-<button class="action"
- onclick="
- showView('scanner');
- document.getElementById('scanCode').value=
- document.getElementById('quickCode').value;
- runScan();
- ">
-조회
-</button>
-
-</div>
-
-
-<div class="sidebox">
-
-<h3>TRAVEL HISTORY</h3>
-
-<div id="travelHistory"
- class="muted">
-아직 기록 없음.
-</div>
-
-</div>
+<div id="sideLogs"></div>
 
 </aside>
 
@@ -2251,30 +1354,18 @@ LEVEL 03
 </div>
 
 
-<!-- =====================================================
-MODAL
-===================================================== -->
+<!-- ================= MODAL ================= -->
 
-<div class="modal" id="modal">
+<div id="modal">
 
-<div class="modal-box">
+<div class="modalWindow">
 
-<div class="modal-head">
-
-<b id="modalTitle">
-SYSTEM
-</b>
-
-<button class="close"
- onclick="closeModal()">
-×
-</button>
-
+<div class="modalHeader">
+<strong id="modalTitle">DOCUMENT</strong>
+<button class="close" onclick="closeModal()">×</button>
 </div>
 
-<div id="modalBody"
- style="font-size:9px;line-height:1.9">
-</div>
+<div class="modalBody" id="modalBody"></div>
 
 </div>
 
@@ -2283,64 +1374,64 @@ SYSTEM
 
 <script>
 
-/* =====================================================
-DATA
-===================================================== */
+/* =========================================================
+   DATA
+========================================================= */
 
-const regions={
+const regions = {
 
 "포인세티아":{
 symbol:"🌺",
 en:"POINSETTIA",
-population:"1,284,920",
+population:1284920,
 density:"111.7%",
 status:"OVERLOAD",
 transport:"OPEN",
 issue:"식량 배급과 주거 밀도 증가",
 special:"포인세티아산 적화차",
-description:"행정과 교역이 발달한 구역. 외부인에게 비교적 개방적이지만 최근 인구 밀집 문제가 심화되고 있다."
+description:"가장 많은 인구가 밀집한 구역 중 하나. 외부인의 이동 자체는 비교적 자유롭지만 주거와 식량 관련 문제가 지속적으로 보고되고 있다."
 },
 
 "아르메리아":{
 symbol:"⚔",
 en:"ARMERIA",
-population:"2,041,330",
+population:2041330,
 density:"113.4%",
 status:"OVERLOAD",
 transport:"LIMITED",
 issue:"외부인 유입 및 검문 강화",
 special:"아르메리아 합금",
-description:"산업과 제조업이 중심인 구역. 물자의 생산량이 높지만 구역간 긴장이 증가하고 있다."
+description:"검문 절차가 강한 지역. 외부인의 신원 확인과 목적 검사가 다른 지역보다 자주 이루어진다."
 },
 
 "아스포델":{
 symbol:"🪦",
 en:"ASPHODEL",
-population:"823,440",
+population:823440,
 density:"80.7%",
 status:"STABLE",
 transport:"OPEN",
 issue:"기록 데이터 일부 손상",
 special:"아스포델 흑화",
-description:"인구 밀도는 낮지만 오래된 기록과 역사 자료가 많이 남아 있는 구역."
+description:"인구 밀도가 비교적 낮으며 오래된 기록과 시설이 많이 남아 있는 지역. 일부 행정 기록이 손상되어 있다."
 },
 
 "제피란테스":{
 symbol:"🌿",
 en:"ZEPHYRANTHES",
-population:"1,692,810",
+population:1692810,
 density:"120.9%",
 status:"CRITICAL",
 transport:"RESTRICTED",
 issue:"에너지 부족 및 이동 제한",
 special:"제피란테스 향초",
-description:"에너지와 시장 유통이 중요한 구역. 최근 외부 이동이 크게 제한되었다."
+description:"현재 에너지 부족으로 이동 제한이 가장 강하게 적용되고 있는 구역. 일부 외부 노선이 제한되어 있다."
 }
 
 };
 
 
-const citizens=[
+const citizens = [
 
 {
 name:"리안 베르크",
@@ -2395,7 +1486,7 @@ risk:"LOW"
 ];
 
 
-const people=[
+const people = [
 
 ...citizens,
 
@@ -2422,1489 +1513,1712 @@ risk:"HIGH"
 ];
 
 
-const reports=[
+const reports = [
 
 {
-id:58291,
-type:"검문소 부당 검문",
-text:"어제 제6검문소에서 이상한 검문을 봤습니다.",
-time:"10.01 21:32",
-likes:482,
-comments:73
+region:"제피란테스",
+author:"익명",
+text:"밤 시간대 일부 구간의 전력이 계속 끊기고 있습니다.",
+time:"23:14"
 },
 
 {
-id:58274,
-type:"실종자 신고",
-text:"사라진 사람의 이름이 오늘 인구 통계에서 삭제됐습니다.",
-time:"10.01 18:09",
-likes:211,
-comments:41
+region:"아르메리아",
+author:"R-17",
+text:"최근 검문 시간이 이전보다 길어졌다는 주민들의 이야기가 있습니다.",
+time:"21:42"
 },
 
 {
-id:58199,
-type:"정책 관련 제보",
-text:"공문에 적힌 이동 제한과 실제 검문소의 지시가 다릅니다.",
-time:"10.01 13:41",
-likes:94,
-comments:18
+region:"아스포델",
+author:"익명",
+text:"오래된 기록 보관소에서 접근할 수 없는 문서가 발견되었습니다.",
+time:"19:03"
 }
 
 ];
 
 
-const historyEvents=[
+const notices = [
 
 {
-year:"███년",
+title:"제피란테스 이동 제한 공고",
+region:"제피란테스",
+text:"에너지 공급 안정화를 위해 일부 외부 이동 노선의 이용이 제한됩니다."
+},
+
+{
+title:"아르메리아 검문 강화",
+region:"아르메리아",
+text:"외부인의 신원 확인 절차가 임시 강화되었습니다."
+},
+
+{
+title:"아스포델 기록 보존 지침",
+region:"아스포델",
+text:"손상된 기록의 무단 복제 및 반출을 금지합니다."
+},
+
+{
+title:"포인세티아 식량 배급 변경",
+region:"포인세티아",
+text:"인구 밀집 지역을 중심으로 배급 시간이 변경됩니다."
+}
+
+];
+
+
+const historyEvents = [
+
+{
+year:"—",
 title:"구역 분리",
 records:{
-
-"포인세티아":
-"인구 증가와 행정 효율화를 위해 구역이 분리되었다.",
-
-"아르메리아":
-"정치적 갈등과 자원 분배 문제로 구역 분리가 결정되었다.",
-
-"아스포델":
-"해당 시기의 기록 대부분이 손상되어 있다.",
-
-"제피란테스":
-"구역 분리는 당시 정부가 결정한 장기적인 관리 정책이었다."
-
+"포인세티아":"포인세티아의 기록에서는 당시 분리가 인구 분산을 위한 행정 조치였다고 기록한다.",
+"아르메리아":"아르메리아의 자료는 분리가 질서를 유지하기 위한 필수 조치였다고 설명한다.",
+"아스포델":"아스포델에서는 분리 이전부터 각 지역 사이의 갈등이 존재했다고 기록한다.",
+"제피란테스":"제피란테스의 기록은 분리 과정에서 발생한 대규모 이동을 강조한다."
 }
 },
 
 {
-year:"███년",
+year:"—",
 title:"인구 조정 정책",
 records:{
-
-"포인세티아":
-"인구 밀집 문제에 대응하기 위한 행정 정책이었다.",
-
-"아르메리아":
-"인구 조정이라는 명목으로 대규모 이동 제한이 시작되었다.",
-
-"아스포델":
-"정책의 정확한 시행 범위는 확인할 수 없다.",
-
-"제피란테스":
-"정책은 공식적으로 사회 안정화를 목적으로 했다."
-
+"포인세티아":"인구 과밀을 해소하기 위한 정책으로 시행되었다고 교육한다.",
+"아르메리아":"통제 가능한 인구 규모를 유지하기 위한 정책이었다고 설명한다.",
+"아스포델":"정책 시행 과정에서 상당수의 기록이 사라졌다고 기록한다.",
+"제피란테스":"강제적인 이동과 희생이 발생했다고 주장한다."
 }
 },
 
 {
-year:"███년",
+year:"—",
 title:"대규모 충돌",
 records:{
-
-"포인세티아":
-"일부 시민의 불법 이동으로 인한 소규모 충돌.",
-
-"아르메리아":
-"검문 강화에 반발한 시민 시위가 발생했다.",
-
-"아스포델":
-"사건에 관한 공식 기록이 존재하지 않는다.",
-
-"제피란테스":
-"당시 여러 구역에서 동시에 문제가 발생했다."
-
+"포인세티아":"외부 세력에 의한 공격으로 기록되어 있다.",
+"아르메리아":"지역 간 무력 충돌이었다고 기록한다.",
+"아스포델":"정확한 원인은 현재까지 확인되지 않았다고 기록한다.",
+"제피란테스":"당시 발생한 피해 규모를 가장 크게 기록하고 있다."
 }
 },
 
 {
-year:"███년",
+year:"CURRENT",
 title:"현재 체제",
 records:{
-
-"포인세티아":
-"현재의 구역 체계는 사회 안정을 유지하고 있다.",
-
-"아르메리아":
-"현재의 구역 체계는 여전히 논쟁의 대상이다.",
-
-"아스포델":
-"현재 체제에 대한 공식 평가가 존재하지 않는다.",
-
-"제피란테스":
-"구역간 이동은 허가된 범위 안에서 유지되고 있다."
-
+"포인세티아":"현재 체제는 각 구역의 독립성을 보장하는 장치로 설명된다.",
+"아르메리아":"현재 체제는 안전과 질서를 위한 필수적인 관리 체계로 설명된다.",
+"아스포델":"현재 체제에 대한 공식 기록은 일부 불완전하다.",
+"제피란테스":"현재 체제는 이동과 자원의 균형을 유지하기 위한 것으로 설명된다."
 }
 }
 
 ];
 
 
-const market=[
+const market = {
 
-["포인세티아","적화차","1,240","LOW","반출 허가 필요"],
-["아르메리아","합금판","3,820","NORMAL","정상"],
-["아스포델","흑화","790","HIGH","생산량 감소"],
-["제피란테스","향초","2,110","LOW","반출 제한"]
+"포인세티아":[
+["적화차","식품","120 CR"],
+["밀봉 식량","식량","80 CR"],
+["재생 섬유","소재","210 CR"]
+],
 
-];
+"아르메리아":[
+["아르메리아 합금","소재","640 CR"],
+["공업 부품","부품","390 CR"],
+["방호 장갑","장비","520 CR"]
+],
 
+"아스포델":[
+["아스포델 흑화","소재","480 CR"],
+["기록지","문서","150 CR"],
+["구식 부품","부품","90 CR"]
+],
 
-const cargo=[
-
-{
-code:"AR-48291",
-from:"아르메리아",
-to:"포인세티아",
-status:"정밀 검사",
-history:["08:12 출고","11:34 검문소 진입","11:39 정밀 검사","현재: 보류"]
-},
-
-{
-code:"P-22041",
-from:"포인세티아",
-to:"아스포델",
-status:"배송 중",
-history:["07:02 출고","09:31 검문 통과","현재: 이동 중"]
-},
-
-{
-code:"Z-09172",
-from:"제피란테스",
-to:"아르메리아",
-status:"UNKNOWN",
-history:["기록 생성","검문소 진입","이후 기록 없음"]
-}
-
-];
-
-
-const community=[
-
-{
-user:"익명 1842",
-region:"포인세티아",
-text:"아르메리아 쪽 검문 요즘 왜 이렇게 오래 걸리나요?"
-},
-
-{
-user:"익명 771",
-region:"아르메리아",
-text:"어제부터 강화됐다는 말이 있습니다."
-},
-
-{
-user:"시민 402",
-region:"아스포델",
-text:"역사관 자료 중에 서로 다른 날짜가 있는 것 같습니다."
-},
-
-{
-user:"익명",
-region:"제피란테스",
-text:"삭제된 기사 봤다는 사람 있나요?"
-}
-
-];
-
-
-const transport=[
-
-["포인세티아 ↔ 아르메리아","OPEN","17명 대기"],
-["아르메리아 ↔ 아스포델","DELAY","49명 대기"],
-["아스포델 ↔ 제피란테스","OPEN","12명 대기"],
-["포인세티아 ↔ 제피란테스","RESTRICTED","특별 심사"],
-["아르메리아 ↔ 제피란테스","LIMITED","화물 우선"],
-["포인세티아 ↔ 아스포델","OPEN","정상 운행"]
-
-];
-
-
-let state={
-
-processed:0,
-errors:0,
-current:0,
-history:[]
+"제피란테스":[
+["제피란테스 향초","생활","130 CR"],
+["정제 연료","에너지","730 CR"],
+["에너지 셀","부품","580 CR"]
+]
 
 };
 
 
-/* =====================================================
-HELPERS
-===================================================== */
+const transport = {
+
+"포인세티아":[
+["P-01","아르메리아","OPEN"],
+["P-02","아스포델","OPEN"],
+["P-03","제피란테스","LIMITED"]
+],
+
+"아르메리아":[
+["A-01","포인세티아","LIMITED"],
+["A-02","아스포델","OPEN"],
+["A-03","제피란테스","RESTRICTED"]
+],
+
+"아스포델":[
+["AS-01","포인세티아","OPEN"],
+["AS-02","아르메리아","OPEN"],
+["AS-03","제피란테스","OPEN"]
+],
+
+"제피란테스":[
+["Z-01","포인세티아","RESTRICTED"],
+["Z-02","아르메리아","RESTRICTED"],
+["Z-03","아스포델","LIMITED"]
+]
+
+};
+
+
+const cargo = [
+
+{
+code:"CARGO-P-0417",
+origin:"포인세티아",
+destination:"아스포델",
+status:"IN TRANSIT",
+item:"식량",
+eta:"02:14"
+},
+
+{
+code:"CARGO-A-7711",
+origin:"아르메리아",
+destination:"포인세티아",
+status:"HELD",
+item:"합금",
+eta:"UNKNOWN"
+},
+
+{
+code:"CARGO-Z-9910",
+origin:"제피란테스",
+destination:"아스포델",
+status:"RESTRICTED",
+item:"에너지 셀",
+eta:"05:40"
+}
+
+];
+
+
+const community = [
+
+{
+region:"포인세티아",
+author:"M-17",
+text:"오늘 배급 줄이 평소보다 길었습니다."
+},
+
+{
+region:"아르메리아",
+author:"익명",
+text:"검문소에서 추가 확인을 받았습니다."
+},
+
+{
+region:"아스포델",
+author:"K",
+text:"구 기록 보관소 주변에서 이상한 소리가 들렸다는 이야기가 있습니다."
+},
+
+{
+region:"제피란테스",
+author:"익명",
+text:"밤에는 이동하지 않는 편이 좋다는 안내가 돌고 있습니다."
+}
+
+];
+
+
+/* =========================================================
+   UTIL
+========================================================= */
 
 function $(id){
-return document.getElementById(id);
+    return document.getElementById(id);
 }
 
 
-function log(text){
-
-const el=$("systemLog");
-
-if(!el)return;
-
-const time=new Date().toLocaleTimeString(
-"ko-KR",
-{hour12:false}
-);
-
-el.innerHTML+=
-"["+time+"] "+text+"<br>";
-
-el.scrollTop=el.scrollHeight;
-
+function escapeHTML(str){
+    return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
 
 
-function openModal(title,body){
-
-$("modalTitle").textContent=title;
-$("modalBody").innerHTML=body;
-$("modal").classList.add("show");
-
-}
-
-
-function closeModal(){
-
-$("modal").classList.remove("show");
-
-}
-
-
-$("modal").addEventListener(
-"click",
-e=>{
-if(e.target.id==="modal")closeModal();
-}
-);
-
-
-/* =====================================================
-NAV
-===================================================== */
-
-function showView(id){
-
-document.querySelectorAll(".view")
-.forEach(v=>v.classList.remove("active"));
-
-$(id).classList.add("active");
-
-document.querySelectorAll(".nav button")
-.forEach(b=>{
-b.classList.toggle(
-"active",
-b.dataset.view===id
-);
-});
-
-if(id==="regions")renderRegions();
-if(id==="history")renderHistory();
-if(id==="database")renderPeople();
-if(id==="reports")renderReports();
-if(id==="transport")renderTransport();
-if(id==="market")renderMarket();
-if(id==="cargo")renderCargo();
-if(id==="community")renderCommunity();
-
-}
-
-
-document.querySelectorAll(".nav button")
-.forEach(button=>{
-button.addEventListener(
-"click",
-()=>showView(button.dataset.view)
-);
-});
-
-
-/* =====================================================
-CLOCK
-===================================================== */
+/* =========================================================
+   CLOCK
+========================================================= */
 
 function updateClock(){
 
-$("clock").textContent=
-"SYSTEM TIME "+
-new Date().toLocaleTimeString(
-"ko-KR",
-{hour12:false}
-);
+    const d = new Date();
 
+    const date =
+        d.getFullYear()+"-"+
+        String(d.getMonth()+1).padStart(2,"0")+"-"+
+        String(d.getDate()).padStart(2,"0");
+
+    const time =
+        String(d.getHours()).padStart(2,"0")+":"+
+        String(d.getMinutes()).padStart(2,"0")+":"+
+        String(d.getSeconds()).padStart(2,"0");
+
+    $("clock").textContent = date+" "+time;
 }
 
 setInterval(updateClock,1000);
 updateClock();
 
 
-/* =====================================================
-REGIONS
-===================================================== */
+/* =========================================================
+   VIEW
+========================================================= */
+
+function showView(id){
+
+    document.querySelectorAll(".view").forEach(v=>{
+        v.classList.remove("active");
+    });
+
+    const target = $(id);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".navItem").forEach(n=>{
+        n.classList.remove("active");
+    });
+
+    const nav = document.querySelector(`.navItem[data-view="${id}"]`);
+
+    if(nav){
+        nav.classList.add("active");
+    }
+
+    if(id==="regions") renderRegions();
+    if(id==="news") renderNews();
+    if(id==="history") renderHistory();
+    if(id==="reports") renderReports();
+    if(id==="people") renderPeople();
+    if(id==="population") renderPopulation();
+    if(id==="transport") renderTransport();
+    if(id==="market") renderMarket();
+    if(id==="cargo") renderCargo();
+    if(id==="community") renderCommunity();
+}
+
+
+/* =========================================================
+   NAV EVENTS
+========================================================= */
+
+document.querySelectorAll(".navItem").forEach(item=>{
+
+    item.addEventListener("click",()=>{
+
+        showView(item.dataset.view);
+
+    });
+
+});
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(title,html){
+
+    $("modalTitle").textContent = title;
+    $("modalBody").innerHTML = html;
+    $("modal").classList.add("show");
+
+}
+
+
+function closeModal(){
+
+    $("modal").classList.remove("show");
+
+}
+
+
+$("modal").addEventListener("click",function(e){
+
+    if(e.target === $("modal")){
+        closeModal();
+    }
+
+});
+
+
+/* =========================================================
+   DASHBOARD LOG
+========================================================= */
+
+const logs = [
+    "CHECKPOINT P-04 / PASSAGE VERIFIED",
+    "NEW REPORT / ZEPHYRANTHES",
+    "CARGO Z-9910 / ROUTE RESTRICTED",
+    "PERSON DATABASE / SYNC COMPLETE",
+    "ARMERIA / SECURITY LEVEL UPDATED"
+];
+
+
+function renderLogs(){
+
+    $("dashboardLogs").innerHTML = logs.map((x,i)=>`
+
+        <div class="log">
+            <div class="logTime">00:${String(20+i*7).padStart(2,"0")}</div>
+            ${x}
+        </div>
+
+    `).join("");
+
+    $("sideLogs").innerHTML = logs.slice(0,4).map((x,i)=>`
+
+        <div class="log">
+            <div class="logTime">LOG ${i+1}</div>
+            ${x}
+        </div>
+
+    `).join("");
+}
+
+
+/* =========================================================
+   REGIONS
+========================================================= */
 
 function renderRegions(){
 
-$("regionList").innerHTML=
-Object.keys(regions).map(name=>{
+    $("regionGrid").innerHTML = Object.entries(regions).map(([name,r])=>`
 
-const r=regions[name];
+        <div class="card regionCard" onclick="openRegion('${name}')">
 
-return `
+            <div class="regionStatus ${
+                r.status==="CRITICAL" ? "red" :
+                r.status==="OVERLOAD" ? "warning" : "ok"
+            }">
+                ${r.status}
+            </div>
 
-<div class="card region-card"
-onclick="openRegion('${name}')">
+            <div class="regionSymbol">${r.symbol}</div>
 
-<div class="region-symbol">
-${r.symbol}
-</div>
+            <div class="regionName">${name}</div>
 
-<div class="region-name">
-${name}
-</div>
+            <div class="regionEn">${r.en}</div>
 
-<div class="region-en">
-${r.en}
-</div>
+            <div class="regionMeta">
 
-<p>
-${r.description}
-</p>
+                POPULATION :
+                ${r.population.toLocaleString()}
+                <br>
 
-<span class="badge">
-인구 ${r.density}
-</span>
+                DENSITY :
+                ${r.density}
+                <br>
 
-<span class="badge ${
-r.transport==="OPEN"?"ok":"warn"
-}">
-${r.transport}
-</span>
+                TRANSPORT :
+                ${r.transport}
 
-</div>
+            </div>
 
-`;
+        </div>
 
-}).join("");
+    `).join("");
 
 }
 
 
 function openRegion(name){
 
-const r=regions[name];
+    const r = regions[name];
 
-$("regionList").style.display="none";
-$("regionPortal").style.display="block";
+    showView("regions");
 
-$("portalContent").innerHTML=`
+    openModal(
 
-<div class="portal">
+        r.symbol+" "+name,
 
-<h2>
-${r.symbol} ${name}
-</h2>
+        `
 
-<small>
-${r.en} REGIONAL INFORMATION NETWORK
-</small>
+        <div class="card" style="margin-bottom:10px;">
 
-<p style="max-width:650px">
-${r.description}
-</p>
+            <div class="cardTitle">${r.en} / REGIONAL PORTAL</div>
 
-<div class="portal-buttons">
+            <div class="big">${name}</div>
 
-<button class="action gold"
-onclick="openRegionalNews('${name}')">
-최근 이슈
-</button>
+            <p class="muted">
+                ${r.description}
+            </p>
 
-<button class="action"
-onclick="openRegionalMarket('${name}')">
-특산물
-</button>
-
-<button class="action"
-onclick="openRegionalHistory('${name}')">
-지역 역사
-</button>
-
-<button class="action"
-onclick="openRegionalCommunity('${name}')">
-주민 게시판
-</button>
-
-<button class="action"
-onclick="openRegionalTransport('${name}')">
-교통
-</button>
-
-</div>
-
-</div>
+        </div>
 
 
-<div class="grid2"
-style="margin-top:10px">
+        <div class="grid grid2">
 
-<div class="card">
+            <div class="card">
 
-<h3>
-REGIONAL STATISTICS
-</h3>
+                <div class="cardTitle">RECENT ISSUE</div>
 
-<p>
-인구:
-<b>${r.population}</b>
-</p>
+                ${r.issue}
 
-<p>
-수용률:
-<b>${r.density}</b>
-</p>
+                <br><br>
 
-<p>
-교통:
-<span class="${
-r.transport==="OPEN"?"ok":"warn"
-}">
-${r.transport}
-</span>
-</p>
+                <button class="btn"
+                    onclick="openRegionalNews('${name}')">
+                    LOCAL NEWS
+                </button>
 
-</div>
+            </div>
 
 
-<div class="card">
+            <div class="card">
 
-<h3>
-CURRENT ISSUE
-</h3>
+                <div class="cardTitle">LOCAL SPECIALTY</div>
 
-<p>
-${r.issue}
-</p>
+                ${r.special}
 
-</div>
+                <br><br>
 
-</div>
+                <button class="btn"
+                    onclick="openRegionalMarket('${name}')">
+                    LOCAL MARKET
+                </button>
+
+            </div>
 
 
-<div class="card">
+            <div class="card">
 
-<h3>
-LOCAL SPECIALTY
-</h3>
+                <div class="cardTitle">HISTORY</div>
 
-<p>
-${r.special}
-</p>
+                해당 지역의 공식 역사 서술을 확인합니다.
 
-<button class="action"
-onclick="openRegionalMarket('${name}')">
-시장 정보 →
-</button>
+                <br><br>
 
-</div>
+                <button class="btn"
+                    onclick="openRegionalHistory('${name}')">
+                    HISTORY FILE
+                </button>
 
-`;
+            </div>
+
+
+            <div class="card">
+
+                <div class="cardTitle">TRANSPORT</div>
+
+                현재 상태 :
+                <span class="${r.transport==='OPEN'?'ok':'warning'}">
+                    ${r.transport}
+                </span>
+
+                <br><br>
+
+                <button class="btn"
+                    onclick="openRegionalTransport('${name}')">
+                    ROUTE MAP
+                </button>
+
+            </div>
+
+        </div>
+
+        `
+
+    );
 
 }
 
 
-function closeRegionPortal(){
-
-$("regionPortal").style.display="none";
-$("regionList").style.display="grid";
-
-}
-
-
-/* =====================================================
-REGIONAL LINKS
-===================================================== */
+/* =========================================================
+   REGIONAL NEWS
+========================================================= */
 
 function openRegionalNews(name){
 
-showView("news");
+    const r = regions[name];
 
-openModal(
-name+" / REGIONAL NEWS",
-`
-<b>${name} 최근 이슈</b><br><br>
+    openModal(
 
-${regions[name].issue}<br><br>
+        name+" / LOCAL NEWS",
 
-현재 해당 구역의 공식 뉴스와 시민 제보를
-교차 확인할 수 있습니다.
-`
-);
+        `
+
+        <div class="card">
+
+            <div class="cardTitle">HEADLINE</div>
+
+            <div class="big" style="font-size:17px;">
+                ${r.issue}
+            </div>
+
+            <p class="muted">
+                해당 지역에서 최근 보고된 주요 이슈입니다.
+                자세한 사실관계는 아직 확인되지 않은 내용이 포함될 수 있습니다.
+            </p>
+
+        </div>
+
+        <br>
+
+        ${reports
+            .filter(x=>x.region===name)
+            .map(x=>`
+
+                <div class="card" style="margin-bottom:8px;">
+                    <div class="cardTitle">
+                        ${x.time} / ${x.author}
+                    </div>
+
+                    ${x.text}
+                </div>
+
+            `).join("") ||
+
+            `<div class="muted">등록된 지역 보고가 없습니다.</div>`
+        }
+
+        `
+
+    );
 
 }
 
 
 function openRegionalMarket(name){
 
-showView("market");
+    const items = market[name] || [];
 
-openModal(
-name+" / LOCAL MARKET",
-`
-구역 특산물 정보를 불러왔습니다.<br><br>
+    openModal(
 
-${regions[name].special}
-`
-);
+        name+" / LOCAL MARKET",
+
+        items.map(item=>`
+
+            <div class="card" style="margin-bottom:8px;">
+
+                <div class="cardTitle">${item[1]}</div>
+
+                <strong>${item[0]}</strong>
+
+                <span style="float:right;">
+                    ${item[2]}
+                </span>
+
+            </div>
+
+        `).join("")
+
+    );
 
 }
 
 
 function openRegionalHistory(name){
 
-showView("history");
+    showView("history");
 
-openModal(
-name+" / HISTORICAL ARCHIVE",
-`
-이 구역의 역사 기록은
-다른 구역의 공식 기록과 일부 차이가 있을 수 있습니다.<br><br>
+    $("historyRegion").value = name;
 
-역사 비교 메뉴에서 동일 사건의
-4개 구역 서술을 비교하십시오.
-`
-);
-
-}
-
-
-function openRegionalCommunity(name){
-
-showView("community");
-
-openModal(
-name+" / COMMUNITY",
-`
-${name} 주민 게시판으로 연결했습니다.
-`
-);
+    renderHistory();
 
 }
 
 
 function openRegionalTransport(name){
 
-showView("transport");
+    openModal(
 
-openModal(
-name+" / TRANSPORT",
-`
-현재 ${name}의 교통망 상태를 확인하십시오.
-`
-);
+        name+" / TRANSPORT",
+
+        (transport[name] || []).map(t=>`
+
+            <div class="card" style="margin-bottom:8px;">
+
+                <strong>${t[0]}</strong>
+                →
+                ${t[1]}
+
+                <span style="float:right;"
+                    class="${t[2]==='OPEN'?'ok':'warning'}">
+                    ${t[2]}
+                </span>
+
+            </div>
+
+        `).join("")
+
+    );
 
 }
 
 
-/* =====================================================
-HISTORY
-===================================================== */
+/* =========================================================
+   NEWS
+========================================================= */
+
+function renderNews(){
+
+    $("newsList").innerHTML = Object.entries(regions).map(([name,r])=>`
+
+        <div class="card">
+
+            <div class="cardTitle">
+                ${name} / ${r.en}
+            </div>
+
+            <div style="font-size:15px;">
+                ${r.issue}
+            </div>
+
+            <p class="muted">
+                현재 상태 :
+                ${r.status}
+            </p>
+
+            <button class="btn"
+                onclick="openRegionalNews('${name}')">
+                OPEN REGIONAL NEWS
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
 
 function renderHistory(){
 
-$("timeline").innerHTML=
-historyEvents.map((e,i)=>`
+    const name = $("historyRegion").value;
 
-<div class="event"
-onclick="selectHistory(${i})">
+    $("historyContent").innerHTML = `
 
-<b>${e.year}</b>
+        <div class="card">
 
-<br>
+            <div class="cardTitle">
+                ${name} / OFFICIAL RECORD
+            </div>
 
-${e.title}
+            ${
+                historyEvents
+                .map(e=>`
 
-<br>
+                    <div style="margin-bottom:14px;">
 
-<span class="muted">
-4개 구역 기록 비교 가능
-</span>
+                        <strong>${e.title}</strong>
 
-</div>
+                        <div class="muted">
+                            ${e.records[name]}
+                        </div>
 
-`).join("");
+                    </div>
 
+                `)
+                .join("")
+            }
 
-$("historyEvent").innerHTML=
-historyEvents.map(
-(e,i)=>
-`<option value="${i}">
-${e.year} / ${e.title}
-</option>`
-).join("");
+        </div>
 
-compareHistory();
-
-}
+    `;
 
 
-function selectHistory(i){
+    $("historyTimeline").innerHTML = historyEvents.map(e=>`
 
-$("historyEvent").value=i;
-compareHistory();
+        <div class="card" style="margin-bottom:8px;">
 
-}
+            <span class="tag">${e.year}</span>
 
+            <strong>${e.title}</strong>
 
-function compareHistory(){
+        </div>
 
-const i=parseInt($("historyEvent").value||0);
-const e=historyEvents[i];
-
-$("historyCompare").innerHTML=`
-
-<div class="grid2"
-style="margin-top:10px">
-
-${Object.keys(e.records).map(name=>`
-
-<div class="card">
-
-<h3>
-${regions[name].symbol} ${name}
-</h3>
-
-<p>
-${e.records[name]}
-</p>
-
-<span class="badge">
-OFFICIAL RECORD
-</span>
-
-</div>
-
-`).join("")}
-
-</div>
-
-`;
+    `).join("");
 
 }
 
+
+/* =========================================================
+   TEXTBOOK
+========================================================= */
 
 function openTextbook(name){
 
-const e=historyEvents[1];
+    const e = historyEvents[1];
 
-openModal(
-name+" / SCHOOL TEXTBOOK",
-`
-<b>교과서 서술</b><br><br>
+    openModal(
 
-${e.records[name]}<br><br>
+        name+" / SCHOOL TEXTBOOK",
 
-<span class="muted">
-교육용 자료 / ${name} 지역판
-</span>
-`
-);
+        `
+
+        <b>교과서 서술</b>
+
+        <br><br>
+
+        ${e.records[name]}
+
+        <br><br>
+
+        <span class="muted">
+            교육용 자료 / ${name} 지역판
+        </span>
+
+        `
+
+    );
+
+}
 
 
-/* =====================================================
-REPORTS
-===================================================== */
+/* =========================================================
+   REPORTS
+========================================================= */
 
 function renderReports(){
 
-$("reportList").innerHTML=
-reports.map(r=>`
+    $("reportList").innerHTML = reports.map(r=>`
 
-<div class="card">
+        <div class="card" style="margin-bottom:8px;">
 
-<div style="
-display:flex;
-justify-content:space-between">
+            <div class="cardTitle">
+                ${r.region} / ${r.time}
+            </div>
 
-<span class="badge blue">
-#${r.id}
-</span>
+            <strong>${r.author}</strong>
 
-<span class="muted">
-${r.time}
-</span>
+            <p>${r.text}</p>
 
-</div>
+            <span class="tag">
+                UNVERIFIED
+            </span>
 
-<h3>${r.type}</h3>
+        </div>
 
-<p>
-“${r.text}”
-</p>
-
-<p>
-♥ ${r.likes}
-　💬 ${r.comments}
-</p>
-
-${
-r.id===58274
-?
-`
-<div class="notice red">
-[관리자 검토 중]
-관련 공식 기록과 불일치합니다.
-</div>
-`
-:""
-}
-
-</div>
-
-`).join("");
+    `).join("");
 
 }
 
 
 function submitReport(){
 
-const text=$("reportText").value.trim();
+    const author = $("reporter").value.trim() || "익명";
+    const region = $("reportRegion").value;
+    const text = $("reportText").value.trim();
 
-if(!text){
-alert("제보 내용을 입력하십시오.");
-return;
+    if(!text){
+
+        openModal(
+            "REPORT ERROR",
+            "보고 내용을 입력하십시오."
+        );
+
+        return;
+    }
+
+    reports.unshift({
+
+        region,
+        author,
+        text,
+        time:new Date().toLocaleTimeString("ko-KR",{
+            hour:"2-digit",
+            minute:"2-digit"
+        })
+
+    });
+
+    $("reportText").value = "";
+
+    renderReports();
+
+    openModal(
+        "REPORT RECEIVED",
+        `
+        보고가 접수되었습니다.<br><br>
+        <span class="muted">
+        본 보고는 사실관계 확인 전까지 비공개 검토 상태로 유지됩니다.
+        </span>
+        `
+    );
+
 }
 
-reports.unshift({
 
-id:58300+reports.length,
-type:$("reportType").value,
-text:text,
-time:"10.01 방금",
-likes:0,
-comments:0
+/* =========================================================
+   NOTICES
+========================================================= */
 
-});
+function renderNotices(){
 
-$("reportText").value="";
+    $("noticeList").innerHTML = notices.map(n=>`
 
-renderReports();
+        <div class="card">
 
-log("NEW CITIZEN REPORT SUBMITTED");
+            <div class="cardTitle">
+                ${n.region} / OFFICIAL
+            </div>
+
+            <div style="font-size:15px;">
+                ${n.title}
+            </div>
+
+            <p class="muted">
+                ${n.text}
+            </p>
+
+            <span class="tag">
+                AUTHORITY NOTICE
+            </span>
+
+        </div>
+
+    `).join("");
 
 }
 
 
-/* =====================================================
-PEOPLE
-===================================================== */
+/* =========================================================
+   PEOPLE
+========================================================= */
 
 function renderPeople(){
 
-const q=
-($("personSearch")?.value||"")
-.toLowerCase();
+    $("peopleList").innerHTML = people.map(p=>personHTML(p)).join("");
 
-const list=people.filter(p=>
-(
-p.name+
-p.id+
-p.from+
-p.to
-).toLowerCase().includes(q)
-);
+}
 
-$("peopleList").innerHTML=
-list.map(p=>`
 
-<div class="card">
+function personHTML(p){
 
-<h3>
-${p.name}
-</h3>
+    return `
 
-<span class="badge blue">
-${p.id}
-</span>
+        <div class="card" style="margin-bottom:8px;">
 
-<span class="badge">
-${p.from}
-</span>
+            <div style="display:flex;justify-content:space-between;">
 
-<span class="badge">
-${p.to}
-</span>
+                <div>
 
-<p>
-목적: ${p.purpose}
-</p>
+                    <strong>${p.name}</strong>
 
-<p>
-위험도:
-<span class="${
-p.risk==="HIGH"?"deny":
-p.risk==="MEDIUM"?"warn":"ok"
-}">
-${p.risk}
-</span>
-</p>
+                    <div class="muted">
+                        ${p.id}
+                    </div>
 
-<button class="action"
-onclick="openPerson('${p.id}')">
-기록 열람
-</button>
+                </div>
 
-</div>
+                <span class="${
+                    p.valid ? "ok" : "warning"
+                }">
+                    ${p.valid ? "VALID" : "INVALID"}
+                </span>
 
-`).join("")||`
+            </div>
 
-<div class="card">
-검색 결과 없음.
-</div>
+            <p class="muted">
 
-`;
+                ${p.from}
+                →
+                ${p.to}
+
+                /
+                ${p.purpose}
+
+            </p>
+
+            <button class="btn"
+                onclick="openPerson('${p.id}')">
+                OPEN RECORD
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function searchPeople(){
+
+    const q = $("personSearch").value.trim().toLowerCase();
+
+    if(!q){
+
+        renderPeople();
+
+        return;
+    }
+
+    const result = people.filter(p=>
+
+        p.name.toLowerCase().includes(q) ||
+        p.id.toLowerCase().includes(q)
+
+    );
+
+    $("peopleList").innerHTML =
+
+        result.length
+
+        ? result.map(p=>personHTML(p)).join("")
+
+        : `<div class="card warning">NO RECORD FOUND</div>`;
 
 }
 
 
 function openPerson(id){
 
-const p=people.find(x=>x.id===id);
+    const p = people.find(x=>x.id===id);
 
-if(!p)return;
+    if(!p) return;
 
-openModal(
-"PERSON RECORD",
-`
-<b>${p.name}</b><br><br>
+    openModal(
 
-시민번호: ${p.id}<br>
-출신: ${p.from}<br>
-목적지: ${p.to}<br>
-이동 목적: ${p.purpose}<br>
-위험도: ${p.risk}<br><br>
+        p.name+" / PERSON RECORD",
 
-최근 이동 기록과 검문 기록은
-별도의 중앙 DB에 저장됩니다.
-`
-);
+        `
+
+        <div class="card">
+
+            <div class="cardTitle">IDENTITY</div>
+
+            <div class="big">${p.name}</div>
+
+            <p>
+                ID : ${p.id}<br>
+                ORIGIN : ${p.from}<br>
+                DESTINATION : ${p.to}<br>
+                PURPOSE : ${p.purpose}<br>
+                DATABASE : ${
+                    p.valid
+                    ? '<span class="ok">VALID</span>'
+                    : '<span class="warning">INVALID</span>'
+                }
+            </p>
+
+        </div>
+
+        `
+
+    );
 
 }
 
 
-/* =====================================================
-TRANSPORT
-===================================================== */
+/* =========================================================
+   POPULATION
+========================================================= */
+
+function renderPopulation(){
+
+    $("populationTable").innerHTML =
+
+        Object.entries(regions).map(([name,r])=>`
+
+            <tr>
+
+                <td>${r.symbol} ${name}</td>
+
+                <td>${r.population.toLocaleString()}</td>
+
+                <td>${r.density}</td>
+
+                <td class="${
+                    r.status==="CRITICAL"
+                    ? "red"
+                    : r.status==="STABLE"
+                    ? "ok"
+                    : "warning"
+                }">
+                    ${r.status}
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+/* =========================================================
+   TRANSPORT
+========================================================= */
 
 function renderTransport(){
 
-$("transportList").innerHTML=
-transport.map(t=>`
+    $("transportList").innerHTML =
 
-<div class="card">
+        Object.entries(transport).map(([name,routes])=>`
 
-<h3>${t[0]}</h3>
+            <div class="card">
 
-<span class="badge ${
-t[1]==="OPEN"?"ok":
-t[1]==="RESTRICTED"?"deny":"warn"
-}">
-${t[1]}
-</span>
+                <div class="cardTitle">
+                    ${regions[name].symbol} ${name}
+                </div>
 
-<p>${t[2]}</p>
+                ${routes.map(t=>`
 
-<button class="action"
-onclick="startRoute('${t[0]}')">
-노선 조회
-</button>
+                    <div style="
+                        border-bottom:1px solid #34382f;
+                        padding:9px 0;
+                    ">
 
-</div>
+                        ${t[0]}
+                        /
+                        ${name}
+                        →
+                        ${t[1]}
 
-`).join("");
+                        <span style="float:right"
+                            class="${t[2]==='OPEN'?'ok':'warning'}">
+                            ${t[2]}
+                        </span>
 
-}
+                    </div>
 
+                `).join("")}
 
-function startRoute(route){
+            </div>
 
-openModal(
-"TRANSPORT ROUTE",
-`
-<b>${route}</b><br><br>
-
-현재 노선의 검문소 및
-교통량 정보를 불러왔습니다.<br><br>
-
-상태:
-<span class="warn">
-실시간 검사 중
-</span>
-`
-);
+        `).join("");
 
 }
 
 
-/* =====================================================
-MARKET
-===================================================== */
+/* =========================================================
+   MARKET
+========================================================= */
 
 function renderMarket(){
 
-$("marketList").innerHTML=
-market.map(m=>`
+    $("marketList").innerHTML =
 
-<div class="card">
+        Object.entries(market).map(([name,items])=>`
 
-<h3>
-${m[0]} / ${m[1]}
-</h3>
+            <div class="card">
 
-<div class="big-number">
-₳ ${m[2]}
-</div>
+                <div class="cardTitle">
+                    ${regions[name].symbol} ${name}
+                </div>
 
-<span class="badge ${
-m[3]==="LOW"?"warn":"ok"
-}">
-STOCK ${m[3]}
-</span>
+                ${items.map(item=>`
 
-<p>
-반출:
-${m[4]}
-</p>
+                    <div style="
+                        border-bottom:1px solid #34382f;
+                        padding:10px 0;
+                    ">
 
-<button class="action"
-onclick="openModal(
-'${m[0]} / ${m[1]}',
-'현재 가격: ₳ ${m[2]}<br><br>\
-재고: ${m[3]}<br>\
-반출 조건: ${m[4]}'
-)">
-상품 상세
-</button>
+                        <strong>${item[0]}</strong>
 
-</div>
+                        <span class="muted">
+                            / ${item[1]}
+                        </span>
 
-`).join("");
+                        <span style="float:right;">
+                            ${item[2]}
+                        </span>
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+        `).join("");
 
 }
 
 
-/* =====================================================
-CARGO
-===================================================== */
+/* =========================================================
+   CARGO
+========================================================= */
 
 function renderCargo(){
 
-$("cargoList").innerHTML=
-cargo.map(c=>`
+    $("cargoList").innerHTML = cargo.map(c=>`
 
-<div class="card">
+        <div class="card" style="margin-bottom:8px;">
 
-<h3>
-${c.code}
-</h3>
+            <div class="cardTitle">${c.code}</div>
 
-<p>
-${c.from}
-→
-${c.to}
-</p>
+            <strong>
+                ${c.origin}
+                →
+                ${c.destination}
+            </strong>
 
-<span class="badge ${
-c.status==="UNKNOWN"?"deny":"warn"
-}">
-${c.status}
-</span>
+            <p class="muted">
+                ${c.item}
+                /
+                ETA ${c.eta}
+            </p>
 
-</div>
+            <span class="${
+                c.status==="IN TRANSIT"
+                ? "ok"
+                : "warning"
+            }">
+                ${c.status}
+            </span>
 
-`).join("");
+        </div>
+
+    `).join("");
 
 }
 
 
 function trackCargo(){
 
-const code=$("cargoCode").value.trim().toUpperCase();
+    const code = $("cargoCode").value.trim().toUpperCase();
 
-const c=cargo.find(x=>x.code===code);
+    const c = cargo.find(x=>x.code===code);
 
-if(!c){
+    if(!c){
 
-$("cargoResult").innerHTML=`
+        $("cargoResult").innerHTML = `
 
-<div class="notice red">
-CARGO RECORD NOT FOUND
-<br><br>
-해당 화물의 공개 기록을 찾지 못했습니다.
-</div>
+            <div class="decision denied">
 
-`;
+                <strong class="warning">
+                    CARGO NOT FOUND
+                </strong>
 
-return;
+                <br>
+
+                등록된 운송 기록이 없습니다.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    $("cargoResult").innerHTML = `
+
+        <div class="decision">
+
+            <strong>${c.code}</strong>
+
+            <br><br>
+
+            ${c.origin}
+            →
+            ${c.destination}
+
+            <br>
+
+            ITEM :
+            ${c.item}
+
+            <br>
+
+            STATUS :
+            ${c.status}
+
+            <br>
+
+            ETA :
+            ${c.eta}
+
+        </div>
+
+    `;
 
 }
 
-$("cargoResult").innerHTML=`
 
-<div class="card">
-
-<h3>${c.code}</h3>
-
-<p>
-${c.from}
-→
-${c.to}
-</p>
-
-<span class="badge warn">
-${c.status}
-</span>
-
-<p>
-${c.history.join("<br>")}
-</p>
-
-</div>
-
-`;
-
-}
-
-
-/* =====================================================
-COMMUNITY
-===================================================== */
+/* =========================================================
+   COMMUNITY
+========================================================= */
 
 function renderCommunity(){
 
-$("communityList").innerHTML=
-community.map((c,i)=>`
+    $("communityList").innerHTML = community.map(c=>`
 
-<div class="card">
+        <div class="card">
 
-<div>
-<span class="badge blue">
-${c.region}
-</span>
+            <div class="cardTitle">
+                ${c.region}
+            </div>
 
-<span class="muted">
-${c.user}
-</span>
-</div>
+            <strong>${c.author}</strong>
 
-<p>
-${c.text}
-</p>
+            <p>${c.text}</p>
 
-<p>
-♥ ${120-i*17}
-　💬 ${32-i*4}
-</p>
+        </div>
 
-${
-i===3
-?
-`
-<div class="notice red">
-[댓글 일부 삭제됨]
-</div>
-`
-:""
-}
-
-</div>
-
-`).join("");
+    `).join("");
 
 }
 
 
-/* =====================================================
-CHECKPOINT
-===================================================== */
+/* =========================================================
+   RANDOM TRAVELER
+========================================================= */
 
 function randomTraveler(){
 
-const c=
-citizens[
-Math.floor(Math.random()*citizens.length)
-];
+    const p =
+        citizens[Math.floor(Math.random()*citizens.length)];
 
-$("origin").value=c.from;
-$("destination").value=c.to;
-$("citizenID").value=c.id;
-$("purpose").value=c.purpose;
+    $("origin").value = p.from;
+    $("destination").value = p.to;
+    $("citizenID").value = p.id;
+    $("purpose").value = p.purpose;
 
 }
 
+
+/* =========================================================
+   CHECKPOINT INSPECTION
+========================================================= */
 
 function inspectTravel(){
 
-const origin=$("origin").value;
-const destination=$("destination").value;
-const id=$("citizenID").value.trim().toUpperCase();
-const purpose=$("purpose").value;
+    const origin = $("origin").value;
+    const destination = $("destination").value;
+    const id = $("citizenID").value.trim().toUpperCase();
+    const purpose = $("purpose").value;
 
-let score=0;
-let reasons=[];
+    const c = people.find(p=>p.id===id);
 
-const c=people.find(x=>x.id===id);
+    $("scanLight").classList.add("on");
 
-if(!c){
+    $("checkpointMessage").textContent =
+        "DATABASE QUERY COMPLETE";
 
-score+=35;
-reasons.push("중앙 시민 DB에 일치하는 기록이 없습니다.");
+    let score = 0;
+    let reasons = [];
 
-}else{
+    if(!c){
 
-if(!c.valid){
+        score += 35;
+        reasons.push("신원 데이터베이스에 등록되지 않은 ID");
 
-score+=35;
-reasons.push("신분 기록이 유효하지 않습니다.");
+    }else{
 
-}
+        if(!c.valid){
 
-if(c.risk==="HIGH"){
+            score += 35;
+            reasons.push("유효하지 않은 통행 기록");
 
-score+=55;
-reasons.push("보안 데이터베이스 HIGH ALERT.");
+        }
 
-}
+        if(c.risk==="HIGH"){
 
-}
+            score += 55;
+            reasons.push("HIGH RISK 기록");
 
-if(origin===destination){
+        }
 
-score+=10;
-reasons.push("동일 구역 이동 요청.");
+        if(c.risk==="MEDIUM"){
 
-}
+            score += 25;
+            reasons.push("MEDIUM RISK 기록");
 
-if(destination==="제피란테스"){
+        }
 
-score+=15;
-reasons.push("제피란테스 현재 이동 제한.");
+        /* 중요 수정:
+           실제 선택 경로와 DB 기록의 경로도 비교 */
 
-}
+        if(c.from !== origin){
 
-if(origin==="아르메리아"){
+            score += 25;
+            reasons.push("출발지 기록 불일치");
 
-score+=10;
-reasons.push("아르메리아 출발자 추가 확인.");
+        }
 
-}
+        if(c.to !== destination){
 
-if(purpose==="물자 운송"){
+            score += 25;
+            reasons.push("목적지 기록 불일치");
 
-score-=5;
-reasons.push("등록 목적과 일치할 경우 우선 처리.");
+        }
 
-}
+        if(c.purpose !== purpose){
 
-let decision;
+            score += 15;
+            reasons.push("방문 목적 기록 불일치");
 
-if(score>=70){
+        }
 
-decision="ACCESS DENIED";
+    }
 
-}else if(score>=40){
+    if(origin===destination){
 
-decision="SECONDARY INSPECTION";
+        score += 10;
+        reasons.push("동일 구역 이동");
 
-}else{
+    }
 
-decision="ACCESS GRANTED";
+    if(destination==="제피란테스"){
 
-}
+        score += 15;
+        reasons.push("제피란테스 이동 제한");
 
-$("travelResult").innerHTML=`
+    }
 
-<div class="notice ${
-decision==="ACCESS DENIED"?"red":
-decision==="SECONDARY INSPECTION"?"":"blue"
-}">
+    if(origin==="아르메리아"){
 
-<b>${decision}</b>
+        score += 10;
+        reasons.push("아르메리아 출발");
 
-<br><br>
+    }
 
-RISK SCORE:
-${score}
+    if(purpose==="물자 운송"){
 
-<br><br>
+        score -= 5;
 
-${reasons.length
-?reasons.join("<br>")
-:"이상 징후가 발견되지 않았습니다."
-}
-
-</div>
-
-<button class="action gold"
-onclick="issuePermit('${origin}','${destination}')">
-통행증 발급
-</button>
-
-<button class="action"
-onclick="openModal(
-'INSPECTION REPORT',
-'출발: ${origin}<br>\
-목적지: ${destination}<br>\
-시민번호: ${id}<br>\
-목적: ${purpose}<br><br>\
-최종 판정: ${decision}'
-)">
-상세 보고서
-</button>
-
-`;
-
-$("checkpointLog").innerHTML+=
-"<br>[QUERY] "+
-origin+
-" → "+
-destination+
-" / "+
-decision;
-
-log(
-"TRAVEL INSPECTION: "+
-origin+
-" → "+
-destination
-);
-
-}
+    }
 
 
-function issuePermit(from,to){
+    let decision;
+    let cls;
 
-const permit=
-"TP-"+Math.floor(1000+Math.random()*9000);
+    if(score>=70){
 
-state.history.unshift({
-permit,
-from,
-to,
-time:new Date().toLocaleTimeString(
-"ko-KR",
-{hour12:false}
-)
-});
+        decision="ACCESS DENIED";
+        cls="denied";
 
-renderTravelHistory();
+    }else if(score>=40){
 
-openModal(
-"TRANSIT PERMIT ISSUED",
-`
-<b>${permit}</b><br><br>
+        decision="SECONDARY INSPECTION";
+        cls="secondary";
 
-출발: ${from}<br>
-목적지: ${to}<br>
-유효시간: 72 HOURS<br>
-상태: CONDITIONAL<br><br>
+    }else{
 
-이 통행증은 이후 검문소에서
-다시 스캔할 수 있습니다.
-`
-);
+        decision="ACCESS GRANTED";
+        cls="granted";
 
-}
+    }
 
 
-function renderTravelHistory(){
+    $("travelResult").innerHTML = `
 
-if(!state.history.length){
+        <div class="decision ${cls}">
 
-$("travelHistory").textContent=
-"아직 기록 없음.";
+            <div style="
+                font-size:20px;
+                margin-bottom:8px;
+            ">
+                ${decision}
+            </div>
 
-return;
+            <div class="muted">
+                RISK SCORE : ${score}
+            </div>
 
-}
+            <hr style="
+                border:0;
+                border-top:1px solid #3c4037;
+                margin:12px 0;
+            ">
 
-$("travelHistory").innerHTML=
-state.history.slice(0,5).map(x=>`
-<div style="margin-bottom:6px">
-${x.permit}<br>
-${x.from} → ${x.to}
-</div>
-`).join("");
+            ${
+                reasons.length
+                ? reasons.map(r=>`• ${r}<br>`).join("")
+                : "특이사항 없음"
+            }
+
+            <br>
+
+            ${
+                decision==="ACCESS DENIED"
+                ?
+
+                `<button class="btn btnDanger"
+                    onclick="openRegion('${destination}')">
+                    DESTINATION FILE
+                </button>`
+
+                :
+
+                `
+
+                <button class="btn btnGood"
+                    onclick="issuePermit('${id}','${origin}','${destination}')">
+                    ISSUE TRANSIT PERMIT
+                </button>
+
+                <button class="btn"
+                    onclick="openRegion('${destination}')">
+                    TRANSFER TO ${destination}
+                </button>
+
+                `
+            }
+
+        </div>
+
+    `;
 
 }
 
 
-/* =====================================================
-SCANNER
-===================================================== */
+/* =========================================================
+   PERMIT
+========================================================= */
+
+function issuePermit(id,origin,destination){
+
+    const permit =
+        "PERMIT-"+Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+    openModal(
+
+        "TRANSIT PERMIT ISSUED",
+
+        `
+
+        <div class="card">
+
+            <div class="cardTitle">AUTHORIZED PASSAGE</div>
+
+            <div class="big">${permit}</div>
+
+            <br>
+
+            CITIZEN :
+            ${id}
+
+            <br>
+
+            ROUTE :
+            ${origin}
+            →
+            ${destination}
+
+            <br><br>
+
+            <span class="ok">
+                ACCESS GRANTED
+            </span>
+
+        </div>
+
+        <br>
+
+        <button class="btn btnGood"
+            onclick="openRegion('${destination}')">
+            ENTER ${destination}
+        </button>
+
+        `
+
+    );
+
+}
+
+
+/* =========================================================
+   SCANNER
+========================================================= */
 
 function runScan(){
 
-const code=$("scanCode").value.trim().toUpperCase();
+    const value =
+        $("scanInput").value.trim().toUpperCase();
 
-$("scanResult").innerHTML=`
+    $("globalScanLight").classList.add("on");
 
-<div class="scanline"></div>
-<p>SCANNING...</p>
+    if(value==="0417"){
 
-`;
+        $("scanResult").innerHTML = `
 
-setTimeout(()=>{
+            <div class="decision secondary">
 
-let result;
+                <strong>SECURITY ACCESS CODE ACCEPTED</strong>
 
-if(code==="0417"){
+                <br><br>
 
-result=`
+                ARCHIVE NODE :
+                <span class="warning">RESTRICTED</span>
 
-<b class="deny">
-RESTRICTED RECORD FOUND
-</b>
+                <br>
 
-<br><br>
+                ADDITIONAL CLEARANCE REQUIRED.
 
-문서번호:
-P-0417
+            </div>
 
-<br>
+        `;
 
-삭제된 이동 기록 1건 발견.
+        return;
+    }
 
-<br><br>
 
-「인구 조정 대상자의 최종 행선지」
+    const person =
+        people.find(p=>p.id===value);
 
-<br><br>
+    if(person){
 
-<span class="warn">
-일부 데이터가 의도적으로 제거되었습니다.
-</span>
+        $("scanResult").innerHTML = `
 
-`;
+            <div class="decision">
 
-}else{
+                PERSON RECORD FOUND
 
-const p=people.find(x=>x.id===code);
+                <br><br>
 
-if(p){
+                ${person.name}
 
-result=`
+                <br>
 
-<b class="ok">
-IDENTIFICATION CONFIRMED
-</b>
+                ${person.from}
+                →
+                ${person.to}
 
-<br><br>
+                <br>
 
-이름:
-${p.name}
+                STATUS :
+                ${person.valid
+                ? '<span class="ok">VALID</span>'
+                : '<span class="warning">INVALID</span>'}
 
-<br>
+                <br><br>
 
-출신:
-${p.from}
+                <button class="btn"
+                    onclick="openPerson('${person.id}')">
+                    OPEN FULL RECORD
+                </button>
 
-<br>
+            </div>
 
-목적지:
-${p.to}
+        `;
 
-<br>
+        return;
+    }
 
-위험도:
-${p.risk}
 
-`;
+    const c =
+        cargo.find(x=>x.code===value);
 
-}else{
+    if(c){
 
-const c=cargo.find(x=>x.code===code);
+        $("scanResult").innerHTML = `
 
-if(c){
+            <div class="decision">
 
-result=`
+                CARGO RECORD FOUND
 
-<b class="warn">
-CARGO RECORD
-</b>
+                <br><br>
 
-<br><br>
+                ${c.code}
 
-출발:
-${c.from}
+                <br>
 
-<br>
+                ${c.origin}
+                →
+                ${c.destination}
 
-목적지:
-${c.to}
+                <br>
 
-<br>
+                STATUS :
+                ${c.status}
 
-상태:
-${c.status}
+            </div>
 
-`;
+        `;
 
-}else{
+        return;
+    }
 
-result=`
 
-<b class="warn">
-RECORD NOT FOUND
-</b>
+    $("scanResult").innerHTML = `
 
-<br><br>
+        <div class="decision denied">
 
-공개 중앙 DB에서 일치하는 기록이 없습니다.
+            <strong class="warning">
+                NO RECORD FOUND
+            </strong>
 
-<br><br>
+            <br><br>
 
-※ 삭제 / 비공개 / 미등록 기록일 가능성이 있습니다.
+            입력값이 데이터베이스에서 확인되지 않았습니다.
 
-`;
+        </div>
 
-}
-
-}
-
-}
-
-$("scanResult").innerHTML=result;
-
-log("DOCUMENT SCAN: "+code);
-
-},650);
+    `;
 
 }
 
 
-/* =====================================================
-INITIALIZE
-===================================================== */
+/* =========================================================
+   ARCHIVE
+========================================================= */
 
+function openRestricted(){
+
+    openModal(
+
+        "RESTRICTED ARCHIVE",
+
+        `
+
+        <div class="decision denied">
+
+            <strong class="warning">
+                ACCESS DENIED
+            </strong>
+
+            <br><br>
+
+            SECURITY LEVEL 04 이상의 권한이 필요합니다.
+
+            <br><br>
+
+            FILE :
+            HIST-████-████
+
+        </div>
+
+        `
+
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderLogs();
 renderRegions();
+renderNews();
 renderHistory();
 renderReports();
+renderNotices();
 renderPeople();
+renderPopulation();
 renderTransport();
 renderMarket();
 renderCargo();
 renderCommunity();
-renderTravelHistory();
-
-log("CENTRAL DATABASE CONNECTION ESTABLISHED");
-log("FOUR REGIONAL NETWORKS CONNECTED");
-log("POINSETTIA NETWORK ONLINE");
-log("ARMERIA NETWORK ONLINE");
-log("ASPHODEL NETWORK ONLINE");
-log("ZEPHYRANTHES NETWORK DEGRADED");
-log("HISTORICAL ARCHIVE INDEXED");
 
 </script>
 
