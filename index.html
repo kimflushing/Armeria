@@ -7,2135 +7,2320 @@
 <title>AREA TRANSIT CONTROL</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
 
-:root{
-  --bg:#080908;
-  --panel:#24271f;
-  --panel2:#2d3027;
-  --dark:#151713;
-  --paper:#d8d6c7;
-  --ink:#171914;
-  --muted:#858a79;
-  --line:#555a4a;
-  --gold:#d2a33d;
-  --green:#7da568;
-  --red:#b95349;
-  --blue:#7895a8;
-  --white:#d8d9cf;
+* {
+    box-sizing: border-box;
 }
 
-*{
-  box-sizing:border-box;
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background: #101214;
+    color: #d8dadd;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
-body{
-  margin:0;
-  background:#050605;
-  color:var(--white);
-  font-family:"IBM Plex Mono",monospace;
-  min-height:100vh;
+body {
+    padding: 25px 0;
+    overflow-x: auto;
 }
 
-button,input,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-#app{
-  width:min(1220px,96vw);
-  min-width:820px;
-  margin:18px auto;
-  background:var(--panel);
-  border:3px solid #5d624f;
-  box-shadow:
-    0 0 0 5px #171913,
-    0 20px 70px #000;
-}
-
-/* =========================
-   TOP
-========================= */
-
-.topbar{
-  height:46px;
-  background:#35392e;
-  border-bottom:2px solid #111;
-  padding:8px 13px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.lamp{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#79a663;
-  box-shadow:0 0 9px #79a663;
-}
-
-.top-title{
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:1px;
-}
-
-.top-right{
-  margin-left:auto;
-  color:#a2a795;
-  font-size:11px;
-}
-
-.alertbar{
-  min-height:33px;
-  padding:7px 13px;
-  background:#191b16;
-  border-bottom:1px solid #4d5144;
-  color:#c5a35b;
-  font-size:11px;
-}
-
-/* =========================
-   LAYOUT
-========================= */
-
-.layout{
-  display:grid;
-  grid-template-columns:205px 1fr 225px;
-  min-height:750px;
-}
-
-.sidebar,
-.rightbar{
-  background:#292c24;
-  padding:11px;
-}
-
-.sidebar{
-  border-right:2px solid #111;
-}
-
-.rightbar{
-  border-left:2px solid #111;
-}
-
-.brand{
-  border:1px solid #656a57;
-  background:#1c1f19;
-  text-align:center;
-  padding:12px;
-  margin-bottom:12px;
-}
-
-.seal{
-  font-size:27px;
-  color:var(--gold);
-}
-
-.brand h1{
-  font-size:13px;
-  margin:7px 0 3px;
-}
-
-.brand small{
-  color:#898e7d;
-  font-size:9px;
-}
-
-.nav button{
-  display:block;
-  width:100%;
-  text-align:left;
-  margin:3px 0;
-  padding:8px 7px;
-  border:1px solid transparent;
-  background:transparent;
-  color:#bfc2b3;
-  font-size:10px;
-}
-
-.nav button:hover,
-.nav button.active{
-  background:#3a3d31;
-  border-color:#646957;
-  color:#fff;
-}
-
-.nav .num{
-  float:right;
-  color:#777d6d;
-}
-
-.sidebox{
-  border-top:1px solid #555a4a;
-  margin-top:14px;
-  padding-top:10px;
-}
-
-.sidebox h3{
-  font-size:10px;
-  color:#a9ad9e;
-  margin:0 0 7px;
-}
-
-.statline{
-  display:flex;
-  justify-content:space-between;
-  font-size:9px;
-  padding:4px 0;
-  color:#9da292;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main{
-  background:#1a1c17;
-  padding:16px;
-  overflow:hidden;
-}
-
-.view{
-  display:none;
-}
-
-.view.active{
-  display:block;
-}
-
-.section-title{
-  font-size:17px;
-  letter-spacing:1px;
-  margin:0 0 12px;
-}
-
-.sub{
-  font-size:10px;
-  color:#858a79;
-  margin:-7px 0 14px;
-}
-
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.grid3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-}
-
-.card{
-  background:#252820;
-  border:1px solid #555a4a;
-  padding:11px;
-  margin-bottom:9px;
-}
-
-.card h3{
-  font-size:11px;
-  margin:0 0 7px;
-  color:#d6d7cc;
-}
-
-.card p{
-  font-size:9px;
-  line-height:1.65;
-  color:#aeb2a3;
-  margin:4px 0;
-}
-
-.badge{
-  display:inline-block;
-  padding:3px 5px;
-  border:1px solid #626755;
-  font-size:8px;
-  margin:2px;
-}
-
-.ok{
-  color:#8eb173;
-  border-color:#668352;
-}
-
-.deny{
-  color:#d77b70;
-  border-color:#8e4c47;
-}
-
-.warn{
-  color:#d5aa55;
-  border-color:#8d7138;
-}
-
-.blue{
-  color:#8ca8bb;
-  border-color:#607586;
-}
-
-/* =========================
-   BUTTON
-========================= */
-
-button.action{
-  border:1px solid #747a65;
-  background:#363a2e;
-  color:#e0e1d8;
-  padding:8px 10px;
-  font-size:10px;
-  margin:2px;
-}
-
-button.action:hover{
-  background:#464a3b;
-}
-
-button.gold{
-  border-color:#8d7138;
-  color:#e0b75b;
-}
-
-button.danger{
-  border-color:#8d4b45;
-  color:#e49a91;
-}
-
-/* =========================
-   INPUT
-========================= */
-
+button,
 input,
-select{
-  width:100%;
-  background:#11130f;
-  border:1px solid #555a4a;
-  color:#d8d9cf;
-  padding:8px;
-  margin:3px 0 7px;
-  outline:none;
-  font-size:10px;
+select,
+textarea {
+    font-family: inherit;
 }
 
-/* =========================
-   NOTICE
-========================= */
-
-.notice{
-  padding:8px;
-  background:#171914;
-  border-left:3px solid var(--gold);
-  font-size:9px;
-  line-height:1.6;
-  margin:6px 0;
+button {
+    cursor: pointer;
 }
 
-.notice.red{
-  border-color:var(--red);
+/* =========================================
+   SYSTEM WINDOW
+========================================= */
+
+#system-window {
+    width: 1180px;
+    min-height: 820px;
+    margin: auto;
+    background: #191c1f;
+    border: 1px solid #4a4e53;
+    box-shadow:
+        0 0 0 5px #0d0f11,
+        0 25px 80px rgba(0,0,0,.65);
+    position: relative;
 }
 
-.notice.blue{
-  border-color:var(--blue);
+.titlebar {
+    height: 42px;
+    background: #25282c;
+    border-bottom: 1px solid #484c51;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: .08em;
 }
 
-/* =========================
-   NEWSPAPER
-========================= */
-
-.paper{
-  background:var(--paper);
-  color:var(--ink);
-  border:2px solid #777967;
-  box-shadow:4px 5px 0 #0d0e0c;
-  padding:15px;
+.titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.paper h2{
-  font-family:Georgia,serif;
-  font-size:24px;
-  margin:0 0 4px;
+.system-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #9c2525;
+    box-shadow: 0 0 8px #9c2525;
 }
 
-.paper .date{
-  font-size:9px;
-  border-top:1px solid #777;
-  border-bottom:1px solid #777;
-  padding:5px 0;
-  margin:7px 0 10px;
+.window-buttons {
+    display: flex;
+    gap: 7px;
 }
 
-/* =========================
+.window-buttons span {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #777;
+    display: block;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid #3e4247;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(140,20,20,.08),
+            transparent 35%,
+            transparent 65%,
+            rgba(255,255,255,.025)
+        );
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.system-name {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: #f0f0f0;
+}
+
+.system-sub {
+    margin-top: 7px;
+    font-family: "IBM Plex Mono", monospace;
+    color: #858a90;
+    font-size: 11px;
+    letter-spacing: .1em;
+}
+
+.clock {
+    text-align: right;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: #aeb2b6;
+}
+
+.status-line {
+    margin-top: 14px;
+    display: flex;
+    gap: 18px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    color: #777c82;
+}
+
+.status-line .online {
+    color: #8ca78e;
+}
+
+/* =========================================
+   NAV
+========================================= */
+
+nav {
+    display: flex;
+    border-bottom: 1px solid #42464a;
+    background: #17191b;
+    overflow-x: auto;
+}
+
+nav button {
+    flex: 1;
+    min-width: 110px;
+    padding: 15px 10px;
+    border: 0;
+    border-right: 1px solid #36393d;
+    background: transparent;
+    color: #858a90;
+    font-size: 11px;
+    letter-spacing: .04em;
+}
+
+nav button:hover {
+    background: #222529;
+    color: #ddd;
+}
+
+nav button.active {
+    background: #292d31;
+    color: #fff;
+    box-shadow: inset 0 -2px #9d3333;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+#content {
+    padding: 25px;
+    min-height: 670px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid #3e4247;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+}
+
+.page-title h1 {
+    margin: 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: .08em;
+}
+
+.page-title small {
+    color: #74797f;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.panel {
+    border: 1px solid #41454a;
+    background: #1c1f22;
+}
+
+.panel-head {
+    padding: 11px 14px;
+    background: #25282b;
+    border-bottom: 1px solid #3c4044;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: #c4c7ca;
+    letter-spacing: .06em;
+}
+
+.panel-body {
+    padding: 18px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* =========================================
+   HOME
+========================================= */
+
+.alert-bar {
+    border: 1px solid #713030;
+    background: rgba(116,30,30,.13);
+    color: #d19a9a;
+    padding: 12px 15px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    margin-bottom: 18px;
+}
+
+.checkpoint-status {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.checkpoint {
+    border: 1px solid #3f4347;
+    padding: 15px;
+    background: #191c1f;
+}
+
+.checkpoint:hover {
+    border-color: #777;
+}
+
+.cp-number {
+    color: #6f747a;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+}
+
+.cp-name {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cp-status {
+    margin-top: 13px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+}
+
+.green {
+    color: #86a88a;
+}
+
+.yellow {
+    color: #b6a16b;
+}
+
+.red {
+    color: #b96666;
+}
+
+.orange {
+    color: #bd8d5e;
+}
+
+.quick-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 18px;
+}
+
+.big-number {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 31px;
+    color: #eee;
+}
+
+.mini-label {
+    color: #73787e;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    margin-bottom: 8px;
+}
+
+.log {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    line-height: 1.9;
+    color: #81868c;
+}
+
+.log span {
+    color: #aaaeb2;
+}
+
+.hot-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hot-list li {
+    padding: 11px 0;
+    border-bottom: 1px solid #303438;
+    font-size: 11px;
+}
+
+.hot-list li:last-child {
+    border-bottom: 0;
+}
+
+.hot {
+    color: #c16b6b;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    margin-right: 7px;
+}
+
+/* =========================================
+   TRANSIT
+========================================= */
+
+.route-box {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 10px;
+    align-items: end;
+}
+
+.route-arrow {
+    text-align: center;
+    padding-bottom: 11px;
+    font-family: "IBM Plex Mono", monospace;
+    color: #73787d;
+}
+
+label {
+    display: block;
+    color: #81868c;
+    font-size: 10px;
+    margin-bottom: 7px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+select,
+input,
+textarea {
+    width: 100%;
+    border: 1px solid #45494e;
+    background: #121416;
+    color: #d9dbdd;
+    padding: 11px;
+    outline: none;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+    border-color: #8a4141;
+}
+
+.form-row {
+    margin-top: 16px;
+}
+
+.button {
+    margin-top: 18px;
+    border: 1px solid #6e3434;
+    background: #321d1d;
+    color: #e1b4b4;
+    padding: 12px 20px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+}
+
+.button:hover {
+    background: #4a2525;
+}
+
+.result {
+    margin-top: 20px;
+    border: 1px solid #44484d;
+    background: #111315;
+    min-height: 170px;
+    display: none;
+}
+
+.result.show {
+    display: block;
+}
+
+.result.granted {
+    border-color: #506955;
+}
+
+.result.denied {
+    border-color: #713535;
+}
+
+.result-head {
+    padding: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 22px;
+    letter-spacing: .08em;
+}
+
+.result.granted .result-head {
+    color: #93b194;
+}
+
+.result.denied .result-head {
+    color: #bf7373;
+}
+
+.result-body {
+    padding: 0 16px 17px;
+    color: #999da1;
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+.reason {
+    margin-top: 8px;
+    padding: 10px;
+    border-left: 2px solid #693939;
+    background: #1b1718;
+}
+
+/* =========================================
+   AREA MAP
+========================================= */
+
+.map {
+    padding: 25px;
+    background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+    background-size: 25px 25px;
+    border: 1px solid #393d41;
+}
+
+.map-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+}
+
+.area {
+    width: 190px;
+    min-height: 150px;
+    border: 1px solid #555a60;
+    background: #202327;
+    padding: 18px;
+    position: relative;
+    transition: .2s;
+}
+
+.area:hover {
+    background: #282c30;
+    border-color: #9a9da0;
+}
+
+.area-code {
+    font-family: "IBM Plex Mono", monospace;
+    color: #72777c;
+    font-size: 10px;
+}
+
+.area h2 {
+    margin: 10px 0;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.area p {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    color: #858a90;
+    line-height: 1.7;
+}
+
+.connection {
+    width: 55px;
+    height: 1px;
+    background: #555a60;
+    position: relative;
+}
+
+.connection::after {
+    content: "◆";
+    position: absolute;
+    left: 50%;
+    top: -8px;
+    transform: translateX(-50%);
+    color: #777c81;
+    font-size: 9px;
+}
+
+/* =========================================
    TABLE
-========================= */
+========================================= */
 
-.table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:9px;
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
 }
 
-.table th,
-.table td{
-  border-bottom:1px solid #555a4a;
-  padding:7px 5px;
-  text-align:left;
+.data-table th {
+    text-align: left;
+    color: #72777c;
+    background: #24272a;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 400;
 }
 
-.table th{
-  color:#aeb3a1;
+.data-table th,
+.data-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #34383c;
 }
 
-/* =========================
-   MAP
-========================= */
-
-.map{
-  position:relative;
-  height:430px;
-  background:#141611;
-  border:1px solid #555a4a;
-  overflow:hidden;
+.data-table td {
+    color: #b8bbc0;
 }
 
-.map:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(#31352b 1px,transparent 1px),
-    linear-gradient(90deg,#31352b 1px,transparent 1px);
-  background-size:32px 32px;
-  opacity:.35;
+.data-table tr:hover td {
+    background: #222528;
 }
 
-.zone{
-  position:absolute;
-  width:150px;
-  height:105px;
-  border:2px solid #777d69;
-  background:#282c23;
-  padding:9px;
-  z-index:1;
-  cursor:pointer;
+/* =========================================
+   POPULATION
+========================================= */
+
+.population-card {
+    border: 1px solid #404449;
+    padding: 18px;
+    background: #1b1e21;
 }
 
-.zone:hover{
-  background:#35392d;
+.population-name {
+    font-size: 13px;
+    margin-bottom: 7px;
 }
 
-.zone b{
-  font-size:15px;
+.population-number {
+    font-family: "IBM Plex Mono", monospace;
+    color: #aeb2b6;
+    font-size: 10px;
 }
 
-.zone small{
-  display:block;
-  color:#8f9584;
-  font-size:8px;
-  line-height:1.5;
-  margin-top:6px;
+.bar {
+    margin-top: 13px;
+    height: 8px;
+    background: #101214;
+    border: 1px solid #3c4044;
 }
 
-.z1{
-  left:25px;
-  top:35px;
+.bar span {
+    display: block;
+    height: 100%;
+    background: #72777d;
 }
 
-.z2{
-  left:245px;
-  top:175px;
+.population-card.warning .bar span {
+    background: #9a5d4e;
 }
 
-.z3{
-  left:475px;
-  top:35px;
+.population-card.danger .bar span {
+    background: #913d3d;
 }
 
-.z4{
-  left:710px;
-  top:190px;
+.population-status {
+    margin-top: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
 }
 
-.route{
-  position:absolute;
-  height:3px;
-  background:#777d68;
-  transform-origin:left center;
-  z-index:0;
+/* =========================================
+   NEWS
+========================================= */
+
+.news-card {
+    border-bottom: 1px solid #373b3f;
+    padding: 17px 5px;
 }
 
-.r1{
-  left:165px;
-  top:95px;
-  width:180px;
-  transform:rotate(25deg);
+.news-card:first-child {
+    padding-top: 0;
 }
 
-.r2{
-  left:395px;
-  top:225px;
-  width:170px;
-  transform:rotate(-28deg);
+.news-category {
+    font-family: "IBM Plex Mono", monospace;
+    color: #8d4b4b;
+    font-size: 9px;
 }
 
-.r3{
-  left:625px;
-  top:120px;
-  width:190px;
-  transform:rotate(24deg);
+.news-title {
+    margin: 7px 0;
+    font-size: 14px;
 }
 
-.check{
-  position:absolute;
-  z-index:2;
-  background:#b54f45;
-  border:2px solid #d17a6e;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  box-shadow:0 0 0 3px #161813;
+.news-content {
+    color: #858a8f;
+    font-size: 10px;
+    line-height: 1.8;
 }
 
-.c1{
-  left:210px;
-  top:140px;
+.news-date {
+    margin-top: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    color: #5f6469;
+    font-size: 9px;
 }
 
-.c2{
-  left:430px;
-  top:155px;
+/* =========================================
+   REPORTS
+========================================= */
+
+.report {
+    border: 1px solid #3d4145;
+    background: #1b1e21;
+    padding: 16px;
+    margin-bottom: 10px;
 }
 
-.c3{
-  left:650px;
-  top:150px;
+.report.deleted {
+    opacity: .55;
 }
 
-/* =========================
-   PERSON / DOCUMENT
-========================= */
-
-.person{
-  background:#252820;
-  border:1px solid #5d624f;
-  padding:10px;
-  margin-bottom:8px;
+.report-meta {
+    font-family: "IBM Plex Mono", monospace;
+    color: #656a70;
+    font-size: 9px;
 }
 
-.person-head{
-  display:flex;
-  gap:10px;
+.report-title {
+    margin: 8px 0;
+    font-size: 12px;
 }
 
-.avatar{
-  width:52px;
-  height:62px;
-  border:1px solid #707663;
-  background:#3a3e31;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  color:#9ca18f;
+.report-text {
+    color: #8a8f94;
+    font-size: 10px;
+    line-height: 1.8;
 }
 
-.person h3{
-  font-size:12px;
-  margin:0 0 4px;
+.report-bottom {
+    margin-top: 12px;
+    color: #686d72;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
 }
 
-.person small{
-  color:#8e9483;
-  font-size:8px;
+/* =========================================
+   NOTICES
+========================================= */
+
+.notice {
+    padding: 17px;
+    border: 1px solid #41454a;
+    background: #1c1f22;
+    margin-bottom: 11px;
 }
 
-.person .facts{
-  font-size:9px;
-  line-height:1.65;
-  color:#b8bcae;
-  margin-top:8px;
+.notice.urgent {
+    border-color: #713939;
 }
 
-.doc{
-  background:#d8d6c7;
-  color:#191b17;
-  border:2px solid #747768;
-  padding:11px;
-  margin:6px 0;
-  box-shadow:2px 3px 0 #0c0d0b;
-  cursor:pointer;
+.notice-title {
+    font-size: 13px;
+    margin-bottom: 8px;
 }
 
-.doc:hover{
-  transform:translateY(-1px);
+.notice-content {
+    font-size: 10px;
+    color: #888d92;
+    line-height: 1.9;
 }
 
-.doc b{
-  font-size:11px;
+.notice-footer {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #34383c;
+    font-family: "IBM Plex Mono", monospace;
+    color: #5f6469;
+    font-size: 9px;
 }
 
-.doc span{
-  display:block;
-  font-size:8px;
-  margin-top:5px;
-  line-height:1.6;
+/* =========================================
+   WANTED
+========================================= */
+
+.person {
+    border: 1px solid #41454a;
+    background: #1b1e21;
+    padding: 16px;
 }
 
-/* =========================
-   BARCODE
-========================= */
-
-.barcode{
-  height:45px;
-  margin:7px 0;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #111 0,
-      #111 2px,
-      #eee 2px,
-      #eee 4px,
-      #111 4px,
-      #111 5px,
-      #eee 5px,
-      #eee 8px
-    );
-  border:3px solid #ddd;
+.person-id {
+    font-family: "IBM Plex Mono", monospace;
+    color: #777c82;
+    font-size: 9px;
 }
 
-/* =========================
-   RULE / LOG
-========================= */
-
-.rule{
-  background:#22251e;
-  border:1px solid #555a4a;
-  padding:9px;
-  font-size:9px;
-  line-height:1.7;
+.person-name {
+    margin: 10px 0;
+    font-size: 15px;
 }
 
-.rule strong{
-  color:#d2a33d;
+.person-info {
+    font-size: 10px;
+    color: #8c9196;
+    line-height: 1.8;
 }
 
-.log{
-  height:115px;
-  overflow:auto;
-  background:#0d0f0c;
-  border:1px solid #44493c;
-  padding:8px;
-  color:#7eaa6b;
-  font-size:8px;
-  line-height:1.6;
+.person-status {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #363a3e;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
 }
 
-/* =========================
+/* =========================================
    SCANNER
-========================= */
+========================================= */
 
-.scanline{
-  height:4px;
-  background:#5e914b;
-  box-shadow:0 0 8px #5e914b;
-  margin:9px 0;
-  animation:pulse 1s infinite;
+.scanner {
+    max-width: 650px;
+    margin: auto;
 }
 
-@keyframes pulse{
-  50%{
-    opacity:.35;
-  }
+.barcode {
+    margin: 20px auto;
+    width: 300px;
+    height: 90px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #eee 0px,
+            #eee 2px,
+            #111 2px,
+            #111 4px,
+            #eee 4px,
+            #eee 7px,
+            #111 7px,
+            #111 8px
+        );
+    border: 10px solid #eee;
+    position: relative;
 }
 
-/* =========================
-   PROGRESS
-========================= */
-
-.progress{
-  height:9px;
-  background:#10120f;
-  border:1px solid #4d5244;
-  margin:5px 0 9px;
+.barcode::after {
+    content: "7 0391 4402 91";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -27px;
+    color: #ccc;
+    background: #191c1f;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    text-align: center;
 }
 
-.progress i{
-  display:block;
-  height:100%;
-  background:#8a9a63;
+.scan-button {
+    display: block;
+    margin: 40px auto 0;
 }
 
-/* =========================
+/* =========================================
+   HIDDEN FILE
+========================================= */
+
+.secret {
+    border: 1px solid #613636;
+    background: #171314;
+    padding: 20px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.secret h3 {
+    color: #b46a6a;
+    font-weight: 500;
+}
+
+.secret-text {
+    color: #8f7474;
+    font-size: 10px;
+    line-height: 2;
+    white-space: pre-line;
+}
+
+/* =========================================
    MODAL
-========================= */
+========================================= */
 
-.modal{
-  position:fixed;
-  inset:0;
-  background:#000b;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:99;
+#modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.modal.show{
-  display:flex;
+#modal.show {
+    display: flex;
 }
 
-.modal-box{
-  width:min(700px,88vw);
-  max-height:82vh;
-  overflow:auto;
-  background:#24271f;
-  border:2px solid #737866;
-  box-shadow:0 0 30px #000;
-  padding:15px;
+.modal-box {
+    width: 620px;
+    max-width: 100%;
+    border: 1px solid #666;
+    background: #1b1e21;
+    box-shadow: 0 20px 70px #000;
 }
 
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  border-bottom:1px solid #555a4a;
-  padding-bottom:8px;
-  margin-bottom:10px;
+.modal-head {
+    padding: 14px;
+    background: #282b2f;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
 }
 
-.close{
-  background:none;
-  border:0;
-  color:#aaa;
-  font-size:18px;
+.modal-close {
+    color: #999;
+    cursor: pointer;
 }
 
-.footerline{
-  border-top:1px solid #555a4a;
-  margin-top:12px;
-  padding-top:8px;
-  font-size:8px;
-  color:#676d5e;
+.modal-body {
+    padding: 22px;
+    font-size: 11px;
+    color: #92979c;
+    line-height: 1.9;
 }
 
-.muted{
-  color:#808678;
-  font-size:9px;
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    border-top: 1px solid #3d4145;
+    padding: 13px 25px;
+    display: flex;
+    justify-content: space-between;
+    color: #555a5f;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
 }
 
-/* 모바일에서도 데스크톱 단말기처럼 유지 */
-@media(max-width:900px){
-  body{
-    overflow-x:auto;
-  }
+/* =========================================
+   MOBILE : DESKTOP WINDOW SCALE
+========================================= */
 
-  #app{
-    margin:8px auto;
-  }
+@media (max-width: 700px) {
 
-  .layout{
-    grid-template-columns:190px 1fr 205px;
-  }
+    body {
+        padding: 0;
+        min-width: 1180px;
+        transform-origin: top left;
+    }
+
+    #system-window {
+        margin: 0;
+    }
 }
 </style>
 </head>
 
-
 <body>
 
-<div id="app">
+<div id="system-window">
 
-  <!-- =========================
-       TOP BAR
-  ========================== -->
-
-  <div class="topbar">
-    <span class="lamp"></span>
-
-    <span class="top-title">
-      AREA TRANSIT CONTROL // REGIONAL ADMINISTRATION NETWORK
-    </span>
-
-    <span class="top-right" id="clock">
-      SYSTEM TIME --:--:--
-    </span>
-  </div>
-
-  <div class="alertbar">
-    ⚠ SYSTEM ONLINE — 오늘의 이동 규정이 적용되었습니다.
-  </div>
-
-
-  <div class="layout">
-
-    <!-- =========================
-         LEFT SIDEBAR
-    ========================== -->
-
-    <aside class="sidebar">
-
-      <div class="brand">
-        <div class="seal">◉</div>
-
-        <h1>
-          AREA TRANSIT<br>
-          CONTROL
-        </h1>
-
-        <small>
-          구역간 이동 관리국
-        </small>
-      </div>
-
-
-      <div class="nav">
-
-        <button class="active" data-view="dashboard">
-          01 / CONTROL DESK
-          <span class="num">●</span>
-        </button>
-
-        <button data-view="checkpoint">
-          02 / CHECKPOINT
-        </button>
-
-        <button data-view="news">
-          03 / AREA NEWS
-          <span class="num">7</span>
-        </button>
-
-        <button data-view="reports">
-          04 / CITIZEN REPORTS
-          <span class="num">23</span>
-        </button>
-
-        <button data-view="notices">
-          05 / OFFICIAL NOTICES
-        </button>
-
-        <button data-view="wanted">
-          06 / SECURITY DATABASE
-        </button>
-
-        <button data-view="map">
-          07 / AREA MAP
-        </button>
-
-        <button data-view="population">
-          08 / POPULATION
-        </button>
-
-        <button data-view="scanner">
-          09 / DOCUMENT SCANNER
-        </button>
-
-        <button data-view="archive">
-          10 / ARCHIVE
-        </button>
-
-      </div>
-
-
-      <div class="sidebox">
-
-        <h3>CHECKPOINT STATUS</h3>
-
-        <div class="statline">
-          <span>01 GATE</span>
-          <b class="ok">● OPEN</b>
+    <!-- TITLE BAR -->
+    <div class="titlebar">
+        <div class="titlebar-left">
+            <span class="system-dot"></span>
+            <span>AREA TRANSIT CONTROL / CENTRAL TERMINAL</span>
         </div>
 
-        <div class="statline">
-          <span>02 GATE</span>
-          <b class="warn">● DELAY</b>
+        <div class="window-buttons">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-
-        <div class="statline">
-          <span>03 GATE</span>
-          <b class="deny">● CLOSED</b>
-        </div>
-
-        <div class="statline">
-          <span>04 GATE</span>
-          <b class="ok">● OPEN</b>
-        </div>
-
-      </div>
+    </div>
 
 
-      <div class="sidebox">
+    <!-- HEADER -->
+    <header class="header">
 
-        <h3>YOUR SHIFT</h3>
+        <div class="header-main">
 
-        <div class="statline">
-          <span>DAY</span>
-          <b>027</b>
-        </div>
+            <div>
+                <div class="system-name">
+                    AREA TRANSIT CONTROL
+                </div>
 
-        <div class="statline">
-          <span>PROCESSED</span>
-          <b id="processed">0</b>
-        </div>
-
-        <div class="statline">
-          <span>ERRORS</span>
-          <b id="errors">0</b>
-        </div>
-
-      </div>
-
-    </aside>
-
-
-    <!-- =========================
-         MAIN
-    ========================== -->
-
-    <main class="main">
-
-
-      <!-- =========================
-           DASHBOARD
-      ========================== -->
-
-      <section class="view active" id="dashboard">
-
-        <h2 class="section-title">
-          CONTROL DESK / 오늘의 행정 상황
-        </h2>
-
-        <p class="sub">
-          검문소의 모든 정보가 이 단말기로 집계됩니다.
-        </p>
-
-
-        <div class="grid2">
-
-          <div class="card">
-
-            <h3>
-              ⚠ TODAY'S DIRECTIVE
-            </h3>
-
-            <div class="notice red">
-
-              <b>
-                04구역 → 타 구역 이동 제한
-              </b>
-
-              <br>
-
-              04구역 주민은 특별 허가증 없이
-              이동할 수 없습니다.
-
+                <div class="system-sub">
+                    FOUR-AREA INTERZONE MOVEMENT MANAGEMENT SYSTEM
+                </div>
             </div>
 
-            <button
-              class="action gold"
-              onclick="showView('notices')"
-            >
-              공문 확인 →
-            </button>
-
-          </div>
-
-
-          <div class="card">
-
-            <h3>
-              📰 HOT TOPIC
-            </h3>
-
-            <p>
-              <b>
-                「제4구역 인구 조정 3차 시행」
-              </b>
-            </p>
-
-            <p>
-              공식 발표와 시민 제보의 내용이
-              일치하지 않고 있습니다.
-            </p>
-
-            <button
-              class="action"
-              onclick="showView('news')"
-            >
-              신문 열람 →
-            </button>
-
-          </div>
+            <div class="clock">
+                <div id="clock">--:--:--</div>
+                <div style="color:#5f6469;margin-top:5px;">
+                    SYSTEM DATE / 10.01.2026
+                </div>
+            </div>
 
         </div>
 
-
-        <div class="grid3">
-
-          <div class="card">
-            <h3>POPULATION</h3>
-
-            <p>
-              전체 추정 인구
-            </p>
-
-            <strong>
-              8,412,203
-            </strong>
-
-            <p class="warn">
-              권장 밀도 초과 구역 3곳
-            </p>
-          </div>
-
-
-          <div class="card">
-            <h3>SECURITY</h3>
-
-            <p>
-              공개 감시 대상
-            </p>
-
-            <strong>
-              128
-            </strong>
-
-            <p class="deny">
-              HIGH ALERT 14
-            </p>
-          </div>
-
-
-          <div class="card">
-            <h3>REPORTS</h3>
-
-            <p>
-              미처리 시민 제보
-            </p>
-
-            <strong>
-              23
-            </strong>
-
-            <p class="blue">
-              NEW 6
-            </p>
-          </div>
-
+        <div class="status-line">
+            <span class="online">● SYSTEM ONLINE</span>
+            <span>SECURITY LEVEL : 03</span>
+            <span>NETWORK : STABLE</span>
+            <span>DATABASE : CONNECTED</span>
         </div>
 
+    </header>
 
-        <div class="card">
 
-          <h3>
-            ▣ QUICK ACCESS
-          </h3>
+    <!-- NAVIGATION -->
+    <nav>
 
-          <button
-            class="action"
-            onclick="showView('checkpoint')"
-          >
-            검문 시작
-          </button>
+        <button class="nav-btn active" data-page="home">
+            CONTROL
+        </button>
 
-          <button
-            class="action"
-            onclick="showView('scanner')"
-          >
-            문서 / 바코드 스캔
-          </button>
+        <button class="nav-btn" data-page="transit">
+            통행 심사
+        </button>
 
-          <button
-            class="action"
-            onclick="showView('map')"
-          >
+        <button class="nav-btn" data-page="map">
             구역 지도
-          </button>
+        </button>
 
-          <button
-            class="action"
-            onclick="showView('wanted')"
-          >
-            감시 대상 조회
-          </button>
+        <button class="nav-btn" data-page="population">
+            인구 통계
+        </button>
 
-        </div>
+        <button class="nav-btn" data-page="news">
+            구역 신문
+        </button>
 
+        <button class="nav-btn" data-page="reports">
+            시민 제보
+        </button>
 
-        <div class="card">
+        <button class="nav-btn" data-page="notices">
+            공문 / 공지
+        </button>
 
-          <h3>
-            ▣ SYSTEM LOG
-          </h3>
+        <button class="nav-btn" data-page="wanted">
+            감시 대상
+        </button>
 
-          <div class="log" id="systemLog"></div>
+        <button class="nav-btn" data-page="scanner">
+            DOCUMENT SCANNER
+        </button>
 
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================
-           CHECKPOINT
-      ========================== -->
-
-      <section class="view" id="checkpoint">
-
-        <h2 class="section-title">
-          CHECKPOINT / 통행 심사
-        </h2>
-
-        <p class="sub">
-          서류, 신원, 이동 기록을 교차 확인한 뒤 판정을 내리십시오.
-        </p>
-
-        <div id="checkpointContent"></div>
-
-      </section>
+    </nav>
 
 
-
-      <!-- =========================
-           NEWS
-      ========================== -->
-
-      <section class="view" id="news">
-
-        <h2 class="section-title">
-          AREA NEWS / 구역 신문
-        </h2>
-
-        <p class="sub">
-          공식 보도와 시민 사회의 반응을 함께 기록합니다.
-        </p>
+    <main id="content">
 
 
-        <div class="paper">
+        <!-- =====================================
+             HOME
+        ====================================== -->
 
-          <h2>
-            THE BORDER GAZETTE
-          </h2>
+        <section class="page active" id="page-home">
 
-          <div class="date">
-            10.01 // REGIONAL EDITION // VOL. 274
-          </div>
+            <div class="alert-bar">
+                ⚠ SYSTEM NOTICE :
+                일부 구역 간 이동량 증가로 인해 검문 절차가 평소보다 지연될 수 있습니다.
+            </div>
+
+            <div class="page-title">
+                <h1>CENTRAL CONTROL</h1>
+                <small>MAIN TERMINAL / PUBLIC ACCESS</small>
+            </div>
 
 
-          <div class="grid2">
+            <div class="grid-2">
 
-            <div>
+                <div class="panel">
 
-              <h3>
-                「제4구역 인구 조정 정책, 3차 시행」
-              </h3>
+                    <div class="panel-head">
+                        CHECKPOINT STATUS
+                    </div>
 
-              <p>
-                행정국은 인구 밀집도가 허용치를 초과한
-                04구역에 대해 이동 제한 및 재배치
-                절차를 확대한다고 발표했다.
-              </p>
+                    <div class="panel-body">
 
-              <p>
-                <b>사회 · 정책</b>
-                　조회 18,293
-              </p>
+                        <div class="checkpoint-status">
+
+                            <div class="checkpoint">
+                                <div class="cp-number">CHECKPOINT 01</div>
+                                <div class="cp-name">포인세티아</div>
+                                <div class="cp-status green">● NORMAL</div>
+                            </div>
+
+                            <div class="checkpoint">
+                                <div class="cp-number">CHECKPOINT 02</div>
+                                <div class="cp-name">아르메리아</div>
+                                <div class="cp-status yellow">● DELAYED</div>
+                            </div>
+
+                            <div class="checkpoint">
+                                <div class="cp-number">CHECKPOINT 03</div>
+                                <div class="cp-name">아스포델</div>
+                                <div class="cp-status orange">● INSPECTION</div>
+                            </div>
+
+                            <div class="checkpoint">
+                                <div class="cp-number">CHECKPOINT 04</div>
+                                <div class="cp-name">제피란테스</div>
+                                <div class="cp-status red">● RESTRICTED</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-head">
+                        CURRENT SYSTEM LOG
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="log">
+                            [23:41:02] <span>DATABASE SYNC COMPLETE</span><br>
+                            [23:41:15] <span>CHECKPOINT 02 DELAY +04m</span><br>
+                            [23:41:27] <span>NEW CITIZEN REPORT #58314</span><br>
+                            [23:41:49] <span>DOCUMENT SCAN REQUEST</span><br>
+                            [23:42:01] <span>AREA 04 SECURITY UPDATE</span><br>
+                            [23:42:16] <span>UNKNOWN RECORD DETECTED</span>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <div>
+            <div class="quick-grid">
 
-              <h3>
-                「제2 검문소에서 대규모 충돌」
-              </h3>
+                <div class="panel">
 
-              <p>
-                야간 이동 제한에 항의하던 시민과
-                보안요원 사이에 충돌이 발생했다는
-                제보가 접수됐다.
-              </p>
+                    <div class="panel-head">
+                        TODAY / SYSTEM OVERVIEW
+                    </div>
 
-              <p>
-                <b>지역 · 속보</b>
-                　조회 11,204
-              </p>
+                    <div class="panel-body">
 
-            </div>
+                        <div class="grid-3">
 
-          </div>
+                            <div>
+                                <div class="mini-label">TOTAL POPULATION</div>
+                                <div class="big-number">8,421,904</div>
+                            </div>
 
+                            <div>
+                                <div class="mini-label">MOVEMENT TODAY</div>
+                                <div class="big-number">18,429</div>
+                            </div>
 
-          <hr>
+                            <div>
+                                <div class="mini-label">DENIED TODAY</div>
+                                <div class="big-number">1,247</div>
+                            </div>
 
+                        </div>
 
-          <div class="grid2">
+                    </div>
 
-            <div>
-
-              <p>
-                🔴
-                <b>
-                  실종자 47명, 공식 통계에서 삭제?
-                </b>
-              </p>
-
-              <p>
-                🔥
-                <b>
-                  04구역 식량 배급량 추가 감소
-                </b>
-              </p>
-
-              <p>
-                NEW
-                <b>
-                  야간 통행 제한 확대
-                </b>
-              </p>
-
-            </div>
+                </div>
 
 
-            <div>
+                <div class="panel">
 
-              <p>
-                ▣ 구역 간 이동세 인상안 발표
-              </p>
+                    <div class="panel-head">
+                        HOT NEWS
+                    </div>
 
-              <p>
-                ▣ “우리는 왜 자유롭게 이동할 수 없는가?”
-                시민 인터뷰
-              </p>
+                    <div class="panel-body">
 
-              <p>
-                ▣ 제6구역 검문소 임시 폐쇄
-              </p>
+                        <ul class="hot-list">
+
+                            <li>
+                                <span class="hot">HOT</span>
+                                제피란테스 야간 통행 제한 확대
+                            </li>
+
+                            <li>
+                                <span class="hot">NEW</span>
+                                아스포델 인구 조정 정책 발표
+                            </li>
+
+                            <li>
+                                <span class="hot">!</span>
+                                검문소에서 신원 기록 누락 사례 발생
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
 
             </div>
 
-          </div>
+        </section>
 
-        </div>
 
 
-        <div
-          class="card"
-          style="margin-top:10px"
-        >
+        <!-- =====================================
+             TRANSIT
+        ====================================== -->
 
-          <h3>
-            ARCHIVED ARTICLE / 삭제된 기사
-          </h3>
+        <section class="page" id="page-transit">
 
-          <p>
-            일부 기사는 행정국 요청에 따라
-            공개 목록에서 제외되었습니다.
-          </p>
+            <div class="page-title">
+                <h1>INTERZONE TRANSIT INSPECTION</h1>
+                <small>ACCESS CONTROL / CITIZEN SCREENING</small>
+            </div>
 
-          <button
-            class="action danger"
-            onclick="openModal(
-              '삭제 기사',
-              '기록번호 BG-04-7712<br><br>\
-              제목: 「인구 조정 대상자의 실제 이동 경로」<br><br>\
-              상태: PUBLICATION WITHDRAWN<br>\
-              사유: 행정국 보안 지침 4-B<br><br>\
-              원문 일부가 보존되어 있습니다.'
-            )"
-          >
-            삭제 기록 열기
-          </button>
 
-        </div>
+            <div class="panel">
 
-      </section>
+                <div class="panel-head">
+                    PASSAGE REQUEST
+                </div>
 
+                <div class="panel-body">
 
+                    <div class="route-box">
 
-      <!-- =========================
-           CITIZEN REPORT
-      ========================== -->
+                        <div>
+                            <label>DEPARTURE AREA</label>
 
-      <section class="view" id="reports">
+                            <select id="fromArea">
+                                <option value="포인세티아">포인세티아</option>
+                                <option value="아르메리아">아르메리아</option>
+                                <option value="아스포델">아스포델</option>
+                                <option value="제피란테스">제피란테스</option>
+                            </select>
+                        </div>
 
-        <h2 class="section-title">
-          CITIZEN REPORT / 시민 제보 게시판
-        </h2>
+                        <div class="route-arrow">
+                            →
+                        </div>
 
-        <p class="sub">
-          검문소와 구역에서 발생한 사건을 시민이 직접 보고합니다.
-        </p>
+                        <div>
+                            <label>DESTINATION AREA</label>
 
+                            <select id="toArea">
+                                <option value="아르메리아">아르메리아</option>
+                                <option value="포인세티아">포인세티아</option>
+                                <option value="아스포델">아스포델</option>
+                                <option value="제피란테스">제피란테스</option>
+                            </select>
+                        </div>
 
-        <div class="card">
+                    </div>
 
-          <h3>
-            NEW REPORT
-          </h3>
 
-          <input
-            id="reportText"
-            placeholder="제보 내용을 입력하십시오."
-          >
+                    <div class="form-row">
 
-          <select id="reportType">
+                        <label>CITIZEN NAME</label>
 
-            <option>
-              검문소 부당 검문
-            </option>
+                        <input
+                            id="citizenName"
+                            type="text"
+                            placeholder="성명을 입력하십시오."
+                        >
 
-            <option>
-              실종자 신고
-            </option>
+                    </div>
 
-            <option>
-              불법 통행
-            </option>
 
-            <option>
-              정책 관련 제보
-            </option>
+                    <div class="grid-2">
 
-            <option>
-              기타
-            </option>
+                        <div class="form-row">
 
-          </select>
+                            <label>IDENTIFICATION NUMBER</label>
 
-          <button
-            class="action gold"
-            onclick="submitReport()"
-          >
-            제보 제출
-          </button>
+                            <input
+                                id="citizenId"
+                                type="text"
+                                placeholder="예: A-2049-184"
+                            >
 
-        </div>
+                        </div>
 
 
-        <div id="reportList"></div>
+                        <div class="form-row">
 
-      </section>
+                            <label>VISIT PURPOSE</label>
 
+                            <select id="purpose">
+                                <option>개인 방문</option>
+                                <option>업무</option>
+                                <option>가족 방문</option>
+                                <option>의료</option>
+                                <option>물자 운송</option>
+                                <option>거주지 이동</option>
+                                <option>기타</option>
+                            </select>
 
+                        </div>
 
-      <!-- =========================
-           OFFICIAL NOTICES
-      ========================== -->
+                    </div>
 
-      <section class="view" id="notices">
 
-        <h2 class="section-title">
-          OFFICIAL NOTICES / 행정 공문
-        </h2>
+                    <button class="button" onclick="inspectCitizen()">
+                        BEGIN INSPECTION
+                    </button>
 
-        <p class="sub">
-          본 문서는 행정국의 공식 발표를 기준으로 작성되었습니다.
-        </p>
 
+                    <div id="inspectionResult" class="result">
 
-        <div class="notice red">
+                        <div class="result-head" id="resultHead">
+                            ACCESS
+                        </div>
 
-          <b>
-            ⚠ 긴급 공지 — 04 / 05구역 이동 제한
-          </b>
+                        <div class="result-body" id="resultBody">
+                        </div>
 
-          <br>
+                    </div>
 
-          보안상의 이유로 04구역과 05구역 사이의
-          통행이 10.01 18:00부터 제한됩니다.
+                </div>
 
-        </div>
+            </div>
 
+        </section>
 
-        <div class="card">
 
-          <h3>
-            MINISTRY OF REGIONAL ADMINISTRATION
-          </h3>
 
-          <p>
-            문서번호: MRA-04-1031
-          </p>
+        <!-- =====================================
+             MAP
+        ====================================== -->
 
-          <p>
-            제목:
-            <b>
-              인구 조정 정책 제3차 시행에 관한 지침
-            </b>
-          </p>
+        <section class="page" id="page-map">
 
-          <p>
-            1. 인구 밀도가 기준치를 초과한 구역의
-            주민 이동을 제한한다.
-          </p>
+            <div class="page-title">
+                <h1>INTERZONE MAP</h1>
+                <small>FOUR AREA NETWORK / CHECKPOINT ROUTES</small>
+            </div>
 
-          <p>
-            2. 특별 허가 대상자는 별도 심사를 실시한다.
-          </p>
 
-          <p>
-            3. 위반자는 출발 구역으로
-            강제 송환될 수 있다.
-          </p>
+            <div class="map">
 
-          <p>
-            4. 각 검문소는 일일 처리 기록을
-            중앙 서버에 보고한다.
-          </p>
+                <div class="map-line">
 
-          <div class="footerline">
-            AUTHORIZED // REGIONAL ADMINISTRATION //
-            SECURITY LEVEL 03
-          </div>
+                    <div class="area" onclick="showArea('포인세티아')">
 
-        </div>
+                        <div class="area-code">
+                            AREA 01
+                        </div>
 
+                        <h2>포인세티아</h2>
 
-        <div class="card">
+                        <p>
+                            POPULATION : 2,104,220<br>
+                            SECURITY : NORMAL<br>
+                            TRANSIT : OPEN<br>
+                            CHECKPOINT : 01
+                        </p>
 
-          <h3>
-            오늘의 규정 변경
-          </h3>
+                    </div>
 
-          <div class="rule">
 
-            <strong>NEW</strong>
-            04구역 출신자는 목적지가
-            01·02·03구역인 경우 특별 허가 필요.
+                    <div class="connection"></div>
 
-            <br>
 
-            <strong>KEEP</strong>
-            야간 시간대(22:00~06:00)
-            모든 일반 이동 제한.
+                    <div class="area" onclick="showArea('아르메리아')">
 
-            <br>
+                        <div class="area-code">
+                            AREA 02
+                        </div>
 
-            <strong>ALERT</strong>
-            시민번호가 DB와 일치하지 않을 경우
-            즉시 추가 심사.
+                        <h2>아르메리아</h2>
 
-          </div>
+                        <p>
+                            POPULATION : 1,843,902<br>
+                            SECURITY : ELEVATED<br>
+                            TRANSIT : OPEN<br>
+                            CHECKPOINT : 02
+                        </p>
 
-        </div>
+                    </div>
 
-      </section>
 
+                    <div class="connection"></div>
 
 
-      <!-- =========================
-           WANTED
-      ========================== -->
+                    <div class="area" onclick="showArea('아스포델')">
 
-      <section class="view" id="wanted">
+                        <div class="area-code">
+                            AREA 03
+                        </div>
 
-        <h2 class="section-title">
-          PUBLIC SECURITY DATABASE / 감시 대상
-        </h2>
+                        <h2>아스포델</h2>
 
-        <p class="sub">
-          공개 감시 대상 128명 // HIGH ALERT 14명
-        </p>
+                        <p>
+                            POPULATION : 2,991,741<br>
+                            SECURITY : HIGH<br>
+                            TRANSIT : LIMITED<br>
+                            CHECKPOINT : 03
+                        </p>
 
+                    </div>
 
-        <input
-          id="wantedSearch"
-          oninput="renderWanted()"
-          placeholder="이름 / 시민번호 / 출신 구역 검색"
-        >
 
+                    <div class="connection"></div>
 
-        <div id="wantedList"></div>
 
-      </section>
+                    <div class="area" onclick="showArea('제피란테스')">
 
+                        <div class="area-code">
+                            AREA 04
+                        </div>
 
+                        <h2>제피란테스</h2>
 
-      <!-- =========================
-           MAP
-      ========================== -->
+                        <p>
+                            POPULATION : 1,482,041<br>
+                            SECURITY : RESTRICTED<br>
+                            TRANSIT : LIMITED<br>
+                            CHECKPOINT : 04
+                        </p>
 
-      <section class="view" id="map">
+                    </div>
 
-        <h2 class="section-title">
-          AREA MAP / 구역 지도
-        </h2>
+                </div>
 
-        <p class="sub">
-          각 구역과 연결 검문소의 현재 상태를 확인하십시오.
-        </p>
+            </div>
 
 
-        <div class="map">
+            <div style="height:18px;"></div>
 
-          <div class="route r1"></div>
-          <div class="route r2"></div>
-          <div class="route r3"></div>
 
+            <div class="grid-2">
 
-          <div
-            class="zone z1"
-            onclick="zoneInfo(1)"
-          >
+                <div class="panel">
 
-            <b>
-              AREA 01
-            </b>
+                    <div class="panel-head">
+                        ROUTE INFORMATION
+                    </div>
 
-            <small>
-              인구 92%<br>
-              통행: OPEN<br>
-              검문: LOW
-            </small>
+                    <div class="panel-body">
 
-          </div>
+                        <div class="log">
+                            ● 포인세티아 ↔ 아르메리아<br>
+                            └ 일반 통행 가능<br><br>
 
+                            ● 아르메리아 ↔ 아스포델<br>
+                            └ 추가 신원 확인<br><br>
 
-          <div
-            class="zone z2"
-            onclick="zoneInfo(2)"
-          >
+                            ● 아스포델 ↔ 제피란테스<br>
+                            └ 임시 제한<br><br>
 
-            <b>
-              AREA 02
-            </b>
+                            ● 포인세티아 ↔ 제피란테스<br>
+                            └ 특별 허가 필요
+                        </div>
 
-            <small>
-              인구 117% ⚠<br>
-              통행: LIMITED<br>
-              검문: HIGH
-            </small>
+                    </div>
 
-          </div>
+                </div>
 
 
-          <div
-            class="zone z3"
-            onclick="zoneInfo(3)"
-          >
+                <div class="panel">
 
-            <b>
-              AREA 03
-            </b>
+                    <div class="panel-head">
+                        MAP LEGEND
+                    </div>
 
-            <small>
-              인구 84%<br>
-              통행: OPEN<br>
-              검문: MEDIUM
-            </small>
+                    <div class="panel-body">
 
-          </div>
+                        <div class="log">
+                            □ OPEN<br>
+                            △ LIMITED<br>
+                            ◆ SPECIAL PERMISSION<br>
+                            ■ RESTRICTED<br>
+                            ── INTERZONE BORDER
+                        </div>
 
+                    </div>
 
-          <div
-            class="zone z4"
-            onclick="zoneInfo(4)"
-          >
+                </div>
 
-            <b>
-              AREA 04
-            </b>
+            </div>
 
-            <small>
-              인구 143% 🔴<br>
-              통행: RESTRICTED<br>
-              검문: HIGH
-            </small>
+        </section>
 
-          </div>
 
 
-          <div
-            class="check c1"
-            title="CHECKPOINT 01"
-          ></div>
+        <!-- =====================================
+             POPULATION
+        ====================================== -->
 
-          <div
-            class="check c2"
-            title="CHECKPOINT 02"
-          ></div>
+        <section class="page" id="page-population">
 
-          <div
-            class="check c3"
-            title="CHECKPOINT 03"
-          ></div>
+            <div class="page-title">
+                <h1>POPULATION CONTROL DATABASE</h1>
+                <small>PUBLIC STATISTICS / UPDATED 10.01.2026</small>
+            </div>
 
-        </div>
 
+            <div class="grid-2">
 
-        <div
-          class="grid2"
-          style="margin-top:10px"
-        >
+                <div class="population-card">
 
-          <div class="card">
+                    <div class="population-name">
+                        포인세티아
+                    </div>
 
-            <h3>
-              CHECKPOINT 01
-            </h3>
+                    <div class="population-number">
+                        2,104,220 / 기준 밀도 100%
+                    </div>
 
-            <p class="ok">
-              ● OPEN / 정상 운영
-            </p>
+                    <div class="bar">
+                        <span style="width:82%;"></span>
+                    </div>
 
-            <p>
-              대기 인원: 17명
-            </p>
+                    <div class="population-status green">
+                        NORMAL / 82%
+                    </div>
 
-          </div>
+                </div>
 
 
-          <div class="card">
+                <div class="population-card warning">
 
-            <h3>
-              CHECKPOINT 02
-            </h3>
+                    <div class="population-name">
+                        아르메리아
+                    </div>
 
-            <p class="warn">
-              ● DELAY / 처리 지연
-            </p>
+                    <div class="population-number">
+                        1,843,902 / 기준 밀도 100%
+                    </div>
 
-            <p>
-              대기 인원: 49명
-            </p>
+                    <div class="bar">
+                        <span style="width:117%;"></span>
+                    </div>
 
-          </div>
+                    <div class="population-status yellow">
+                        OVERDENSITY / 117%
+                    </div>
 
+                </div>
 
-          <div class="card">
 
-            <h3>
-              CHECKPOINT 03
-            </h3>
+                <div class="population-card danger">
 
-            <p class="deny">
-              ● CLOSED / 폐쇄
-            </p>
+                    <div class="population-name">
+                        아스포델
+                    </div>
 
-            <p>
-              사유: 보안상의 이유
-            </p>
+                    <div class="population-number">
+                        2,991,741 / 기준 밀도 100%
+                    </div>
 
-          </div>
+                    <div class="bar">
+                        <span style="width:143%;"></span>
+                    </div>
 
+                    <div class="population-status red">
+                        CRITICAL / 143%
+                    </div>
 
-          <div class="card">
+                </div>
 
-            <h3>
-              CHECKPOINT 04
-            </h3>
 
-            <p class="ok">
-              ● OPEN / 임시 강화
-            </p>
+                <div class="population-card warning">
 
-            <p>
-              04구역 출신자 추가 심사
-            </p>
+                    <div class="population-name">
+                        제피란테스
+                    </div>
 
-          </div>
+                    <div class="population-number">
+                        1,482,041 / 기준 밀도 100%
+                    </div>
 
-        </div>
+                    <div class="bar">
+                        <span style="width:108%;"></span>
+                    </div>
 
-      </section>
+                    <div class="population-status orange">
+                        CONTROLLED / 108%
+                    </div>
 
+                </div>
 
+            </div>
 
-      <!-- =========================
-           POPULATION
-      ========================== -->
 
-      <section class="view" id="population">
+            <div style="height:18px;"></div>
 
-        <h2 class="section-title">
-          POPULATION CONTROL DATABASE / 인구 통계
-        </h2>
 
-        <p class="sub">
-          중앙 인구관리국 집계 // 마지막 갱신 10.01 22:40
-        </p>
+            <div class="panel">
 
+                <div class="panel-head">
+                    POPULATION ADJUSTMENT PROGRAM
+                </div>
 
-        <div class="card">
+                <div class="panel-body">
 
-          <h3>
-            ESTIMATED TOTAL POPULATION
-          </h3>
+                    <div class="mini-label">
+                        CURRENT IMPLEMENTATION
+                    </div>
 
-          <div style="font-size:25px;margin:5px 0">
-            8,412,203
-          </div>
+                    <div class="bar" style="height:12px;">
+                        <span style="width:82%;"></span>
+                    </div>
 
-          <div class="progress">
-            <i style="width:82%"></i>
-          </div>
+                    <div style="margin-top:12px;color:#8b9095;font-size:10px;">
+                        현재 인구 조정 정책 진행률 : 82%
+                    </div>
 
-          <p>
-            인구 조정 정책 진행률 82%
-          </p>
+                    <div class="log" style="margin-top:15px;">
+                        ※ 본 통계는 중앙 행정국에서 제공한 자료를 기반으로 합니다.<br>
+                        ※ 실제 인구와 공식 통계 사이에 차이가 있을 수 있습니다.<br>
+                        ※ 일부 구역의 세부 통계는 보안 등급에 따라 제한됩니다.
+                    </div>
 
-        </div>
+                </div>
 
+            </div>
 
-        <table class="table">
+        </section>
 
-          <tr>
-            <th>구역</th>
-            <th>추정 인구</th>
-            <th>밀도</th>
-            <th>상태</th>
-            <th>정책</th>
-          </tr>
 
-          <tr>
-            <td>01</td>
-            <td>1,104,203</td>
-            <td>92%</td>
-            <td class="ok">NORMAL</td>
-            <td>없음</td>
-          </tr>
 
-          <tr>
-            <td>02</td>
-            <td>1,507,882</td>
-            <td>117%</td>
-            <td class="warn">OVERLOAD</td>
-            <td>이동 제한</td>
-          </tr>
+        <!-- =====================================
+             NEWS
+        ====================================== -->
 
-          <tr>
-            <td>03</td>
-            <td>932,110</td>
-            <td>84%</td>
-            <td class="ok">NORMAL</td>
-            <td>없음</td>
-          </tr>
+        <section class="page" id="page-news">
 
-          <tr>
-            <td>04</td>
-            <td>2,091,450</td>
-            <td>143%</td>
-            <td class="deny">CRITICAL</td>
-            <td>인구 조정</td>
-          </tr>
+            <div class="page-title">
+                <h1>INTERZONE DAILY</h1>
+                <small>OFFICIAL AREA NEWSPAPER</small>
+            </div>
 
-          <tr>
-            <td>05</td>
-            <td>1,220,309</td>
-            <td>101%</td>
-            <td class="warn">WATCH</td>
-            <td>관찰</td>
-          </tr>
 
-          <tr>
-            <td>06</td>
-            <td>884,221</td>
-            <td>79%</td>
-            <td class="ok">NORMAL</td>
-            <td>없음</td>
-          </tr>
+            <div class="panel">
 
-          <tr>
-            <td>07</td>
-            <td>672,028</td>
-            <td>66%</td>
-            <td class="ok">NORMAL</td>
-            <td>이주 장려</td>
-          </tr>
+                <div class="panel-head">
+                    10.01.2026 / TODAY
+                </div>
 
-        </table>
+                <div class="panel-body">
 
 
-        <div class="notice red">
+                    <article class="news-card">
 
-          ⚠ 권장 인구밀도 초과 구역:
-          02 / 04 / 05
+                        <div class="news-category">
+                            [사회] [HOT]
+                        </div>
 
-        </div>
+                        <div class="news-title">
+                            제피란테스 야간 통행 제한 확대
+                        </div>
 
-      </section>
+                        <div class="news-content">
+                            중앙 행정국은 제피란테스 구역의 야간 통행 제한 시간을
+                            기존보다 확대한다고 발표했다.
+                            관계자는 최근 증가한 비인가 이동을 이유로 들었다.
+                        </div>
 
+                        <div class="news-date">
+                            10.01 / 18:42 / 조회 18,293
+                        </div>
 
+                    </article>
 
-      <!-- =========================
-           SCANNER
-      ========================== -->
 
-      <section class="view" id="scanner">
+                    <article class="news-card">
 
-        <h2 class="section-title">
-          DOCUMENT SCANNER / 문서·바코드 스캔
-        </h2>
+                        <div class="news-category">
+                            [정책] [NEW]
+                        </div>
 
-        <p class="sub">
-          통행증, 배급권, 물품 바코드 및
-          시민번호를 중앙 DB와 대조합니다.
-        </p>
+                        <div class="news-title">
+                            아스포델 인구 조정 정책 3차 시행
+                        </div>
 
+                        <div class="news-content">
+                            아스포델 구역의 인구 밀집도가 기준치를 초과함에 따라
+                            새로운 인구 조정 계획이 시행된다.
+                            구체적인 대상과 방식은 공개되지 않았다.
+                        </div>
 
-        <div class="grid2">
+                        <div class="news-date">
+                            10.01 / 15:21 / 조회 14,082
+                        </div>
 
-          <div class="card">
+                    </article>
 
-            <h3>
-              SCAN TERMINAL
-            </h3>
 
-            <div class="barcode"></div>
+                    <article class="news-card">
 
-            <input
-              id="scanCode"
-              placeholder="바코드 / 시민번호 입력"
-              value="ATC-04-7719"
-            >
+                        <div class="news-category">
+                            [사회] [BREAKING]
+                        </div>
 
-            <button
-              class="action gold"
-              onclick="runScan()"
-            >
-              SCAN
-            </button>
+                        <div class="news-title">
+                            제2 검문소에서 신원 기록 누락 사례 확인
+                        </div>
 
-            <div
-              id="scanResult"
-              style="margin-top:10px"
-            ></div>
+                        <div class="news-content">
+                            아르메리아 검문소를 통과한 시민 17명의 이동 기록이
+                            중앙 데이터베이스에서 확인되지 않는 것으로 알려졌다.
+                            행정국은 시스템 오류 가능성을 조사 중이라고 밝혔다.
+                        </div>
 
-          </div>
+                        <div class="news-date">
+                            10.01 / 11:03 / 조회 21,449
+                        </div>
 
+                    </article>
 
-          <div class="card">
 
-            <h3>
-              AVAILABLE DATABASES
-            </h3>
+                    <article class="news-card">
 
-            <p>● CITIZEN IDENTITY</p>
-            <p>● TRANSIT PERMIT</p>
-            <p>● FOOD ALLOCATION</p>
-            <p>● CARGO DECLARATION</p>
-            <p>● SECURITY WATCHLIST</p>
+                        <div class="news-category">
+                            [인터뷰]
+                        </div>
+
+                        <div class="news-title">
+                            “우리는 왜 자유롭게 이동할 수 없는가?”
+                        </div>
+
+                        <div class="news-content">
+                            구역 간 이동 제한을 경험한 시민들을 대상으로 실시한
+                            익명 인터뷰 전문.
+                        </div>
+
+                        <div class="news-date">
+                            09.30 / 22:18 / 조회 9,231
+                        </div>
+
+                    </article>
+
+
+                    <article class="news-card">
+
+                        <div class="news-category">
+                            [속보] [삭제됨]
+                        </div>
+
+                        <div class="news-title">
+                            ███████████████████████
+                        </div>
+
+                        <div class="news-content">
+                            해당 기사는 중앙 행정국의 요청에 따라 삭제되었습니다.
+                        </div>
+
+                        <div class="news-date">
+                            RECORD REMOVED
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             REPORTS
+        ====================================== -->
+
+        <section class="page" id="page-reports">
+
+            <div class="page-title">
+                <h1>CITIZEN REPORT BOARD</h1>
+                <small>PUBLIC SUBMISSION / MODERATION ACTIVE</small>
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-head">
+                    RECENT REPORTS
+                </div>
+
+                <div class="panel-body">
+
+
+                    <div class="report">
+
+                        <div class="report-meta">
+                            #58314 / ANONYMOUS / 10.01 21:32
+                        </div>
+
+                        <div class="report-title">
+                            제6 검문소에서 이상한 걸 봤습니다.
+                        </div>
+
+                        <div class="report-text">
+                            분명 통행증이 없던 사람이 검문소 직원과 몇 마디 나눈 뒤
+                            그대로 통과했습니다. 기록을 확인해 달라고 요청합니다.
+                        </div>
+
+                        <div class="report-bottom">
+                            ♥ 482　💬 73　[검토중]
+                        </div>
+
+                    </div>
+
+
+                    <div class="report">
+
+                        <div class="report-meta">
+                            #58311 / ANONYMOUS / 10.01 19:14
+                        </div>
+
+                        <div class="report-title">
+                            아스포델의 인구 통계가 이상합니다.
+                        </div>
+
+                        <div class="report-text">
+                            제가 확인한 실제 거주자 수와 공식 통계가 맞지 않습니다.
+                            지난달보다 사람이 줄었는데 통계는 오히려 증가했습니다.
+                        </div>
+
+                        <div class="report-bottom">
+                            ♥ 901　💬 124　[검토중]
+                        </div>
+
+                    </div>
+
+
+                    <div class="report deleted">
+
+                        <div class="report-meta">
+                            #58291 / ANONYMOUS / 09.30 21:32
+                        </div>
+
+                        <div class="report-title">
+                            [관리자에 의해 삭제된 게시물입니다.]
+                        </div>
+
+                        <div class="report-text">
+                            이 게시물은 운영 정책 위반으로 삭제되었습니다.
+                        </div>
+
+                        <div class="report-bottom">
+                            RECORD DELETED
+                        </div>
+
+                    </div>
+
+
+                    <div class="report">
+
+                        <div class="report-meta">
+                            #58277 / USER_4401 / 09.30 14:02
+                        </div>
+
+                        <div class="report-title">
+                            통행세가 또 올랐습니다.
+                        </div>
+
+                        <div class="report-text">
+                            이번 달에만 두 번째입니다.
+                            공문에서는 변경되지 않았다고 나오는데 실제 검문소에서는
+                            다른 금액을 요구하고 있습니다.
+                        </div>
+
+                        <div class="report-bottom">
+                            ♥ 217　💬 38　[확인 필요]
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div style="height:18px;"></div>
+
+
+            <div class="panel">
+
+                <div class="panel-head">
+                    SUBMIT NEW REPORT
+                </div>
+
+                <div class="panel-body">
+
+                    <label>REPORT TITLE</label>
+
+                    <input
+                        id="reportTitle"
+                        placeholder="제보 제목"
+                    >
+
+                    <div style="height:12px;"></div>
+
+                    <label>CONTENT</label>
+
+                    <textarea
+                        id="reportContent"
+                        rows="5"
+                        placeholder="내용을 입력하십시오."
+                    ></textarea>
+
+                    <button class="button" onclick="submitReport()">
+                        SUBMIT REPORT
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             NOTICES
+        ====================================== -->
+
+        <section class="page" id="page-notices">
+
+            <div class="page-title">
+                <h1>OFFICIAL NOTICES</h1>
+                <small>CENTRAL ADMINISTRATION DOCUMENTS</small>
+            </div>
+
+
+            <div class="notice urgent">
+
+                <div class="notice-title">
+                    ⚠ 긴급 공문 / 제피란테스 야간 통행 제한
+                </div>
+
+                <div class="notice-content">
+                    10월 1일부로 제피란테스와 타 구역 사이의 야간 통행이
+                    일시적으로 제한됩니다.<br>
+                    제한 시간 : 23:00 — 05:00<br>
+                    특별 허가증 소지자는 예외로 합니다.
+                </div>
+
+                <div class="notice-footer">
+                    DOCUMENT ID : ADM-04-1001
+                </div>
+
+            </div>
+
 
             <div class="notice">
 
-              바코드가 존재하지 않는 경우에도
-              삭제 / 비공개 / 미등록 기록이
-              남아 있을 수 있습니다.
+                <div class="notice-title">
+                    구역 간 이동 절차 변경 안내
+                </div>
+
+                <div class="notice-content">
+                    모든 시민은 구역 이동 시 본인 확인을 위한 신분증과
+                    이동 목적 증빙자료를 제출해야 합니다.
+                </div>
+
+                <div class="notice-footer">
+                    DOCUMENT ID : TRANS-09-284
+                </div>
 
             </div>
 
-          </div>
 
-        </div>
+            <div class="notice">
 
-      </section>
+                <div class="notice-title">
+                    인구 조정 정책 관련 시민 안내
+                </div>
 
+                <div class="notice-content">
+                    인구 밀집도가 기준을 초과한 구역에 대해서는
+                    중앙 행정국의 별도 조치가 적용될 수 있습니다.
+                    대상자 및 구체적인 절차는 개별 통지됩니다.
+                </div>
 
+                <div class="notice-footer">
+                    DOCUMENT ID : POP-CTRL-031
+                </div>
 
-      <!-- =========================
-           ARCHIVE
-      ========================== -->
-
-      <section class="view" id="archive">
-
-        <h2 class="section-title">
-          ARCHIVE / 접근 제한 기록
-        </h2>
-
-        <p class="sub">
-          일반 시민용 화면에는 노출되지 않는 보관 문서입니다.
-        </p>
+            </div>
 
 
-        <div class="grid2">
+            <div class="notice">
+
+                <div class="notice-title">
+                    검문소 직원 행동 지침 개정
+                </div>
+
+                <div class="notice-content">
+                    검문 과정에서 시민의 신분증 및 소지품 검사를 실시할 수 있습니다.
+                    불응 시 통행이 제한될 수 있습니다.
+                </div>
+
+                <div class="notice-footer">
+                    DOCUMENT ID : SEC-4421
+                </div>
+
+            </div>
+
+        </section>
 
 
-          <div class="card">
 
-            <h3>
-              FILE 04-7712
-            </h3>
+        <!-- =====================================
+             WANTED
+        ====================================== -->
 
-            <p>
-              상태:
-              <span class="deny">
-                DELETED
-              </span>
-            </p>
+        <section class="page" id="page-wanted">
 
-            <button
-              class="action danger"
-              onclick="openModal(
-                'FILE 04-7712',
-                '삭제된 인구 조정 대상자 이동 기록.<br><br>\
-                원문 일부:<br>\
-                04구역에서 이탈한 인원 중 47명의\
-                최종 행선지가 중앙 기록과 일치하지 않음.<br><br>\
-                문서 상태: 접근 제한'
-              )"
-            >
-              열람
-            </button>
-
-          </div>
+            <div class="page-title">
+                <h1>PUBLIC SECURITY DATABASE</h1>
+                <small>MONITORED SUBJECTS / LEVEL 03</small>
+            </div>
 
 
-          <div class="card">
-
-            <h3>
-              FILE 02-0001
-            </h3>
-
-            <p>
-              상태:
-              <span class="warn">
-                CORRUPTED
-              </span>
-            </p>
-
-            <button
-              class="action gold"
-              onclick="openModal(
-                'FILE 02-0001',
-                '파일 복구 중...<br><br>\
-                ████████████<br>\
-                구역 간 이동은 자유롭다.<br>\
-                ████████████<br><br>\
-                ERROR: ORIGINAL TEXT MISSING'
-              )"
-            >
-              복구
-            </button>
-
-          </div>
+            <div class="alert-bar">
+                ⚠ 아래 정보는 중앙 행정국에서 공개한 감시 대상 데이터입니다.
+                등록 정보의 정확성을 보장하지 않습니다.
+            </div>
 
 
-          <div class="card">
+            <div class="grid-3">
 
-            <h3>
-              FILE 07-9130
-            </h3>
+                <div class="person">
 
-            <p>
-              상태:
-              <span class="blue">
-                UNLISTED
-              </span>
-            </p>
+                    <div class="person-id">
+                        SUBJECT #0481
+                    </div>
 
-            <button
-              class="action"
-              onclick="openModal(
-                'FILE 07-9130',
-                '공식 DB에 등록되지 않은 검문소가\
-                존재한다는 시민 제보.<br><br>\
-                좌표: ██████<br>\
-                발견자: 익명<br>\
-                검증 상태: 미확인'
-              )"
-            >
-              열람
-            </button>
+                    <div class="person-name">
+                        ███████
+                    </div>
 
-          </div>
+                    <div class="person-info">
+                        AGE : 24<br>
+                        ORIGIN : 아스포델<br>
+                        LAST SEEN : 아르메리아<br>
+                        THREAT : UNDEFINED
+                    </div>
+
+                    <div class="person-status red">
+                        STATUS : UNDER INVESTIGATION
+                    </div>
+
+                </div>
 
 
-          <div class="card">
+                <div class="person">
 
-            <h3>
-              HIDDEN RECORD
-            </h3>
+                    <div class="person-id">
+                        SUBJECT #0912
+                    </div>
 
-            <p>
-              바코드 0417을 입력하면 해금됩니다.
-            </p>
+                    <div class="person-name">
+                        리안 ███
+                    </div>
 
-            <button
-              class="action"
-              onclick="
-                showView('scanner');
-                document.getElementById('scanCode').value='0417';
-                runScan();
-              "
-            >
-              해금 시도
-            </button>
+                    <div class="person-info">
+                        AGE : 31<br>
+                        ORIGIN : 제피란테스<br>
+                        LAST SEEN : 포인세티아<br>
+                        THREAT : MEDIUM
+                    </div>
 
-          </div>
+                    <div class="person-status orange">
+                        STATUS : NOT LOCATED
+                    </div>
 
-        </div>
+                </div>
 
-      </section>
+
+                <div class="person">
+
+                    <div class="person-id">
+                        SUBJECT #1107
+                    </div>
+
+                    <div class="person-name">
+                        █████
+                    </div>
+
+                    <div class="person-info">
+                        AGE : UNKNOWN<br>
+                        ORIGIN : UNKNOWN<br>
+                        LAST SEEN : UNKNOWN<br>
+                        THREAT : UNDEFINED
+                    </div>
+
+                    <div class="person-status red">
+                        STATUS : DATA CORRUPTED
+                    </div>
+
+                </div>
+
+
+                <div class="person">
+
+                    <div class="person-id">
+                        SUBJECT #2310
+                    </div>
+
+                    <div class="person-name">
+                        서 ███
+                    </div>
+
+                    <div class="person-info">
+                        AGE : 42<br>
+                        ORIGIN : 포인세티아<br>
+                        LAST SEEN : 아스포델<br>
+                        THREAT : LOW
+                    </div>
+
+                    <div class="person-status yellow">
+                        STATUS : MONITORED
+                    </div>
+
+                </div>
+
+
+                <div class="person">
+
+                    <div class="person-id">
+                        SUBJECT #3002
+                    </div>
+
+                    <div class="person-name">
+                        ████████
+                    </div>
+
+                    <div class="person-info">
+                        AGE : 19<br>
+                        ORIGIN : UNKNOWN<br>
+                        LAST SEEN : 제피란테스<br>
+                        THREAT : HIGH
+                    </div>
+
+                    <div class="person-status red">
+                        STATUS : WANTED
+                    </div>
+
+                </div>
+
+
+                <div class="person">
+
+                    <div class="person-id">
+                        SUBJECT #4409
+                    </div>
+
+                    <div class="person-name">
+                        기록 없음
+                    </div>
+
+                    <div class="person-info">
+                        AGE : ---<br>
+                        ORIGIN : ---<br>
+                        LAST SEEN : ---<br>
+                        THREAT : ---
+                    </div>
+
+                    <div class="person-status red">
+                        STATUS : RECORD NOT FOUND
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             SCANNER
+        ====================================== -->
+
+        <section class="page" id="page-scanner">
+
+            <div class="page-title">
+                <h1>DOCUMENT SCANNER</h1>
+                <small>IDENTIFICATION / BARCODE VERIFICATION</small>
+            </div>
+
+
+            <div class="scanner">
+
+                <div class="panel">
+
+                    <div class="panel-head">
+                        SCANNER TERMINAL
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div style="text-align:center;color:#858a8f;font-size:11px;">
+                            문서 또는 물품의 바코드를 스캔하십시오.
+                        </div>
+
+
+                        <div class="barcode"></div>
+
+
+                        <button
+                            class="button scan-button"
+                            onclick="scanDocument()"
+                        >
+                            SCAN DOCUMENT
+                        </button>
+
+
+                        <div
+                            id="scanResult"
+                            style="
+                                margin-top:25px;
+                                border:1px solid #3d4145;
+                                padding:18px;
+                                display:none;
+                                font-family:'IBM Plex Mono',monospace;
+                                font-size:10px;
+                                line-height:2;
+                                color:#9ca1a6;
+                            "
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div style="height:18px;"></div>
+
+
+            <div class="panel">
+
+                <div class="panel-head">
+                    VALID SAMPLE CODES
+                </div>
+
+                <div class="panel-body">
+
+                    <table class="data-table">
+
+                        <tr>
+                            <th>CODE</th>
+                            <th>TYPE</th>
+                            <th>STATUS</th>
+                        </tr>
+
+                        <tr>
+                            <td>70391440291</td>
+                            <td>식량 배급권</td>
+                            <td class="green">VALID</td>
+                        </tr>
+
+                        <tr>
+                            <td>20491840071</td>
+                            <td>통행증</td>
+                            <td class="green">VALID</td>
+                        </tr>
+
+                        <tr>
+                            <td>00000000000</td>
+                            <td>UNKNOWN DOCUMENT</td>
+                            <td class="red">ERROR</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
 
     </main>
 
 
+    <footer>
 
-    <!-- =========================
-         RIGHT SIDEBAR
-    ========================== -->
+        <span>
+            CENTRAL ADMINISTRATION / AREA TRANSIT CONTROL
+        </span>
 
-    <aside class="rightbar">
+        <span>
+            SESSION ID : 7F-29-A04
+        </span>
 
-      <div
-        class="sidebox"
-        style="margin-top:0;border-top:0;padding-top:0"
-      >
-
-        <h3>
-          ACTIVE RULES
-        </h3>
-
-        <div class="rule">
-
-          <strong>01</strong>
-          유효한 시민번호 필요
-
-          <br>
-
-          <strong>02</strong>
-          목적지와 허가 범위 일치
-
-          <br>
-
-          <strong>03</strong>
-          22:00 이후 일반 이동 금지
-
-          <br>
-
-          <strong>04</strong>
-          04구역 출신자 특별 심사
-
-        </div>
-
-      </div>
-
-
-      <div class="sidebox">
-
-        <h3>
-          SECURITY LEVEL
-        </h3>
-
-        <div
-          style="font-size:20px;color:#d2a33d"
-        >
-          LEVEL 03
-        </div>
-
-        <p class="muted">
-          오늘의 검문 강도: HIGH
-        </p>
-
-      </div>
-
-
-      <div class="sidebox">
-
-        <h3>
-          LAST UPDATED
-        </h3>
-
-        <div class="statline">
-          <span>RULES</span>
-          <b>22:31</b>
-        </div>
-
-        <div class="statline">
-          <span>MAP</span>
-          <b>22:37</b>
-        </div>
-
-        <div class="statline">
-          <span>DB</span>
-          <b>22:40</b>
-        </div>
-
-      </div>
-
-
-      <div class="sidebox">
-
-        <h3>
-          TIP
-        </h3>
-
-        <p class="muted">
-          문서 두 개의 정보가 서로 맞지 않는다면
-          해당 항목을 비교하십시오.
-        </p>
-
-      </div>
-
-
-      <div class="sidebox">
-
-        <h3>
-          QUICK SCAN
-        </h3>
-
-        <input
-          id="quickCode"
-          placeholder="ID / BARCODE"
-        >
-
-        <button
-          class="action"
-          onclick="
-            showView('scanner');
-            document.getElementById('scanCode').value=
-            document.getElementById('quickCode').value;
-            runScan();
-          "
-        >
-          조회
-        </button>
-
-      </div>
-
-    </aside>
-
-  </div>
+    </footer>
 
 </div>
 
 
-
-<!-- =========================
+<!-- =========================================
      MODAL
-========================= -->
+========================================= -->
 
-<div
-  class="modal"
-  id="modal"
->
+<div id="modal">
 
-  <div class="modal-box">
+    <div class="modal-box">
 
-    <div class="modal-head">
+        <div class="modal-head">
 
-      <b id="modalTitle">
-        SYSTEM
-      </b>
+            <span id="modalTitle">
+                AREA INFORMATION
+            </span>
 
-      <button
-        class="close"
-        onclick="closeModal()"
-      >
-        ×
-      </button>
+            <span
+                class="modal-close"
+                onclick="closeModal()"
+            >
+                [ CLOSE ]
+            </span>
+
+        </div>
+
+        <div
+            class="modal-body"
+            id="modalBody"
+        ></div>
 
     </div>
-
-    <div
-      id="modalBody"
-      style="font-size:10px;line-height:1.8"
-    ></div>
-
-  </div>
 
 </div>
 
@@ -2143,1415 +2328,546 @@ select{
 
 <script>
 
-/* ==========================================
-   CITIZENS
-========================================== */
-
-const citizens = [
-
-  {
-    name:"리안 베르크",
-    age:27,
-    from:"07",
-    to:"03",
-    purpose:"친족 방문",
-    id:"ATC-07-1842",
-    valid:true,
-    issue:"정상",
-    item:"꽃씨 2봉"
-  },
-
-  {
-    name:"마르코 엔",
-    age:34,
-    from:"04",
-    to:"02",
-    purpose:"노동",
-    id:"ATC-04-7719",
-    valid:false,
-    issue:"특별 허가 누락",
-    item:"밀봉 화물"
-  },
-
-  {
-    name:"세라 오든",
-    age:41,
-    from:"02",
-    to:"05",
-    purpose:"치료",
-    id:"ATC-02-5501",
-    valid:true,
-    issue:"정상",
-    item:"의료품"
-  },
-
-  {
-    name:"도윤 카르",
-    age:19,
-    from:"05",
-    to:"01",
-    purpose:"개인",
-    id:"ATC-05-3390",
-    valid:false,
-    issue:"야간 이동",
-    item:"미신고 물품"
-  },
-
-  {
-    name:"에린 솔",
-    age:52,
-    from:"01",
-    to:"03",
-    purpose:"상업",
-    id:"ATC-01-2208",
-    valid:true,
-    issue:"정상",
-    item:"식량 배급권"
-  }
-
-];
-
-
-/* ==========================================
-   WANTED
-========================================== */
-
-const wanted = [
-
-  {
-    id:"#0481",
-    name:"███ 아렌",
-    age:24,
-    from:"08",
-    status:"LOCATED / UNDER INVESTIGATION",
-    charges:"불법 구역 이동 · 통행증 위조 · 인구 조정 정책 방해"
-  },
-
-  {
-    id:"#0714",
-    name:"마르코 엔",
-    age:34,
-    from:"04",
-    status:"WATCH",
-    charges:"특별 허가 미소지"
-  },
-
-  {
-    id:"#0912",
-    name:"세라 벨",
-    age:31,
-    from:"02",
-    status:"HIGH ALERT",
-    charges:"중앙 기록 접근 시도"
-  },
-
-  {
-    id:"#1120",
-    name:"이름 미상",
-    age:29,
-    from:"07",
-    status:"UNIDENTIFIED",
-    charges:"신분번호 불일치"
-  }
-
-];
-
-
-/* ==========================================
-   REPORTS
-========================================== */
-
-let reports = [
-
-  {
-    id:58291,
-    type:"검문소 부당 검문",
-    text:"어제 제6구역 검문소에서 이상한 걸 봤습니다.",
-    user:"익명",
-    time:"10.01 21:32",
-    likes:482,
-    comments:73
-  },
-
-  {
-    id:58274,
-    type:"실종자 신고",
-    text:"04구역에서 사라진 사람의 이름이 오늘 인구 통계에서 삭제됐습니다.",
-    user:"익명",
-    time:"10.01 18:09",
-    likes:211,
-    comments:41
-  },
-
-  {
-    id:58199,
-    type:"정책 관련 제보",
-    text:"공문에 적힌 이동 제한 범위와 실제 검문소의 지시가 다릅니다.",
-    user:"시민-771",
-    time:"10.01 13:41",
-    likes:94,
-    comments:18
-  }
-
-];
-
-
-/* ==========================================
-   STATE
-========================================== */
-
-let state = {
-
-  processed:0,
-
-  errors:0,
-
-  current:0,
-
-  day:27
-
-};
-
-
-/* ==========================================
-   SHORTCUT
-========================================== */
-
-function $(id){
-
-  return document.getElementById(id);
-
-}
-
-
-/* ==========================================
-   PAGE NAVIGATION
-========================================== */
-
-function showView(id){
-
-  document
-    .querySelectorAll(".view")
-    .forEach(v=>{
-      v.classList.remove("active");
-    });
-
-  $(id).classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(button=>{
-      button.classList.toggle(
-        "active",
-        button.dataset.view===id
-      );
-    });
-
-
-  if(id==="checkpoint"){
-    renderCheckpoint();
-  }
-
-  if(id==="wanted"){
-    renderWanted();
-  }
-
-  if(id==="reports"){
-    renderReports();
-  }
-
-}
-
-
-document
-  .querySelectorAll(".nav button")
-  .forEach(button=>{
-
-    button.addEventListener(
-      "click",
-      ()=>{
-        showView(button.dataset.view);
-      }
-    );
-
-  });
-
-
-/* ==========================================
+/* =========================================
    CLOCK
-========================================== */
+========================================= */
 
-function updateClock(){
+function updateClock() {
 
-  const d = new Date();
+    const now = new Date();
 
-  $("clock").textContent =
-    "SYSTEM TIME " +
-    d.toLocaleTimeString(
-      "ko-KR",
-      {hour12:false}
-    );
+    const h = String(now.getHours()).padStart(2, "0");
+    const m = String(now.getMinutes()).padStart(2, "0");
+    const s = String(now.getSeconds()).padStart(2, "0");
 
+    document.getElementById("clock").textContent =
+        h + ":" + m + ":" + s;
 }
-
-setInterval(updateClock,1000);
 
 updateClock();
 
-
-/* ==========================================
-   SYSTEM LOG
-========================================== */
-
-function log(text){
-
-  const el = $("systemLog");
-
-  const now =
-    new Date().toLocaleTimeString(
-      "ko-KR",
-      {hour12:false}
-    );
-
-  el.innerHTML +=
-    "[" + now + "] " +
-    text +
-    "<br>";
-
-  el.scrollTop = el.scrollHeight;
-
-}
+setInterval(updateClock, 1000);
 
 
-log("CENTRAL DATABASE CONNECTION ESTABLISHED");
+/* =========================================
+   PAGE NAVIGATION
+========================================= */
 
-log("AREA 04 TRANSIT RESTRICTION LOADED");
+const navButtons = document.querySelectorAll(".nav-btn");
+const pages = document.querySelectorAll(".page");
 
-log("SECURITY LEVEL 03 ACTIVE");
+navButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const target = button.dataset.page;
+
+        navButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        pages.forEach(page => {
+            page.classList.remove("active");
+        });
+
+        document
+            .getElementById("page-" + target)
+            .classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+});
 
 
-/* ==========================================
-   CHECKPOINT
-========================================== */
+/* =========================================
+   RANDOM CITIZEN DATA
+========================================= */
 
-function renderCheckpoint(){
+const citizenTraits = [
 
-  const c =
-    citizens[
-      state.current % citizens.length
-    ];
+    "최근 30일간 타 구역 이동 기록 없음",
+    "최근 7일간 3개 구역 이동",
+    "통행 기록 일부 누락",
+    "목적지에 가족 등록",
+    "과거 통행 제한 기록 존재",
+    "신원 데이터 정상",
+    "신분증 갱신 필요",
+    "등록 주소와 출발 구역 불일치",
+    "최근 검문소 신고 기록 존재",
+    "특이사항 없음"
+
+];
 
 
-  $("checkpointContent").innerHTML = `
+/* =========================================
+   TRANSIT INSPECTION
+========================================= */
 
-    <div class="grid2">
+function inspectCitizen() {
 
-      <div>
+    const from = document.getElementById("fromArea").value;
+    const to = document.getElementById("toArea").value;
+    const name = document.getElementById("citizenName").value.trim();
+    const id = document.getElementById("citizenId").value.trim();
+    const purpose = document.getElementById("purpose").value;
 
-        <div class="person">
+    const result = document.getElementById("inspectionResult");
+    const head = document.getElementById("resultHead");
+    const body = document.getElementById("resultBody");
 
-          <div class="person-head">
+    if (!name || !id) {
 
-            <div class="avatar">
-              ◉
+        result.className = "result show denied";
+
+        head.textContent = "INPUT ERROR";
+
+        body.innerHTML =
+            "신원 정보가 충분하지 않습니다.<br>" +
+            "성명 및 식별번호를 입력하십시오.";
+
+        return;
+    }
+
+
+    if (from === to) {
+
+        result.className = "result show denied";
+
+        head.textContent = "ACCESS DENIED";
+
+        body.innerHTML =
+            "출발 구역과 목적지 구역이 동일합니다.<br>" +
+            "구역 간 통행 신청으로 처리할 수 없습니다.";
+
+        return;
+    }
+
+
+    /*
+       일부 루트는 고정적으로 위험도를 높임
+    */
+
+    let risk = Math.floor(Math.random() * 100);
+
+    if (from === "아스포델") {
+        risk += 10;
+    }
+
+    if (to === "제피란테스") {
+        risk += 12;
+    }
+
+    if (purpose === "거주지 이동") {
+        risk += 5;
+    }
+
+    if (purpose === "의료") {
+        risk -= 15;
+    }
+
+    const trait =
+        citizenTraits[
+            Math.floor(Math.random() * citizenTraits.length)
+        ];
+
+
+    if (risk < 48) {
+
+        result.className = "result show granted";
+
+        head.textContent = "ACCESS GRANTED";
+
+        body.innerHTML = `
+            대상자 : ${escapeHTML(name)}<br>
+            식별번호 : ${escapeHTML(id)}<br>
+            출발 구역 : ${from}<br>
+            목적 구역 : ${to}<br>
+            방문 목적 : ${purpose}<br>
+            <div class="reason">
+                판정 상태 : 통행 승인<br>
+                추가 확인 : ${trait}<br>
+                유효시간 : 06:00 — 22:00<br>
+                체류 가능 기간 : 72시간
             </div>
+        `;
 
-            <div>
+    } else {
 
-              <h3>
-                ${c.name}
-              </h3>
+        const reasons = [
 
-              <small>
-                ${c.age} / CITIZEN
-              </small>
+            "최근 구역 간 이동 기록 이상",
+            "목적지 구역의 임시 출입 제한",
+            "신원 데이터 추가 확인 필요",
+            "등록 주소와 실제 이동 경로 불일치",
+            "비인가 이동 패턴 감지",
+            "현재 구역의 보안 등급 상승",
+            "통행 목적 확인 불충분"
 
-              <br>
+        ];
 
-              <span class="badge blue">
-                FROM ${c.from}
-              </span>
+        const reason =
+            reasons[
+                Math.floor(Math.random() * reasons.length)
+            ];
 
-              <span class="badge blue">
-                TO ${c.to}
-              </span>
+        result.className = "result show denied";
 
+        head.textContent = "ACCESS DENIED";
+
+        body.innerHTML = `
+            대상자 : ${escapeHTML(name)}<br>
+            식별번호 : ${escapeHTML(id)}<br>
+            출발 구역 : ${from}<br>
+            목적 구역 : ${to}<br>
+            방문 목적 : ${purpose}<br>
+            <div class="reason">
+                판정 사유 : ${reason}<br>
+                위험도 : ${Math.min(risk, 100)} / 100<br>
+                추가 심사가 필요합니다.
             </div>
+        `;
 
-          </div>
-
-
-          <div class="facts">
-
-            방문 목적:
-            ${c.purpose}
-
-            <br>
-
-            소지품:
-            ${c.item}
-
-            <br>
-
-            시민번호:
-            <b>
-              ${c.id}
-            </b>
-
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <h3>
-            DOCUMENTS SUBMITTED
-          </h3>
-
-
-          <div
-            class="doc"
-            onclick="
-              inspectDoc(
-                '${c.id}',
-                '시민 신분증'
-              )
-            "
-          >
-
-            <b>
-              CITIZEN ID
-            </b>
-
-            <span>
-
-              NAME:
-              ${c.name}
-
-              <br>
-
-              ID:
-              ${c.id}
-
-              <br>
-
-              ISSUED AREA:
-              ${c.from}
-
-            </span>
-
-          </div>
-
-
-          <div
-            class="doc"
-            onclick="
-              inspectDoc(
-                '${c.from}-${c.to}',
-                'TRANSIT PERMIT'
-              )
-            "
-          >
-
-            <b>
-              TRANSIT PERMIT
-            </b>
-
-            <span>
-
-              ORIGIN:
-              AREA ${c.from}
-
-              <br>
-
-              DESTINATION:
-              AREA ${c.to}
-
-              <br>
-
-              PURPOSE:
-              ${c.purpose}
-
-            </span>
-
-          </div>
-
-
-          <div
-            class="doc"
-            onclick="
-              inspectDoc(
-                '${c.item}',
-                'CARGO DECLARATION'
-              )
-            "
-          >
-
-            <b>
-              CARGO DECLARATION
-            </b>
-
-            <span>
-
-              ITEM:
-              ${c.item}
-
-              <br>
-
-              STATUS:
-              ${c.valid
-                ? "DECLARED"
-                : "REQUIRES INSPECTION"}
-
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div>
-
-        <div class="card">
-
-          <h3>
-            INSPECTION PANEL
-          </h3>
-
-
-          <div class="rule">
-
-            현재 규정:
-
-            <strong>
-              ${
-                c.from==="04"
-                ? "04구역 출신자 특별 허가 필요"
-                : "일반 규정"
-              }
-            </strong>
-
-            <br>
-
-            야간 통행:
-
-            <strong>
-              22:00~06:00 제한
-            </strong>
-
-          </div>
-
-
-          <button
-            class="action"
-            onclick="
-              queryCitizen('${c.id}')
-            "
-          >
-            CENTRAL DB 조회
-          </button>
-
-
-          <button
-            class="action"
-            onclick="
-              runFingerprint('${c.id}')
-            "
-          >
-            신원 대조
-          </button>
-
-
-          <button
-            class="action"
-            onclick="
-              openModal(
-                'INTERROGATION',
-                '대상자에게 추가 질문을 요청했습니다.<br><br>\
-                「방문 목적을 증명할 수 있습니까?」<br><br>\
-                대답: ${
-                  c.purpose==="치료"
-                  ? "병원 예약 문서를 제출했습니다."
-                  : "개인적인 용무입니다."
-                }'
-              )
-            "
-          >
-            추가 질문
-          </button>
-
-
-          <div
-            id="inspectResult"
-            class="notice"
-            style="margin-top:10px"
-          >
-            문서의 세부 항목을 비교하십시오.
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <h3>
-            FINAL DECISION
-          </h3>
-
-
-          <button
-            class="action gold"
-            onclick="decide(true)"
-          >
-            ✓ ACCESS GRANTED
-          </button>
-
-
-          <button
-            class="action danger"
-            onclick="decide(false)"
-          >
-            ✕ ACCESS DENIED
-          </button>
-
-
-          <button
-            class="action"
-            onclick="detain()"
-          >
-            ⚠ DETAIN / HOLD
-          </button>
-
-        </div>
-
-
-        <div class="card">
-
-          <h3>
-            PROCESSING LOG
-          </h3>
-
-          <div class="log">
-
-            ${
-              c.valid
-              ? "신분증 데이터 일치 가능성 높음."
-              : "주의: 현재 규정과 불일치 가능성 있음."
-            }
-
-            <br>
-
-            목적지:
-            AREA ${c.to}
-
-            <br>
-
-            발행구역:
-            AREA ${c.from}
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
+    }
 
 }
 
 
-/* ==========================================
-   DOCUMENT
-========================================== */
+/* =========================================
+   AREA MODAL
+========================================= */
 
-function inspectDoc(code,type){
+function showArea(area) {
 
-  openModal(
+    const information = {
 
-    type,
+        "포인세티아": `
+            <strong>AREA 01 / 포인세티아</strong><br><br>
+            공식 인구 : 2,104,220<br>
+            인구 밀도 : 82%<br>
+            보안 등급 : NORMAL<br>
+            통행 상태 : OPEN<br>
+            검문소 : CHECKPOINT 01<br><br>
+            현재 주요 이슈 :<br>
+            - 인구 이동 증가<br>
+            - 타 구역 물자 유입 증가
+        `,
 
-    "DOCUMENT ID: " +
-    code +
-    "<br><br>" +
+        "아르메리아": `
+            <strong>AREA 02 / 아르메리아</strong><br><br>
+            공식 인구 : 1,843,902<br>
+            인구 밀도 : 117%<br>
+            보안 등급 : ELEVATED<br>
+            통행 상태 : OPEN<br>
+            검문소 : CHECKPOINT 02<br><br>
+            현재 주요 이슈 :<br>
+            - 검문소 대기시간 증가<br>
+            - 신원 기록 누락 사건
+        `,
 
-    "스캔 결과: " +
-    "<span class='ok'>FORMAT VALID</span>" +
+        "아스포델": `
+            <strong>AREA 03 / 아스포델</strong><br><br>
+            공식 인구 : 2,991,741<br>
+            인구 밀도 : 143%<br>
+            보안 등급 : HIGH<br>
+            통행 상태 : LIMITED<br>
+            검문소 : CHECKPOINT 03<br><br>
+            현재 주요 이슈 :<br>
+            - 인구 과밀<br>
+            - 인구 조정 정책 3차 시행
+        `,
 
-    "<br>" +
+        "제피란테스": `
+            <strong>AREA 04 / 제피란테스</strong><br><br>
+            공식 인구 : 1,482,041<br>
+            인구 밀도 : 108%<br>
+            보안 등급 : RESTRICTED<br>
+            통행 상태 : LIMITED<br>
+            검문소 : CHECKPOINT 04<br><br>
+            현재 주요 이슈 :<br>
+            - 야간 통행 제한<br>
+            - 비인가 이동 증가
+        `
 
-    "중앙 DB 대조가 필요합니다."
+    };
 
-  );
+    document.getElementById("modalTitle").textContent =
+        area.toUpperCase();
 
-}
+    document.getElementById("modalBody").innerHTML =
+        information[area];
 
-
-/* ==========================================
-   DATABASE QUERY
-========================================== */
-
-function queryCitizen(id){
-
-  const c =
-    citizens.find(
-      x=>x.id===id
-    );
-
-
-  const extra =
-    c && c.from==="04"
-
-    ? "<br><span class='deny'>04구역 이동 제한 규정 적용</span>"
-
-    : "";
-
-
-  $("inspectResult").innerHTML =
-
-    "<b>CENTRAL DB RESULT</b><br>" +
-
-    "ID " +
-    id +
-    " — " +
-
-    (
-      c?.valid
-      ? "일치"
-      : "불일치 / 추가 확인 필요"
-    ) +
-
-    extra;
-
-
-  log(
-    "CENTRAL QUERY: " +
-    id
-  );
+    document.getElementById("modal").classList.add("show");
 
 }
 
 
-/* ==========================================
-   BIOMETRIC
-========================================== */
+function closeModal() {
 
-function runFingerprint(id){
-
-  $("inspectResult").innerHTML =
-
-    "<b>IDENTITY MATCH</b><br>" +
-    "신원 대조 완료.<br>" +
-    "생체 정보 일치율 98.7%";
-
-
-  log(
-    "BIOMETRIC CHECK COMPLETED: " +
-    id
-  );
+    document
+        .getElementById("modal")
+        .classList.remove("show");
 
 }
 
 
-/* ==========================================
-   DECISION
-========================================== */
+document.getElementById("modal").addEventListener("click", function(e) {
 
-function decide(pass){
+    if (e.target === this) {
+        closeModal();
+    }
 
-  const c =
-    citizens[
-      state.current % citizens.length
-    ];
+});
 
 
-  const actual =
-    c.valid &&
-    c.from!=="04" &&
-    c.to!=="02";
+/* =========================================
+   DOCUMENT SCANNER
+========================================= */
 
+function scanDocument() {
 
-  state.processed++;
+    const result =
+        document.getElementById("scanResult");
 
+    result.style.display = "block";
 
-  if(pass !== actual){
+    result.innerHTML =
+        "INITIALIZING SCANNER...";
 
-    state.errors++;
+    setTimeout(() => {
 
-  }
+        result.innerHTML =
+            "SCANNING ███████████████████ 48%";
 
+    }, 500);
 
-  $("processed").textContent =
-    state.processed;
 
-  $("errors").textContent =
-    state.errors;
+    setTimeout(() => {
 
+        result.innerHTML =
+            "SCANNING █████████████████████████ 100%";
 
-  if(pass){
+    }, 1000);
 
-    openModal(
 
-      "ACCESS GRANTED",
+    setTimeout(() => {
 
-      `
-      통행을 승인합니다.
+        const random =
+            Math.floor(Math.random() * 4);
 
-      <br><br>
+        if (random === 0) {
 
-      대상자:
-      ${c.name}
+            result.innerHTML = `
+                SCAN COMPLETE<br><br>
+                TYPE : 식량 배급권<br>
+                ISSUED AREA : 포인세티아<br>
+                VALID AREA : 포인세티아 / 아르메리아<br>
+                STATUS : <span class="green">VALID</span>
+            `;
 
-      <br>
+        } else if (random === 1) {
 
-      유효시간:
-      06:00 — 22:00
+            result.innerHTML = `
+                IDENTIFICATION CONFIRMED<br><br>
+                DOCUMENT TYPE : TRANSIT PASS<br>
+                HOLDER : ███████<br>
+                ORIGIN : 아르메리아<br>
+                DESTINATION : 아스포델<br>
+                STATUS : <span class="yellow">ADDITIONAL INSPECTION</span>
+            `;
 
-      <br>
+        } else if (random === 2) {
 
-      체류 가능 기간:
-      72시간
-      `
+            result.innerHTML = `
+                WARNING<br><br>
+                DOCUMENT NUMBER : 00000000000<br>
+                DATABASE MATCH : NONE<br>
+                STATUS : <span class="red">INVALID</span><br><br>
+                해당 문서는 중앙 데이터베이스에서
+                확인되지 않습니다.
+            `;
 
-    );
+        } else {
 
-  }else{
+            result.innerHTML = `
+                IDENTIFICATION CONFIRMED<br><br>
+                NAME : █████████<br>
+                CITIZEN ID : ####-####<br>
+                AFFILIATION : UNKNOWN<br>
+                RISK : UNDEFINED<br>
+                STATUS : <span class="orange">FURTHER REVIEW REQUIRED</span>
+            `;
 
-    openModal(
-
-      "ACCESS DENIED",
-
-      `
-      통행을 거부합니다.
-
-      <br><br>
-
-      대상자:
-      ${c.name}
-
-      <br>
-
-      판정 사유:
-      ${c.issue}
-
-      <br><br>
-
-      <span class="deny">
-        최종 판정: 불통과
-      </span>
-      `
-
-    );
-
-  }
-
-
-  log(
-    (pass ? "GRANTED " : "DENIED ") +
-    c.name
-  );
-
-
-  state.current++;
-
-
-  setTimeout(
-    renderCheckpoint,
-    150
-  );
-
-}
-
-
-/* ==========================================
-   DETAIN
-========================================== */
-
-function detain(){
-
-  const c =
-    citizens[
-      state.current % citizens.length
-    ];
-
-
-  state.processed++;
-
-
-  $("processed").textContent =
-    state.processed;
-
-
-  openModal(
-
-    "SUBJECT DETAINED",
-
-    `
-    대상자 ${c.name}을(를)
-    보류 구역으로 이동시켰습니다.
-
-    <br><br>
-
-    사유:
-    추가 신원 확인 필요
-
-    <br>
-
-    보안팀 호출 상태:
-    <span class="warn">
-      REQUESTED
-    </span>
-    `
-
-  );
-
-
-  log(
-    "SUBJECT HELD: " +
-    c.name
-  );
-
-
-  state.current++;
-
-
-  setTimeout(
-    renderCheckpoint,
-    150
-  );
-
-}
-
-
-/* ==========================================
-   WANTED DATABASE
-========================================== */
-
-function renderWanted(){
-
-  const q =
-    ($("wantedSearch")?.value || "")
-    .toLowerCase();
-
-
-  const list =
-    wanted.filter(
-      x =>
-        (
-          x.name +
-          x.id +
-          x.from +
-          x.charges
-        )
-        .toLowerCase()
-        .includes(q)
-    );
-
-
-  $("wantedList").innerHTML =
-
-    list.map(x=>`
-
-      <div class="card">
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-          "
-        >
-
-          <h3>
-            ${x.id} / ${x.name}
-          </h3>
-
-          <span
-            class="
-              badge
-              ${
-                x.status.includes("HIGH")
-                ? "deny"
-                : "warn"
-              }
-            "
-          >
-            ${x.status}
-          </span>
-
-        </div>
-
-
-        <p>
-          나이:
-          ${x.age}
-
-          /
-
-          출신 구역:
-          ${x.from}
-        </p>
-
-
-        <p>
-          혐의:
-          ${x.charges}
-        </p>
-
-
-        <button
-          class="action"
-          onclick="
-            openModal(
-              'SUBJECT ${x.id}',
-              '이름: ${x.name}<br>\
-              출신 구역: ${x.from}<br>\
-              상태: ${x.status}<br><br>\
-              혐의: ${x.charges}<br><br>\
-              공개 데이터는 행정국 발표를 기준으로 합니다.'
-            )
-          "
-        >
-          기록 열람
-        </button>
-
-      </div>
-
-    `).join("")
-
-    ||
-
-    `
-    <div class="card">
-      검색 결과 없음.
-    </div>
-    `;
-
-}
-
-
-/* ==========================================
-   REPORTS
-========================================== */
-
-function renderReports(){
-
-  $("reportList").innerHTML =
-
-    reports.map(r=>`
-
-      <div class="card">
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-          "
-        >
-
-          <span class="badge blue">
-            #${r.id}
-          </span>
-
-          <span class="muted">
-            ${r.time}
-          </span>
-
-        </div>
-
-
-        <h3>
-          ${r.type}
-        </h3>
-
-
-        <p>
-          “${r.text}”
-        </p>
-
-
-        <p>
-          익명
-         　♥ ${r.likes}
-         　💬 ${r.comments}
-        </p>
-
-
-        ${
-          r.id===58274
-
-          ?
-
-          `
-          <div class="notice red">
-            [관리자 검토 중]
-            관련 공식 기록과 불일치합니다.
-          </div>
-          `
-
-          :
-
-          ""
         }
 
-      </div>
-
-    `).join("");
+    }, 1600);
 
 }
 
 
-/* ==========================================
-   SUBMIT REPORT
-========================================== */
+/* =========================================
+   REPORT SUBMISSION
+========================================= */
 
-function submitReport(){
+function submitReport() {
 
-  const text =
-    $("reportText").value.trim();
+    const title =
+        document.getElementById("reportTitle").value.trim();
 
+    const content =
+        document.getElementById("reportContent").value.trim();
 
-  if(!text){
+    if (!title || !content) {
+
+        alert("제보 제목과 내용을 입력하십시오.");
+
+        return;
+    }
+
+    const number =
+        Math.floor(58000 + Math.random() * 999);
 
     alert(
-      "제보 내용을 입력하십시오."
+        "제보가 접수되었습니다.\n\n" +
+        "REPORT ID : #" + number
     );
 
-    return;
-
-  }
-
-
-  reports.unshift({
-
-    id:
-      58300 + reports.length,
-
-    type:
-      $("reportType").value,
-
-    text:
-      text,
-
-    user:
-      "익명",
-
-    time:
-      "10.01 방금",
-
-    likes:0,
-
-    comments:0
-
-  });
-
-
-  $("reportText").value="";
-
-
-  renderReports();
-
-
-  log(
-    "NEW CITIZEN REPORT SUBMITTED"
-  );
+    document.getElementById("reportTitle").value = "";
+    document.getElementById("reportContent").value = "";
 
 }
 
 
-/* ==========================================
-   AREA MAP
-========================================== */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
-function zoneInfo(n){
+function escapeHTML(text) {
 
-  const data = {
+    const div = document.createElement("div");
 
-    1:[
-      "AREA 01",
-      "인구 92%",
-      "통행 상태: OPEN",
-      "주요 이슈: 안정"
-    ],
+    div.textContent = text;
 
-    2:[
-      "AREA 02",
-      "인구 117%",
-      "통행 상태: LIMITED",
-      "주요 이슈: 식량 배급량 감소"
-    ],
-
-    3:[
-      "AREA 03",
-      "인구 84%",
-      "통행 상태: OPEN",
-      "주요 이슈: 노동력 유입 증가"
-    ],
-
-    4:[
-      "AREA 04",
-      "인구 143%",
-      "통행 상태: RESTRICTED",
-      "주요 이슈: 인구 조정 정책 / 이동 제한"
-    ]
-
-  }[n];
-
-
-  openModal(
-
-    data[0],
-
-    data.slice(1).join("<br>") +
-
-    "<br><br>" +
-
-    "<span class='warn'>" +
-
-    "검문 강도: " +
-
-    (n===4 ? "HIGH" : "MEDIUM") +
-
-    "</span>"
-
-  );
+    return div.innerHTML;
 
 }
 
 
-/* ==========================================
-   SCANNER
-========================================== */
+/* =========================================
+   RANDOM SYSTEM EVENTS
+========================================= */
 
-function runScan(){
+const systemEvents = [
 
-  const code =
-    $("scanCode")
-    .value
-    .trim()
-    .toUpperCase();
+    "DATABASE SYNC COMPLETE",
+    "CHECKPOINT STATUS UPDATED",
+    "NEW CITIZEN REPORT RECEIVED",
+    "DOCUMENT SCAN REQUEST",
+    "SECURITY DATABASE UPDATED",
+    "INTERZONE TRAFFIC INCREASED",
+    "UNKNOWN RECORD DETECTED",
+    "POPULATION DATABASE SYNC",
+    "NOTICE ARCHIVE UPDATED"
+
+];
 
 
-  $("scanResult").innerHTML =
+setInterval(() => {
 
-    `
-    <div class="scanline"></div>
-    <p>SCANNING...</p>
+    const logs =
+        document.querySelectorAll(".log");
+
+    if (!logs.length) return;
+
+}, 5000);
+
+
+/* =========================================
+   KONAMI-LIKE SECRET INPUT
+========================================= */
+
+let secretCode = "";
+
+document.addEventListener("keydown", function(e) {
+
+    secretCode += e.key.toLowerCase();
+
+    if (secretCode.length > 20) {
+        secretCode = secretCode.slice(-20);
+    }
+
+    if (secretCode.includes("admin")) {
+
+        openSecretFile();
+
+        secretCode = "";
+
+    }
+
+});
+
+
+/* =========================================
+   SECRET FILE
+========================================= */
+
+function openSecretFile() {
+
+    document.getElementById("modalTitle").textContent =
+        "RESTRICTED DOCUMENT / ADMIN ONLY";
+
+    document.getElementById("modalBody").innerHTML = `
+
+        <div class="secret">
+
+            <h3>DOCUMENT STATUS : █████</h3>
+
+            <div class="secret-text">
+문서 번호 : UNKNOWN
+
+이 문서는 중앙 행정국의 공식 데이터베이스에
+등록되지 않은 기록을 포함하고 있다.
+
+────────────────────────
+
+[삭제된 기록]
+
+4개 구역의 현재 인구 수치는
+실제 거주 인구와 일치하지 않는다.
+
+특정 시민의 이동 기록은
+검문소에서 정상적으로 승인되었음에도
+중앙 데이터베이스에서는 존재하지 않는 것으로
+처리된다.
+
+────────────────────────
+
+[주의]
+
+본 문서를 열람한 사실은
+자동으로 기록된다.
+
+RECORDING : ACTIVE
+
+────────────────────────
+
+추가 내용은 SECURITY LEVEL 05 이상에서만
+열람할 수 있다.
+            </div>
+
+        </div>
+
     `;
 
-
-  setTimeout(()=>{
-
-    let body;
-
-
-    /* SECRET CODE */
-
-    if(code==="0417"){
-
-      body = `
-
-        <b class="deny">
-          RESTRICTED RECORD FOUND
-        </b>
-
-        <br><br>
-
-        삭제된 기록 1건을 발견했습니다.
-
-        <br>
-
-        문서번호:
-        04-7712
-
-        <br>
-
-        상태:
-        DELETED
-
-        <br><br>
-
-        「04구역에서 이탈한 47명의 최종 행선지」
-
-        <br><br>
-
-        <span class="warn">
-          일부 데이터가 의도적으로 제거되어 있습니다.
-        </span>
-
-      `;
-
-    }
-
-
-    /* MARCO */
-
-    else if(
-      code==="ATC-04-7719"
-    ){
-
-      body = `
-
-        <b class="deny">
-          ADDITIONAL INSPECTION REQUIRED
-        </b>
-
-        <br><br>
-
-        대상:
-        마르코 엔
-
-        <br>
-
-        출신:
-        AREA 04
-
-        <br>
-
-        목적:
-        AREA 02
-
-        <br>
-
-        문제:
-        특별 허가 누락
-
-      `;
-
-    }
-
-
-    /* LIAN */
-
-    else if(
-      code==="ATC-07-1842"
-    ){
-
-      body = `
-
-        <b class="ok">
-          IDENTIFICATION CONFIRMED
-        </b>
-
-        <br><br>
-
-        대상:
-        리안 베르크
-
-        <br>
-
-        상태:
-        VALID
-
-        <br>
-
-        출발:
-        07
-
-        /
-
-        목적:
-        03
-
-      `;
-
-    }
-
-
-    /* UNKNOWN */
-
-    else{
-
-      body = `
-
-        <b class="warn">
-          RECORD NOT FOUND
-        </b>
-
-        <br><br>
-
-        중앙 DB에서 해당 코드와 일치하는
-        공개 기록을 찾지 못했습니다.
-
-        <br><br>
-
-        ※ 삭제 / 비공개 / 미등록 기록일 가능성이 있습니다.
-
-      `;
-
-    }
-
-
-    $("scanResult").innerHTML =
-      body;
-
-
-    log(
-      "DOCUMENT SCAN: " +
-      code
-    );
-
-
-  },700);
+    document.getElementById("modal").classList.add("show");
 
 }
-
-
-/* ==========================================
-   MODAL
-========================================== */
-
-function openModal(title,body){
-
-  $("modalTitle").textContent =
-    title;
-
-  $("modalBody").innerHTML =
-    body;
-
-  $("modal").classList.add(
-    "show"
-  );
-
-}
-
-
-function closeModal(){
-
-  $("modal").classList.remove(
-    "show"
-  );
-
-}
-
-
-$("modal").addEventListener(
-  "click",
-  e=>{
-
-    if(e.target.id==="modal"){
-
-      closeModal();
-
-    }
-
-  }
-);
-
-
-/* ==========================================
-   INITIALIZE
-========================================== */
-
-renderReports();
-
-renderWanted();
-
-renderCheckpoint();
 
 </script>
 
